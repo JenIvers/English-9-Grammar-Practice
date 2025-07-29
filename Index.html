@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+      body{font-family:'Nunito',sans-serif;background-color:#87CEEB;color:#34495e;margin:0;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}.container{background-color:#fff;padding:2em 3em;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:100%;max-width:800px;text-align:center;border:1px solid #f7f7f7}.hidden{display:none}h1,h2{font-family:'Patrick Hand',cursive;color:#2c3e50}h1{font-size:3.5em;margin-bottom:.2em;margin-top:0}h2{font-size:2em;color:#34495e;margin-top:0}#unit-selection-container{display:flex;flex-direction:column;gap:15px;margin-top:1.5em}.unit-progress-button{display:block;text-decoration:none;color:#2c3e50;background-color:#f8f9fa;border-radius:8px;padding:18px;position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease;border:1px solid #dee2e6}.unit-progress-button:hover{transform:translateY(-3px);box-shadow:0 6px 12px rgba(0,0,0,.1);cursor:pointer}.unit-progress-fill{position:absolute;top:0;left:0;height:100%;background-color:#76D7C4;opacity:.5;z-index:1;transition:width .5s ease-in-out}.unit-label{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;font-family:'Patrick Hand',cursive;font-size:1.6em}.proficiency{font-family:'Nunito',sans-serif;font-weight:700;padding:4px 12px;border-radius:12px;font-size:.6em;color:#fff;flex-shrink:0;margin-left:15px}.proficiency-developing{background-color:#E74C3C}.proficiency-proficient{background-color:#F39C12}.proficiency-mastered{background-color:#2ECC71}.proficiency-unattempted{background-color:#95a5a6}#question-text{font-family:'Nunito',sans-serif;font-size:1.3em;margin:1em 0;min-height:60px}#answer-options{display:flex;flex-direction:column;gap:15px;margin:2em 0}.option-btn{font-family:'Nunito',sans-serif;font-size:1em;cursor:pointer;border:2px solid #ced4da;background-color:#fff;border-radius:8px;transition:all .2s ease;padding:15px;text-align:center}.option-btn:not([disabled]):hover{background-color:#e9ecef;border-color:#adb5bd}.option-btn.correct{background-color:#d1e7dd;border-color:#28a745;color:#0f5132}.option-btn.incorrect{background-color:#f8d7da;border-color:#dc3545;color:#842029}.option-btn:disabled{cursor:not-allowed;opacity:.8}#progress-container{text-align:right;color:#6c757d}#try-again-btn,#main-menu-btn,#back-to-home-btn,#register-btn{font-family:'Nunito',sans-serif;font-weight:700;color:#fff;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;margin-top:10px;transition:all .2s ease;box-shadow:0 2px 5px rgba(0,0,0,.1)}#try-again-btn:hover,#main-menu-btn:hover,#back-to-home-btn:hover,#register-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.15)}#try-again-btn{background-color:#198754;margin-right:10px}#main-menu-btn{background-color:#6c757d}#back-to-home-btn{margin-top:25px;background-color:#6c757d}#register-btn{background-color:#0d6efd}#final-score{font-family:'Patrick Hand',cursive;font-size:2.5em;font-weight:700;margin:1em 0}#review-container{text-align:left;margin-top:2em;max-height:400px;overflow-y:auto;border-top:1px solid #ddd}.review-item{padding:15px;border-bottom:1px solid #ecf0f1}.review-question{font-weight:700}.review-answer-correct{color:#198754}.review-answer-incorrect{color:#dc3545;text-decoration:line-through}#loading-indicator{padding:40px}.spinner{border:8px solid #f3f3f3;border-radius:50%;border-top:8px solid #3498db;width:60px;height:60px;animation:spin 1s linear infinite;margin:0 auto 20px}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.form-group{margin-bottom:1.5em;text-align:left}.form-group label{display:block;margin-bottom:.5em;font-weight:700}.form-group input,.form-group select{width:100%;padding:10px;border-radius:5px;border:1px solid #ccc;font-size:1em;box-sizing: border-box;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>English 9 Grammar Practice</h1>
+      
+      <div id="registration-screen" class="hidden">
+        <h2>Welcome! Let's get you set up.</h2>
+        <p>Since this is your first time here, please enter your full name and select your teacher.</p>
+        <div class="form-group">
+            <label for="student-name">Full Name</label>
+            <input type="text" id="student-name" placeholder="e.g., Jane Doe">
+        </div>
+        <div class="form-group">
+            <label for="teacher-select">Teacher</label>
+            <select id="teacher-select">
+                <option value="">-- Please Select --</option>
+            </select>
+        </div>
+        <button id="register-btn">Complete Registration</button>
+      </div>
+
+      <div id="unit-selection-screen" class="hidden">
+        <h2 id="welcome-message"></h2>
+        <div id="unit-selection-container">Loading units...</div>
+      </div>
+
+      <div id="quiz-screen" class="hidden"></div>
+      
+      <div id="results-screen" class="hidden"></div>
+
+      <div id="loading-indicator">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
+      <div id="error-message" class="hidden"></div>
+    </div>
+
+    <script>
+      let allQuestions = [], currentQuestionIndex = 0, score = 0, userAnswers = [], currentUnit = '', ui;
+      let studentInfo = {};
+      const units = ["Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched) Macbeth", "Unit 6: Nonfiction", "Unit 6 (Enriched) Frankenstein", "Unit 7: Resilience", "Unit 8: Annotated Bibliography & Documentary"];
+      
+      document.addEventListener('DOMContentLoaded', initializeApp);
+
+      function initializeApp() {
+        ui = { registrationScreen: document.getElementById('registration-screen'), unitSelectionScreen: document.getElementById('unit-selection-screen'), quizScreen: document.getElementById('quiz-screen'), resultsScreen: document.getElementById('results-screen'), loadingIndicator: document.getElementById('loading-indicator'), errorMessage: document.getElementById('error-message'), };
+        showScreen('loading-indicator');
+        google.script.run.withSuccessHandler(onUserInfoLoaded).withFailureHandler(onLoadError).getUserInfo();
+      }
+      
+      function onUserInfoLoaded(response) {
+        if (response.error) {
+          onLoadError({ message: response.error });
+          return;
+        }
+        if (response.isRegistered) {
+          studentInfo = { name: response.name, teacher: response.teacher };
+          document.getElementById('welcome-message').textContent = `Welcome, ${studentInfo.name}! Choose a Unit.`;
+          google.script.run.withSuccessHandler(onProgressLoaded).withFailureHandler(onLoadError).getStudentProgress();
+        } else {
+          populateTeacherDropdown(response.teachers);
+          showScreen('registration-screen');
+          document.getElementById('register-btn').onclick = submitRegistration;
+        }
+      }
+
+      function populateTeacherDropdown(teachers) {
+        const select = document.getElementById('teacher-select');
+        select.innerHTML = '<option value="">-- Please Select --</option>';
+        teachers.forEach(teacher => {
+          const option = document.createElement('option');
+          option.value = teacher;
+          option.textContent = teacher;
+          select.appendChild(option);
+        });
+      }
+
+      // --- THIS FUNCTION IS UPDATED ---
+      function submitRegistration() {
+        const name = document.getElementById('student-name').value.trim();
+        const teacher = document.getElementById('teacher-select').value;
+        if (!name || !teacher) {
+          alert('Please enter your full name and select a teacher.');
+          return;
+        }
+        showScreen('loading-indicator');
+        const studentData = { name: name, teacher: teacher };
+        // We now call a NEW success handler to avoid the race condition
+        google.script.run
+          .withSuccessHandler(onRegistrationSuccess)
+          .withFailureHandler(onLoadError)
+          .registerStudent(studentData);
+      }
+
+      // --- NEW SUCCESS HANDLER FOR REGISTRATION ---
+      function onRegistrationSuccess(response) {
+        if (!response || !response.success) {
+          onLoadError({ message: response.error || 'Registration failed unexpectedly.' });
+          return;
+        }
+        // The server has confirmed registration. Now we can proceed directly.
+        // We use the info the server sent back, instead of asking again.
+        studentInfo = { name: response.name, teacher: response.teacher };
+        document.getElementById('welcome-message').textContent = `Welcome, ${studentInfo.name}! Choose a Unit.`;
+        // Now, get the student's progress and show the unit screen.
+        google.script.run
+          .withSuccessHandler(onProgressLoaded)
+          .withFailureHandler(onLoadError)
+          .getStudentProgress();
+      }
+
+      function onProgressLoaded(response) {
+        if (response.success) {
+          displayUnitSelection(response.progress);
+          showScreen('unit-selection-screen');
+        } else {
+          onLoadError({ message: response.error });
+        }
+      }
+
+      function displayUnitSelection(progressData) {
+        const container = document.getElementById('unit-selection-container');
+        container.innerHTML = '';
+        units.forEach(unit => {
+          const bestScore = progressData[unit] || 0;
+          let proficiencyText = "Not Attempted", proficiencyClass = "unattempted";
+          if (bestScore > 0) {
+            if (bestScore >= 90) { proficiencyText = "Mastered"; proficiencyClass = "mastered"; }
+            else if (bestScore >= 70) { proficiencyText = "Proficient"; proficiencyClass = "proficient"; }
+            else { proficiencyText = "Developing"; proficiencyClass = "developing"; }
+          }
+          const button = document.createElement('a');
+          button.className = 'unit-progress-button';
+          button.href = '#';
+          button.onclick = (e) => { e.preventDefault(); startQuiz(unit); };
+          button.innerHTML = `<div class="unit-progress-fill" style="width: ${bestScore}%;"></div><div class="unit-label"><span>${unit}</span><span class="proficiency proficiency-${proficiencyClass}">${proficiencyText}</span></div>`;
+          container.appendChild(button);
+        });
+      }
+
+      // --- No changes to any functions below this line ---
+
+      function startQuiz(unitName) { currentUnit = unitName; showScreen('loading-indicator'); google.script.run.withSuccessHandler(onQuestionsLoaded).withFailureHandler(onLoadError).getQuestionsForUnit(unitName); }
+      function onQuestionsLoaded(questions) { if (questions.error || questions.length === 0) { onLoadError({ message: questions.error ? questions.message : `No questions found for "${currentUnit}".` }); return; } allQuestions = questions.map(q => ({...q, options: shuffleArray(q.options)})); currentQuestionIndex = 0; score = 0; userAnswers = []; showScreen('quiz-screen'); displayQuestion(); }
+      function onLoadError(error) { showScreen('error-message'); ui.errorMessage.innerHTML = `<h2>An Error Occurred</h2><p>${error.message}</p><button onclick="initializeApp()">Try Again</button>`; }
+      function displayQuestion() { const question = allQuestions[currentQuestionIndex]; ui.quizScreen.innerHTML = `<div id="progress-container"><p>Question ${currentQuestionIndex + 1} of ${allQuestions.length}</p></div><h2 id="question-text">${question.question}</h2><div id="answer-options">${question.options.map(opt => `<button class="option-btn">${opt}</button>`).join('')}</div><button id="back-to-home-btn">Back to Main Menu</button>`; document.querySelectorAll('.option-btn').forEach(btn => { btn.onclick = () => handleAnswer(btn.textContent, btn); }); document.getElementById('back-to-home-btn').onclick = initializeApp; }
+      function handleAnswer(selectedOption, buttonElement) { const question = allQuestions[currentQuestionIndex]; const isCorrect = selectedOption === question.answer; userAnswers.push({ question: question.question, selected: selectedOption, correctAnswer: question.answer, isCorrect: isCorrect }); if (isCorrect) { score++; } buttonElement.classList.add(isCorrect ? 'correct' : 'incorrect'); document.querySelectorAll('.option-btn').forEach(btn => { btn.disabled = true; if (btn.textContent === question.answer) btn.classList.add('correct'); }); setTimeout(() => { currentQuestionIndex++; if (currentQuestionIndex < allQuestions.length) displayQuestion(); else showResults(); }, 2000); }
+      function showResults() { const resultData = { unit: currentUnit, score: score, total: allQuestions.length }; google.script.run.withFailureHandler(err => console.error('Failed to save result:', err)).saveQuizResult(resultData); ui.resultsScreen.innerHTML = `<h2>Quiz Complete!</h2><p id="final-score">You scored ${score} out of ${allQuestions.length}!</p><h3>Review Your Answers:</h3><div id="review-container">${userAnswers.map(ua => `<div class="review-item"><p class="review-question">${ua.question}</p>${ua.isCorrect ? `<p>Your answer: <span class="review-answer-correct">${ua.selected} (Correct)</span></p>` : `<p>Your answer: <span class="review-answer-incorrect">${ua.selected}</span></p><p>Correct answer: <span class="review-answer-correct">${ua.correctAnswer}</span></p>`}</div>`).join('')}</div><button id="try-again-btn">Practice this Unit Again</button><button id="main-menu-btn">Back to Main Menu</button>`; showScreen('results-screen'); document.getElementById('try-again-btn').onclick = () => startQuiz(currentUnit); document.getElementById('main-menu-btn').onclick = initializeApp; }
+      function showScreen(screenId) { Object.values(ui).forEach(el => el && el.classList.add('hidden')); if(ui[screenId]) ui[screenId].classList.remove('hidden'); else document.getElementById(screenId).classList.remove('hidden'); }
+      function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+    </script>
+  </body>
+</html>
