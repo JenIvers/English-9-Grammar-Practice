@@ -138,6 +138,29 @@
       .portfolio-inline-toggle input:checked + .portfolio-slider{background-color:#28a745}
       .portfolio-inline-toggle input:checked + .portfolio-slider:before{transform:translateX(14px)}
 
+      /* Three-Phase Proficiency Styles */
+      .proficiency-phases-container{display:flex;flex-direction:column;gap:30px;margin-top:20px}
+      .proficiency-phase-section{background-color:#f8f9fa;border-radius:15px;padding:25px;border:2px solid #dee2e6;position:relative}
+      .phase-header{text-align:center;margin-bottom:20px;position:relative}
+      .phase-title{font-family:'Patrick Hand',cursive;font-size:2em;color:#2c3e50;margin:0;text-shadow:1px 1px 2px rgba(0,0,0,0.1)}
+      .phase-subtitle{font-family:'Nunito',sans-serif;font-size:1em;color:#6c757d;margin-top:5px;font-style:italic}
+      .phase-beginning{border-color:#ffc107;background-color:#fff8e1}
+      .phase-beginning .phase-title{color:#f57c00}
+      .phase-middle{border-color:#17a2b8;background-color:#e3f2fd}
+      .phase-middle .phase-title{color:#0277bd}
+      .phase-end{border-color:#28a745;background-color:#e8f5e8}
+      .phase-end .phase-title{color:#2e7d32}
+      .phase-targets-grid{display:grid;gap:15px}
+      .phase-learning-target{background-color:#fff;border-radius:10px;padding:15px;border:1px solid #e0e0e0;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+      .phase-target-title{font-family:'Patrick Hand',cursive;font-size:1.2em;color:#2c3e50;margin-bottom:8px;font-weight:bold}
+      .phase-target-description{font-family:'Nunito',sans-serif;font-size:0.95em;color:#495057;margin-bottom:12px;line-height:1.4}
+      .phase-proficiency-selector{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+      .phase-proficiency-selector select{font-family:'Nunito',sans-serif;padding:8px 12px;border:2px solid #dee2e6;border-radius:8px;background-color:#fff;color:#495057;font-size:0.9em;cursor:pointer;transition:all .2s ease;min-width:140px}
+      .phase-proficiency-selector select:focus{outline:none;border-color:#007bff;box-shadow:0 0 5px rgba(0,123,255,0.3)}
+      .phase-proficiency-selector select option{padding:5px}
+      .phase-save-indicator{position:absolute;top:15px;right:15px;font-size:0.8em;color:#28a745;opacity:0;transition:opacity .3s ease}
+      .phase-save-indicator.visible{opacity:1}
+
       /* Button Styles */
       #try-again-btn,#main-menu-btn,#back-to-home-btn,#register-btn,#back-to-units-btn,#back-to-units-from-results-btn{font-family:'Nunito',sans-serif;font-weight:700;color:#fff;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;margin-top:10px;transition:all .2s ease;box-shadow:0 2px 5px rgba(0,0,0,.1)}
       #try-again-btn:hover,#main-menu-btn:hover,#back-to-home-btn:hover,#register-btn:hover,#back-to-units-btn:hover,#back-to-units-from-results-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.15)}
@@ -154,7 +177,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>English 9 Grammar Practice</h1>
+      <h1>English 9 Learning Portfolio & Grammar Practice</h1>
       
       <!-- Main Landing Screen -->
       <div id="main-landing-screen">
@@ -162,13 +185,13 @@
         <div class="choice-container">
           <p>What would you like to do today?</p>
           <div class="choice-buttons">
-            <button id="grammar-practice-btn" class="choice-btn practice-choice">
-              🎯 Grammar Practice
-              <span class="choice-description">Practice grammar concepts with interactive quizzes</span>
-            </button>
             <button id="learning-portfolio-btn" class="choice-btn exemplars-choice">
               📚 Learning Portfolio
               <span class="choice-description">Track your progress and proficiency levels</span>
+            </button>
+            <button id="grammar-practice-btn" class="choice-btn practice-choice">
+              🎯 Grammar Practice
+              <span class="choice-description">Practice grammar concepts with interactive quizzes</span>
             </button>
           </div>
         </div>
@@ -1185,40 +1208,141 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         document.getElementById('targets-content').innerHTML = '';
         showScreen('unit-portfolio-screen');
         
-        // Load learning targets and student proficiency data
-        Promise.all([
-          new Promise((resolve, reject) => {
-            google.script.run
-              .withSuccessHandler(resolve)
-              .withFailureHandler(reject)
-              .getLearningTargetsForUnit(unitName);
-          }),
-          new Promise((resolve, reject) => {
-            google.script.run
-              .withSuccessHandler(resolve)
-              .withFailureHandler(reject)
-              .getStudentProficiencyData();
-          })
-        ]).then(([targetsResponse, proficiencyResponse]) => {
-          document.getElementById('loading-targets').classList.add('hidden');
-          
-          if (!targetsResponse.success) {
-            throw new Error(targetsResponse.error);
-          }
-          if (!proficiencyResponse.success) {
-            throw new Error(proficiencyResponse.error);
-          }
-          
-          learningTargetsData = targetsResponse.targets;
-          studentProficiencyData = proficiencyResponse.proficiencyData;
-          
-          displayLearningTargets();
-        }).catch(error => {
-          document.getElementById('loading-targets').classList.add('hidden');
-          onLoadError({ message: error.message || error.toString() });
-        });
+        // Check if this is Unit 1 (three-phase system)
+        if (unitName === "Unit 1: Coming of Age") {
+          // Load learning targets and Unit 1 specific proficiency data
+          Promise.all([
+            new Promise((resolve, reject) => {
+              google.script.run
+                .withSuccessHandler(resolve)
+                .withFailureHandler(reject)
+                .getLearningTargetsForUnit(unitName);
+            }),
+            new Promise((resolve, reject) => {
+              google.script.run
+                .withSuccessHandler(resolve)
+                .withFailureHandler(reject)
+                .getUnit1ProficiencyData();
+            })
+          ]).then(([targetsResponse, proficiencyResponse]) => {
+            document.getElementById('loading-targets').classList.add('hidden');
+            
+            if (!targetsResponse.success) {
+              throw new Error(targetsResponse.error);
+            }
+            if (!proficiencyResponse.success) {
+              throw new Error(proficiencyResponse.error);
+            }
+            
+            learningTargetsData = targetsResponse.targets;
+            studentProficiencyData = proficiencyResponse.proficiencyData;
+            
+            displayUnit1ThreePhases();
+          }).catch(error => {
+            document.getElementById('loading-targets').classList.add('hidden');
+            onLoadError({ message: error.message || error.toString() });
+          });
+        } else {
+          // Load learning targets and student proficiency data (regular single-phase system)
+          Promise.all([
+            new Promise((resolve, reject) => {
+              google.script.run
+                .withSuccessHandler(resolve)
+                .withFailureHandler(reject)
+                .getLearningTargetsForUnit(unitName);
+            }),
+            new Promise((resolve, reject) => {
+              google.script.run
+                .withSuccessHandler(resolve)
+                .withFailureHandler(reject)
+                .getStudentProficiencyData();
+            })
+          ]).then(([targetsResponse, proficiencyResponse]) => {
+            document.getElementById('loading-targets').classList.add('hidden');
+            
+            if (!targetsResponse.success) {
+              throw new Error(targetsResponse.error);
+            }
+            if (!proficiencyResponse.success) {
+              throw new Error(proficiencyResponse.error);
+            }
+            
+            learningTargetsData = targetsResponse.targets;
+            studentProficiencyData = proficiencyResponse.proficiencyData;
+            
+            displayLearningTargets();
+          }).catch(error => {
+            document.getElementById('loading-targets').classList.add('hidden');
+            onLoadError({ message: error.message || error.toString() });
+          });
+        }
       }
       
+      function displayUnit1ThreePhases() {
+        const container = document.getElementById('targets-content');
+        
+        if (learningTargetsData.length === 0) {
+          container.innerHTML = '<p>No learning targets have been set up for Unit 1 yet.</p>';
+          return;
+        }
+        
+        const phases = [
+          { key: 'Beginning', title: 'Beginning of Unit Proficiency', subtitle: 'What do you know at the start?', cssClass: 'phase-beginning' },
+          { key: 'Middle', title: 'Middle of Unit Proficiency', subtitle: 'How are you progressing?', cssClass: 'phase-middle' },
+          { key: 'End', title: 'End of Unit Proficiency', subtitle: 'What have you mastered?', cssClass: 'phase-end' }
+        ];
+        
+        const phasesHTML = phases.map(phase => {
+          const targetsHTML = learningTargetsData.map(target => {
+            const currentLevel = (studentProficiencyData[target.target] && studentProficiencyData[target.target][phase.key]) || 0;
+            
+            return `
+              <div class="phase-learning-target">
+                <div class="phase-target-title">${target.target}</div>
+                <div class="phase-target-description">${target.description}</div>
+                <div class="phase-proficiency-selector">
+                  <label>Current level:</label>
+                  <select onchange="updateUnit1ProficiencyLevel('${target.target}', '${phase.key}', this.value)" data-target="${target.target}" data-phase="${phase.key}">
+                    <option value="0" ${currentLevel == 0 ? 'selected' : ''}>Not Started</option>
+                    <option value="1" ${currentLevel == 1 ? 'selected' : ''}>Developing</option>
+                    <option value="2" ${currentLevel == 2 ? 'selected' : ''}>Proficient</option>
+                    <option value="3" ${currentLevel == 3 ? 'selected' : ''}>Mastered</option>
+                  </select>
+                </div>
+              </div>
+            `;
+          }).join('');
+          
+          return `
+            <div class="proficiency-phase-section ${phase.cssClass}">
+              <div class="phase-save-indicator" id="save-indicator-${phase.key}">✓ Saved</div>
+              <div class="phase-header">
+                <h3 class="phase-title">${phase.title}</h3>
+                <p class="phase-subtitle">${phase.subtitle}</p>
+              </div>
+              <div class="phase-targets-grid">
+                ${targetsHTML}
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        container.innerHTML = `
+          <div class="proficiency-phases-container">
+            ${phasesHTML}
+          </div>
+        `;
+        
+        // Set up navigation buttons
+        document.getElementById('back-to-portfolio-btn').onclick = () => {
+          showLearningPortfolio();
+        };
+        
+        document.getElementById('save-portfolio-btn').onclick = () => {
+          saveAllUnit1ProficiencyLevels();
+        };
+      }
+
       function displayLearningTargets() {
         const container = document.getElementById('targets-content');
         const unitProficiencyData = studentProficiencyData[currentPortfolioUnit] || {};
@@ -1340,6 +1464,77 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
             onLoadError({ message: error.message });
           })
           .updateTeacherUnitSettings(unitName, isEnabled);
+      }
+      
+      // Unit 1 Three-Phase Functions
+      function updateUnit1ProficiencyLevel(learningTarget, phase, level) {
+        // Update local data
+        if (!studentProficiencyData[learningTarget]) {
+          studentProficiencyData[learningTarget] = {};
+        }
+        studentProficiencyData[learningTarget][phase] = parseInt(level);
+        
+        // Show saving indicator
+        const indicator = document.getElementById(`save-indicator-${phase}`);
+        if (indicator) {
+          indicator.classList.add('visible');
+          setTimeout(() => {
+            indicator.classList.remove('visible');
+          }, 2000);
+        }
+        
+        // Auto-save to backend
+        google.script.run
+          .withSuccessHandler(() => {
+            console.log(`Auto-saved ${learningTarget} ${phase}: ${level}`);
+          })
+          .withFailureHandler((error) => {
+            console.error('Auto-save failed:', error);
+            // Could show error indicator here
+          })
+          .saveStudentProficiency(currentPortfolioUnit, learningTarget, parseInt(level), phase);
+      }
+      
+      function saveAllUnit1ProficiencyLevels() {
+        const saveButton = document.getElementById('save-portfolio-btn');
+        const originalText = saveButton.textContent;
+        saveButton.textContent = '💾 Saving...';
+        saveButton.disabled = true;
+        
+        // Get all current selections and save them
+        const targets = learningTargetsData;
+        const phases = ['Beginning', 'Middle', 'End'];
+        const savePromises = [];
+        
+        targets.forEach(target => {
+          phases.forEach(phase => {
+            const selector = document.querySelector(`select[data-target="${target.target}"][data-phase="${phase}"]`);
+            if (selector && selector.value !== undefined) {
+              const level = parseInt(selector.value);
+              savePromises.push(new Promise((resolve, reject) => {
+                google.script.run
+                  .withSuccessHandler(resolve)
+                  .withFailureHandler(reject)
+                  .saveStudentProficiency(currentPortfolioUnit, target.target, level, phase);
+              }));
+            }
+          });
+        });
+        
+        Promise.all(savePromises).then(() => {
+          saveButton.textContent = '✅ All Saved!';
+          setTimeout(() => {
+            saveButton.textContent = originalText;
+            saveButton.disabled = false;
+          }, 2000);
+        }).catch(error => {
+          saveButton.textContent = '❌ Save Failed';
+          setTimeout(() => {
+            saveButton.textContent = originalText;
+            saveButton.disabled = false;
+          }, 2000);
+          console.error('Save failed:', error);
+        });
       }
     </script>
   </body>

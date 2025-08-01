@@ -39,6 +39,14 @@ const PORTFOLIO_PROFICIENCY_LEVELS = {
   MASTERED: { value: 3, label: 'Mastered', cssClass: 'proficiency-mastered' }
 };
 
+// --- Define proficiency phases ---
+const PROFICIENCY_PHASES = {
+  BEGINNING: 'Beginning',
+  MIDDLE: 'Middle', 
+  END: 'End',
+  SINGLE: 'Single' // For backward compatibility with existing units
+};
+
 // --- Define all available units (single source of truth) ---
 const ALL_UNITS = [
   "Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", 
@@ -122,7 +130,7 @@ function getTeacherUnitSettingsData(teacherEmail) {
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
-    .setTitle('English 9 Grammar Practice')
+    .setTitle('English 9 Learning Portfolio & Grammar Practice')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
@@ -364,7 +372,28 @@ function initializeStudentProficiencySheet(spreadsheet) {
   let sheet = spreadsheet.getSheetByName(STUDENT_PROFICIENCY_SHEET);
   if (!sheet) {
     sheet = spreadsheet.insertSheet(STUDENT_PROFICIENCY_SHEET);
-    sheet.getRange(1, 1, 1, 6).setValues([["Student_Email", "Student_Name", "Unit", "Learning_Target", "Proficiency_Level", "Last_Updated"]]);
+    sheet.getRange(1, 1, 1, 7).setValues([["Student_Email", "Student_Name", "Unit", "Learning_Target", "Proficiency_Phase", "Proficiency_Level", "Last_Updated"]]);
+  } else {
+    // Check if we need to add the Proficiency_Phase column to existing sheet
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
+    
+    if (phaseIndex === -1) {
+      // Need to add the Proficiency_Phase column
+      const lastCol = sheet.getLastColumn();
+      sheet.insertColumnAfter(lastCol - 2); // Insert before Proficiency_Level
+      sheet.getRange(1, lastCol - 1).setValue("Proficiency_Phase");
+      
+      // Update existing data to have "Single" as default phase for backward compatibility
+      const rowCount = sheet.getLastRow();
+      if (rowCount > 1) {
+        const phaseColumn = lastCol - 1;
+        for (let i = 2; i <= rowCount; i++) {
+          sheet.getRange(i, phaseColumn).setValue("Single");
+        }
+      }
+    }
   }
   return sheet;
 }
@@ -739,6 +768,7 @@ function getStudentProficiencyData() {
     const emailIndex = headers.indexOf("Student_Email");
     const unitIndex = headers.indexOf("Unit");
     const targetIndex = headers.indexOf("Learning_Target");
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
     const levelIndex = headers.indexOf("Proficiency_Level");
     
     const proficiencyData = {};
@@ -747,12 +777,23 @@ function getStudentProficiencyData() {
       .forEach(row => {
         const unit = row[unitIndex];
         const target = row[targetIndex];
+        const phase = row[phaseIndex] || PROFICIENCY_PHASES.SINGLE;
         const level = row[levelIndex];
         
         if (!proficiencyData[unit]) {
           proficiencyData[unit] = {};
         }
-        proficiencyData[unit][target] = level;
+        
+        // For backward compatibility, if phase is Single, store directly
+        // For phase-based, store under phase structure
+        if (phase === PROFICIENCY_PHASES.SINGLE) {
+          proficiencyData[unit][target] = level;
+        } else {
+          if (!proficiencyData[unit][target]) {
+            proficiencyData[unit][target] = {};
+          }
+          proficiencyData[unit][target][phase] = level;
+        }
       });
     
     return { success: true, proficiencyData: proficiencyData };
@@ -761,8 +802,8 @@ function getStudentProficiencyData() {
   }
 }
 
-// PUBLIC API: Save student's proficiency level for a learning target
-function saveStudentProficiency(unitName, learningTarget, proficiencyLevel) {
+// PUBLIC API: Save student's proficiency level for a learning target (with optional phase support)
+function saveStudentProficiency(unitName, learningTarget, proficiencyLevel, proficiencyPhase = PROFICIENCY_PHASES.SINGLE) {
   try {
     const userEmail = Session.getActiveUser().getEmail();
     
@@ -785,6 +826,7 @@ function saveStudentProficiency(unitName, learningTarget, proficiencyLevel) {
     const nameIndex = headers.indexOf("Student_Name");
     const unitIndex = headers.indexOf("Unit");
     const targetIndex = headers.indexOf("Learning_Target");
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
     const levelIndex = headers.indexOf("Proficiency_Level");
     const updatedIndex = headers.indexOf("Last_Updated");
     
@@ -792,7 +834,9 @@ function saveStudentProficiency(unitName, learningTarget, proficiencyLevel) {
     let rowFound = false;
     for (let i = 1; i < data.length; i++) {
       const row = data[i];
-      if (row[emailIndex] === userEmail && row[unitIndex] === unitName && row[targetIndex] === learningTarget) {
+      const existingPhase = row[phaseIndex] || PROFICIENCY_PHASES.SINGLE;
+      if (row[emailIndex] === userEmail && row[unitIndex] === unitName && 
+          row[targetIndex] === learningTarget && existingPhase === proficiencyPhase) {
         // Update existing row
         sheet.getRange(i + 1, levelIndex + 1).setValue(proficiencyLevel);
         sheet.getRange(i + 1, updatedIndex + 1).setValue(new Date());
@@ -803,10 +847,49 @@ function saveStudentProficiency(unitName, learningTarget, proficiencyLevel) {
     
     // If no existing row found, add new row
     if (!rowFound) {
-      sheet.appendRow([userEmail, studentName, unitName, learningTarget, proficiencyLevel, new Date()]);
+      sheet.appendRow([userEmail, studentName, unitName, learningTarget, proficiencyPhase, proficiencyLevel, new Date()]);
     }
     
     return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get Unit 1 proficiency data with phase breakdown
+function getUnit1ProficiencyData() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeStudentProficiencySheet(ss);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { success: true, proficiencyData: {} };
+    }
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Student_Email");
+    const unitIndex = headers.indexOf("Unit");
+    const targetIndex = headers.indexOf("Learning_Target");
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
+    const levelIndex = headers.indexOf("Proficiency_Level");
+    
+    const proficiencyData = {};
+    data.slice(1)
+      .filter(row => row[emailIndex] === userEmail && row[unitIndex] === "Unit 1: Coming of Age")
+      .forEach(row => {
+        const target = row[targetIndex];
+        const phase = row[phaseIndex] || PROFICIENCY_PHASES.SINGLE;
+        const level = row[levelIndex];
+        
+        if (!proficiencyData[target]) {
+          proficiencyData[target] = {};
+        }
+        proficiencyData[target][phase] = level;
+      });
+    
+    return { success: true, proficiencyData: proficiencyData };
   } catch (e) {
     return { success: false, error: e.toString() };
   }
