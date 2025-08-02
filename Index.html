@@ -161,6 +161,321 @@
       .phase-save-indicator{position:absolute;top:15px;right:15px;font-size:0.8em;color:#28a745;opacity:0;transition:opacity .3s ease}
       .phase-save-indicator.visible{opacity:1}
 
+      /* Unit 1 Grid Table Styles */
+      .unit1-proficiency-table {
+        font-family: 'Nunito', sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .unit1-proficiency-table .target-row {
+        transition: background-color 0.2s ease;
+      }
+      .unit1-proficiency-table .target-row:hover {
+        background-color: #f8f9fa;
+      }
+      .unit1-proficiency-table .target-name {
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        vertical-align: top;
+        background-color: #fff;
+        min-width: 200px;
+      }
+      .unit1-proficiency-table .target-title {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+      .unit1-proficiency-table .phase-cell {
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        text-align: center;
+        vertical-align: middle;
+        width: 150px;
+      }
+      .unit1-proficiency-table select {
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.9em;
+      }
+
+      /* Independent Reading Button Hover */
+      #independent-reading-btn:hover {
+        background-color: #e1bee7 !important;
+        border-color: #8e24aa !important;
+      }
+
+      /* Independent Reading Styles */
+      .ir-semester-section {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border: 2px solid #dee2e6;
+      }
+      .ir-semester-title {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 2em;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #7b1fa2;
+        padding-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .ir-semester-title:hover {
+        color: #7b1fa2;
+      }
+      .ir-semester-title::after {
+        content: '▼';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+        font-size: 0.7em;
+      }
+      .ir-semester-title.collapsed::after {
+        transform: translateY(-50%) rotate(-90deg);
+      }
+      .ir-semester-content {
+        transition: all 0.3s ease;
+        max-height: 2000px;
+        overflow: hidden;
+      }
+      .ir-semester-content.collapsed {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .ir-book-info {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+      }
+      .ir-reflections h4 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.5em;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+      .ir-reflection-item {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .ir-reflection-item h5 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.3em;
+        color: #7b1fa2;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+      .ir-reflection-fields {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .ir-reflection-fields .form-group {
+        margin-bottom: 0;
+      }
+      .save-reflection-btn {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
+        color: #fff;
+        background-color: #7b1fa2;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: all .2s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,.1);
+        display: block;
+        margin: 15px auto 0;
+      }
+      .save-reflection-btn:hover {
+        background-color: #6a1b9a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .save-reflection-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+      
+      /* Teacher IR View Styles */
+      .teacher-ir-student {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+      }
+      .teacher-ir-student-name {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.4em;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+      .teacher-ir-book {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border-left: 4px solid #7b1fa2;
+      }
+      .teacher-ir-book-title {
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+      .teacher-ir-reflection {
+        background-color: #f0f8ff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+      }
+      .teacher-ir-reflection-header {
+        font-weight: bold;
+        color: #7b1fa2;
+        margin-bottom: 5px;
+      }
+      
+      /* Teacher Dashboard Styles */
+      .ir-teacher-controls {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+      .ir-view-toggle {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        color: #fff;
+        background-color: #6c757d;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all .2s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,.1);
+      }
+      .ir-view-toggle.active {
+        background-color: #7b1fa2;
+      }
+      .ir-view-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .ir-dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .ir-stat-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .ir-stat-number {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 3em;
+        color: #7b1fa2;
+        margin: 0;
+      }
+      .ir-stat-label {
+        font-family: 'Nunito', sans-serif;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+      .ir-student-table {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .ir-student-table table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .ir-student-table th {
+        background-color: #7b1fa2;
+        color: #fff;
+        padding: 15px;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        text-align: left;
+      }
+      .ir-student-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #dee2e6;
+        font-family: 'Nunito', sans-serif;
+      }
+      .ir-student-table tr:hover {
+        background-color: #f8f9fa;
+      }
+      .ir-progress-bar {
+        background-color: #e9ecef;
+        border-radius: 10px;
+        height: 20px;
+        overflow: hidden;
+        position: relative;
+      }
+      .ir-progress-fill {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 0.8em;
+        font-weight: bold;
+      }
+      .ir-progress-semester1 {
+        background-color: #28a745;
+      }
+      .ir-progress-semester2 {
+        background-color: #007bff;
+      }
+      .ir-status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 600;
+        color: #fff;
+      }
+      .ir-status-not-started {
+        background-color: #6c757d;
+      }
+      .ir-status-in-progress {
+        background-color: #ffc107;
+        color: #212529;
+      }
+      .ir-status-completed {
+        background-color: #28a745;
+      }
+
       /* Button Styles */
       #try-again-btn,#main-menu-btn,#back-to-home-btn,#register-btn,#back-to-units-btn,#back-to-units-from-results-btn{font-family:'Nunito',sans-serif;font-weight:700;color:#fff;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;margin-top:10px;transition:all .2s ease;box-shadow:0 2px 5px rgba(0,0,0,.1)}
       #try-again-btn:hover,#main-menu-btn:hover,#back-to-home-btn:hover,#register-btn:hover,#back-to-units-btn:hover,#back-to-units-from-results-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.15)}
@@ -177,7 +492,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>English 9 Learning Portfolio & Grammar Practice</h1>
+      <h1>English 9 Learning Hub</h1>
       
       <!-- Main Landing Screen -->
       <div id="main-landing-screen">
@@ -192,6 +507,10 @@
             <button id="grammar-practice-btn" class="choice-btn practice-choice">
               🎯 Grammar Practice
               <span class="choice-description">Practice grammar concepts with interactive quizzes</span>
+            </button>
+            <button id="independent-reading-btn" class="choice-btn" style="background-color:#f3e5f5; color:#7b1fa2; border:2px solid #9c27b0;">
+              📖 Independent Reading
+              <span class="choice-description">Track your independent reading progress</span>
             </button>
           </div>
         </div>
@@ -208,6 +527,7 @@
       <div id="learning-portfolio-screen" class="hidden">
         <h2 id="portfolio-welcome-message">Learning Portfolio</h2>
         <p>Track your learning progress and set proficiency goals for each unit.</p>
+        
         <div id="portfolio-unit-grid">Loading portfolio...</div>
         <button id="back-to-main-from-portfolio-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
       </div>
@@ -226,6 +546,237 @@
           <button id="back-to-portfolio-btn" class="exemplar-nav-btn">← Back to Portfolio</button>
           <button id="save-portfolio-btn" class="got-it-btn">💾 Save Progress</button>
         </div>
+      </div>
+
+      <!-- Independent Reading Screen -->
+      <div id="independent-reading-screen" class="hidden">
+        <h2>Independent Reading</h2>
+        <p>Track your independent reading progress and reflections throughout the year.</p>
+        
+        <div id="independent-reading-content">
+          <div id="loading-ir" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading independent reading data...</p>
+          </div>
+          
+          <!-- Teacher Controls -->
+          <div id="teacher-ir-controls" class="hidden ir-teacher-controls">
+            <button id="ir-dashboard-btn" class="ir-view-toggle active">📊 Dashboard</button>
+            <button id="ir-student-view-btn" class="ir-view-toggle">👤 Student View</button>
+          </div>
+          
+          <!-- Teacher Dashboard -->
+          <div id="ir-dashboard-container" class="hidden">
+            <div id="ir-dashboard-stats" class="ir-dashboard-stats">
+              <!-- Stats cards will be populated by JavaScript -->
+            </div>
+            <div id="ir-student-progress-table" class="ir-student-table">
+              <!-- Student progress table will be populated by JavaScript -->
+            </div>
+          </div>
+          
+          <!-- Semester Sections -->
+          <div id="ir-semesters-container" class="hidden">
+            <!-- Semester 1 -->
+            <div class="ir-semester-section">
+              <h3 class="ir-semester-title" onclick="toggleSemester('semester1')">Semester 1</h3>
+              <div id="semester1-content" class="ir-semester-content">
+                <div class="ir-book-info">
+                <div class="form-group">
+                  <label for="s1-book-title">Book Title:</label>
+                  <input type="text" id="s1-book-title" placeholder="Enter the title of your book">
+                </div>
+                <div class="form-group">
+                  <label for="s1-book-author">Author:</label>
+                  <input type="text" id="s1-book-author" placeholder="Enter the author's name">
+                </div>
+              </div>
+              
+              <div class="ir-reflections">
+                <h4>Reading Reflections</h4>
+                <!-- Reflection 1 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 1</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s1-r1-date">Date:</label>
+                      <input type="date" id="s1-r1-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r1-pages-read">Pages Read:</label>
+                      <input type="number" id="s1-r1-pages-read" placeholder="150">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r1-total-pages">Total Pages:</label>
+                      <input type="number" id="s1-r1-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s1-r1-text">Reflection:</label>
+                    <textarea id="s1-r1-text" rows="4" placeholder="Write your thoughts about the book so far..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 1', 0)">💾 Save Reflection 1</button>
+                </div>
+                
+                <!-- Reflection 2 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 2</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s1-r2-date">Date:</label>
+                      <input type="date" id="s1-r2-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r2-pages-read">Pages Read:</label>
+                      <input type="number" id="s1-r2-pages-read" placeholder="250">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r2-total-pages">Total Pages:</label>
+                      <input type="number" id="s1-r2-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s1-r2-text">Reflection:</label>
+                    <textarea id="s1-r2-text" rows="4" placeholder="Write your thoughts about the book so far..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 1', 1)">💾 Save Reflection 2</button>
+                </div>
+                
+                <!-- Reflection 3 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 3</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s1-r3-date">Date:</label>
+                      <input type="date" id="s1-r3-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r3-pages-read">Pages Read:</label>
+                      <input type="number" id="s1-r3-pages-read" placeholder="300">
+                    </div>
+                    <div class="form-group">
+                      <label for="s1-r3-total-pages">Total Pages:</label>
+                      <input type="number" id="s1-r3-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s1-r3-text">Reflection:</label>
+                    <textarea id="s1-r3-text" rows="4" placeholder="Write your final thoughts about the book..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 1', 2)">💾 Save Reflection 3</button>
+                </div>
+              </div>
+              </div>
+            </div>
+            
+            <!-- Semester 2 -->
+            <div class="ir-semester-section">
+              <h3 class="ir-semester-title" onclick="toggleSemester('semester2')">Semester 2</h3>
+              <div id="semester2-content" class="ir-semester-content">
+                <div class="ir-book-info">
+                <div class="form-group">
+                  <label for="s2-book-title">Book Title:</label>
+                  <input type="text" id="s2-book-title" placeholder="Enter the title of your book">
+                </div>
+                <div class="form-group">
+                  <label for="s2-book-author">Author:</label>
+                  <input type="text" id="s2-book-author" placeholder="Enter the author's name">
+                </div>
+              </div>
+              
+              <div class="ir-reflections">
+                <h4>Reading Reflections</h4>
+                <!-- Reflection 1 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 1</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s2-r1-date">Date:</label>
+                      <input type="date" id="s2-r1-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r1-pages-read">Pages Read:</label>
+                      <input type="number" id="s2-r1-pages-read" placeholder="150">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r1-total-pages">Total Pages:</label>
+                      <input type="number" id="s2-r1-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s2-r1-text">Reflection:</label>
+                    <textarea id="s2-r1-text" rows="4" placeholder="Write your thoughts about the book so far..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 2', 0)">💾 Save Reflection 1</button>
+                </div>
+                
+                <!-- Reflection 2 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 2</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s2-r2-date">Date:</label>
+                      <input type="date" id="s2-r2-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r2-pages-read">Pages Read:</label>
+                      <input type="number" id="s2-r2-pages-read" placeholder="250">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r2-total-pages">Total Pages:</label>
+                      <input type="number" id="s2-r2-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s2-r2-text">Reflection:</label>
+                    <textarea id="s2-r2-text" rows="4" placeholder="Write your thoughts about the book so far..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 2', 1)">💾 Save Reflection 2</button>
+                </div>
+                
+                <!-- Reflection 3 -->
+                <div class="ir-reflection-item">
+                  <h5>Reflection 3</h5>
+                  <div class="ir-reflection-fields">
+                    <div class="form-group">
+                      <label for="s2-r3-date">Date:</label>
+                      <input type="date" id="s2-r3-date">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r3-pages-read">Pages Read:</label>
+                      <input type="number" id="s2-r3-pages-read" placeholder="300">
+                    </div>
+                    <div class="form-group">
+                      <label for="s2-r3-total-pages">Total Pages:</label>
+                      <input type="number" id="s2-r3-total-pages" placeholder="300">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="s2-r3-text">Reflection:</label>
+                    <textarea id="s2-r3-text" rows="4" placeholder="Write your final thoughts about the book..."></textarea>
+                  </div>
+                  <button class="save-reflection-btn" onclick="saveReflection('Semester 2', 2)">💾 Save Reflection 3</button>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <button id="back-to-main-from-reading-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
+      </div>
+      
+      <!-- Teacher Independent Reading View Screen -->
+      <div id="teacher-ir-screen" class="hidden">
+        <h2>All Student Independent Reading</h2>
+        <div id="teacher-ir-content">
+          <div id="loading-teacher-ir" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading student reading data...</p>
+          </div>
+          <div id="teacher-ir-data"></div>
+        </div>
+        <button id="back-to-ir-from-teacher-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Independent Reading</button>
       </div>
 
       <!-- Student Registration Screen -->
@@ -421,6 +972,10 @@
         
         document.getElementById('learning-portfolio-btn').onclick = () => {
           showLearningPortfolio();
+        };
+        
+        document.getElementById('independent-reading-btn').onclick = () => {
+          showIndependentReading();
         };
       }
 
@@ -1122,8 +1677,539 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         showScreen('unit-selection-screen');
       }
       
+      // Independent Reading Functions
+      let currentIRView = 'dashboard'; // dashboard, student, detailed
+      
+      function showIndependentReading() {
+        showScreen('independent-reading-screen');
+        
+        // Show loading and hide all containers
+        document.getElementById('loading-ir').classList.remove('hidden');
+        document.getElementById('ir-semesters-container').classList.add('hidden');
+        document.getElementById('teacher-ir-controls').classList.add('hidden');
+        document.getElementById('ir-dashboard-container').classList.add('hidden');
+        
+        // Set up navigation buttons
+        document.getElementById('back-to-main-from-reading-btn').onclick = () => {
+          showScreen('main-landing-screen');
+        };
+        
+        document.getElementById('back-to-ir-from-teacher-btn').onclick = () => {
+          showIndependentReading();
+        };
+        
+        // Set up teacher control buttons
+        document.getElementById('ir-dashboard-btn').onclick = () => switchIRView('dashboard');
+        document.getElementById('ir-student-view-btn').onclick = () => switchIRView('student');
+        
+        // Load appropriate data based on user type
+        if (isTeacher) {
+          loadTeacherIndependentReading();
+        } else {
+          loadStudentIndependentReading();
+        }
+      }
+      
+      function loadTeacherIndependentReading() {
+        // Show teacher controls
+        document.getElementById('teacher-ir-controls').classList.remove('hidden');
+        
+        // Load dashboard by default
+        switchIRView('dashboard');
+      }
+      
+      function loadStudentIndependentReading() {
+        // Load student data
+        google.script.run
+          .withSuccessHandler(onIndependentReadingDataLoaded)
+          .withFailureHandler(onIndependentReadingError)
+          .getIndependentReadingData();
+      }
+      
+      function switchIRView(view) {
+        currentIRView = view;
+        
+        // Update button states
+        document.querySelectorAll('.ir-view-toggle').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`ir-${view}-btn`).classList.add('active');
+        
+        // Hide all containers
+        document.getElementById('ir-semesters-container').classList.add('hidden');
+        document.getElementById('ir-dashboard-container').classList.add('hidden');
+        
+        if (view === 'dashboard') {
+          loadIRDashboard();
+        } else if (view === 'student') {
+          loadTeacherStudentView();
+        }
+      }
+      
+      function loadTeacherStudentView() {
+        // Show a demo student view for teachers
+        document.getElementById('loading-ir').classList.remove('hidden');
+        
+        // Create demo data for teacher to see
+        const demoData = {
+          success: true,
+          semester1: {
+            title: "Example Book Title",
+            author: "Example Author",
+            reflections: [
+              { date: "2024-01-15", pagesRead: "50", totalPages: "200", text: "This is an example reflection..." },
+              { date: "", pagesRead: "", totalPages: "", text: "" },
+              { date: "", pagesRead: "", totalPages: "", text: "" }
+            ]
+          },
+          semester2: {
+            title: "",
+            author: "",
+            reflections: [
+              { date: "", pagesRead: "", totalPages: "", text: "" },
+              { date: "", pagesRead: "", totalPages: "", text: "" },
+              { date: "", pagesRead: "", totalPages: "", text: "" }
+            ]
+          }
+        };
+        
+        // Simulate loading delay then show student interface
+        setTimeout(() => {
+          document.getElementById('loading-ir').classList.add('hidden');
+          document.getElementById('ir-semesters-container').classList.remove('hidden');
+          
+          // Add teacher demo banner
+          const existingBanner = document.getElementById('teacher-demo-banner');
+          if (existingBanner) existingBanner.remove();
+          
+          const banner = document.createElement('div');
+          banner.id = 'teacher-demo-banner';
+          banner.style.cssText = `
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            border: 2px solid #2196f3;
+          `;
+          banner.innerHTML = '🎓 Teacher Demo Mode - This is how students see the Independent Reading interface';
+          
+          const container = document.getElementById('ir-semesters-container');
+          container.insertBefore(banner, container.firstChild);
+          
+          // Populate with demo data
+          populateIndependentReadingData(demoData.semester1, demoData.semester2);
+          
+          // Restore collapsed state
+          setTimeout(() => restoreCollapsedState(), 100);
+        }, 500);
+      }
+      
+      function loadIRDashboard() {
+        document.getElementById('loading-ir').classList.remove('hidden');
+        google.script.run
+          .withSuccessHandler(onIRDashboardLoaded)
+          .withFailureHandler(onIndependentReadingError)
+          .getIndependentReadingDashboard();
+      }
+      
+      function onIRDashboardLoaded(response) {
+        document.getElementById('loading-ir').classList.add('hidden');
+        
+        if (!response.success) {
+          onIndependentReadingError({ message: response.error });
+          return;
+        }
+        
+        // Show dashboard container
+        document.getElementById('ir-dashboard-container').classList.remove('hidden');
+        
+        // Populate stats
+        const statsContainer = document.getElementById('ir-dashboard-stats');
+        statsContainer.innerHTML = `
+          <div class="ir-stat-card">
+            <div class="ir-stat-number">${response.stats.totalStudents}</div>
+            <div class="ir-stat-label">Total Students</div>
+          </div>
+          <div class="ir-stat-card">
+            <div class="ir-stat-number">${response.stats.semester1Students}</div>
+            <div class="ir-stat-label">Semester 1 Books</div>
+          </div>
+          <div class="ir-stat-card">
+            <div class="ir-stat-number">${response.stats.semester2Students}</div>
+            <div class="ir-stat-label">Semester 2 Books</div>
+          </div>
+          <div class="ir-stat-card">
+            <div class="ir-stat-number">${response.stats.completedSemester1}</div>
+            <div class="ir-stat-label">S1 Completed</div>
+          </div>
+          <div class="ir-stat-card">
+            <div class="ir-stat-number">${response.stats.completedSemester2}</div>
+            <div class="ir-stat-label">S2 Completed</div>
+          </div>
+        `;
+        
+        // Populate student table
+        const tableContainer = document.getElementById('ir-student-progress-table');
+        if (response.students.length === 0) {
+          tableContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+              <h3>No Student Data</h3>
+              <p>No students have submitted independent reading data yet.</p>
+            </div>
+          `;
+        } else {
+          let tableHTML = `
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Semester 1</th>
+                  <th>S1 Progress</th>
+                  <th>Semester 2</th>
+                  <th>S2 Progress</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          
+          response.students.forEach(student => {
+            const s1Status = getProgressStatus(student.semester1);
+            const s2Status = getProgressStatus(student.semester2);
+            const s1Progress = student.semester1.reflectionsCompleted || 0;
+            const s2Progress = student.semester2.reflectionsCompleted || 0;
+            
+            tableHTML += `
+              <tr>
+                <td><strong>${student.name}</strong></td>
+                <td>
+                  ${student.semester1.hasBook ? 
+                    `"${student.semester1.bookTitle}" by ${student.semester1.bookAuthor}` : 
+                    '<span style="color: #6c757d;">No book selected</span>'}
+                </td>
+                <td>
+                  <div class="ir-progress-bar">
+                    <div class="ir-progress-fill ir-progress-semester1" style="width: ${(s1Progress / 3) * 100}%">
+                      ${s1Progress}/3
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  ${student.semester2.hasBook ? 
+                    `"${student.semester2.bookTitle}" by ${student.semester2.bookAuthor}` : 
+                    '<span style="color: #6c757d;">No book selected</span>'}
+                </td>
+                <td>
+                  <div class="ir-progress-bar">
+                    <div class="ir-progress-fill ir-progress-semester2" style="width: ${(s2Progress / 3) * 100}%">
+                      ${s2Progress}/3
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            `;
+          });
+          
+          tableHTML += `</tbody></table>`;
+          tableContainer.innerHTML = tableHTML;
+        }
+      }
+      
+      function getProgressStatus(semesterData) {
+        if (!semesterData.hasBook) return 'not-started';
+        if (semesterData.reflectionsCompleted === 3) return 'completed';
+        return 'in-progress';
+      }
+      
+      function toggleSemester(semesterId) {
+        const content = document.getElementById(`${semesterId}-content`);
+        const title = document.querySelector(`[onclick="toggleSemester('${semesterId}')"]`);
+        
+        content.classList.toggle('collapsed');
+        title.classList.toggle('collapsed');
+        
+        // Save collapsed state to localStorage
+        const collapsedSemesters = JSON.parse(localStorage.getItem('collapsedSemesters') || '[]');
+        const isCollapsed = content.classList.contains('collapsed');
+        
+        if (isCollapsed && !collapsedSemesters.includes(semesterId)) {
+          collapsedSemesters.push(semesterId);
+        } else if (!isCollapsed && collapsedSemesters.includes(semesterId)) {
+          const index = collapsedSemesters.indexOf(semesterId);
+          collapsedSemesters.splice(index, 1);
+        }
+        
+        localStorage.setItem('collapsedSemesters', JSON.stringify(collapsedSemesters));
+      }
+      
+      function restoreCollapsedState() {
+        const collapsedSemesters = JSON.parse(localStorage.getItem('collapsedSemesters') || '[]');
+        collapsedSemesters.forEach(semesterId => {
+          const content = document.getElementById(`${semesterId}-content`);
+          const title = document.querySelector(`[onclick="toggleSemester('${semesterId}')"]`);
+          if (content && title) {
+            content.classList.add('collapsed');
+            title.classList.add('collapsed');
+          }
+        });
+      }
+      
+      function onIndependentReadingDataLoaded(response) {
+        document.getElementById('loading-ir').classList.add('hidden');
+        
+        if (!response.success) {
+          onIndependentReadingError({ message: response.error });
+          return;
+        }
+        
+        // Show teacher controls if user is teacher
+        if (isTeacher) {
+          document.getElementById('teacher-ir-controls').classList.remove('hidden');
+        }
+        
+        // Show semester containers
+        document.getElementById('ir-semesters-container').classList.remove('hidden');
+        
+        // Populate data
+        populateIndependentReadingData(response.semester1, response.semester2);
+        
+        // Restore collapsed state
+        setTimeout(() => restoreCollapsedState(), 100);
+      }
+      
+      function onIndependentReadingError(error) {
+        document.getElementById('loading-ir').classList.add('hidden');
+        document.getElementById('ir-semesters-container').innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <h3>Error Loading Independent Reading</h3>
+            <p>${error.message}</p>
+            <button onclick="showIndependentReading()" class="got-it-btn">Try Again</button>
+          </div>
+        `;
+        document.getElementById('ir-semesters-container').classList.remove('hidden');
+      }
+      
+      function populateIndependentReadingData(semester1Data, semester2Data) {
+        // Populate Semester 1
+        if (semester1Data && semester1Data.title) {
+          document.getElementById('s1-book-title').value = semester1Data.title;
+          document.getElementById('s1-book-author').value = semester1Data.author || '';
+          
+          if (semester1Data.reflections) {
+            semester1Data.reflections.forEach((reflection, index) => {
+              const prefix = `s1-r${index + 1}`;
+              document.getElementById(`${prefix}-date`).value = reflection.date || '';
+              document.getElementById(`${prefix}-pages-read`).value = reflection.pagesRead || '';
+              document.getElementById(`${prefix}-total-pages`).value = reflection.totalPages || '';
+              document.getElementById(`${prefix}-text`).value = reflection.text || '';
+            });
+          }
+        }
+        
+        // Populate Semester 2
+        if (semester2Data && semester2Data.title) {
+          document.getElementById('s2-book-title').value = semester2Data.title;
+          document.getElementById('s2-book-author').value = semester2Data.author || '';
+          
+          if (semester2Data.reflections) {
+            semester2Data.reflections.forEach((reflection, index) => {
+              const prefix = `s2-r${index + 1}`;
+              document.getElementById(`${prefix}-date`).value = reflection.date || '';
+              document.getElementById(`${prefix}-pages-read`).value = reflection.pagesRead || '';
+              document.getElementById(`${prefix}-total-pages`).value = reflection.totalPages || '';
+              document.getElementById(`${prefix}-text`).value = reflection.text || '';
+            });
+          }
+        }
+      }
+      
+      function saveReflection(semester, reflectionIndex) {
+        const semesterCode = semester === 'Semester 1' ? 's1' : 's2';
+        const reflectionCode = `r${reflectionIndex + 1}`;
+        
+        // Get book info
+        const bookTitle = document.getElementById(`${semesterCode}-book-title`).value.trim();
+        const bookAuthor = document.getElementById(`${semesterCode}-book-author`).value.trim();
+        
+        // Get reflection info
+        const date = document.getElementById(`${semesterCode}-${reflectionCode}-date`).value;
+        const pagesRead = document.getElementById(`${semesterCode}-${reflectionCode}-pages-read`).value;
+        const totalPages = document.getElementById(`${semesterCode}-${reflectionCode}-total-pages`).value;
+        const reflectionText = document.getElementById(`${semesterCode}-${reflectionCode}-text`).value.trim();
+        
+        // Validation
+        if (!bookTitle) {
+          alert('Please enter a book title before saving reflections.');
+          document.getElementById(`${semesterCode}-book-title`).focus();
+          return;
+        }
+        
+        if (!bookAuthor) {
+          alert('Please enter the book author before saving reflections.');
+          document.getElementById(`${semesterCode}-book-author`).focus();
+          return;
+        }
+        
+        if (!date || !pagesRead || !totalPages || !reflectionText) {
+          alert('Please fill in all fields for this reflection.');
+          return;
+        }
+        
+        // Find the save button and show saving state
+        const saveBtn = event.target;
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = '💾 Saving...';
+        saveBtn.disabled = true;
+        
+        // Save to backend
+        google.script.run
+          .withSuccessHandler(() => {
+            saveBtn.textContent = '✅ Saved!';
+            setTimeout(() => {
+              saveBtn.textContent = originalText;
+              saveBtn.disabled = false;
+            }, 2000);
+          })
+          .withFailureHandler((error) => {
+            saveBtn.textContent = '❌ Save Failed';
+            setTimeout(() => {
+              saveBtn.textContent = originalText;
+              saveBtn.disabled = false;
+            }, 2000);
+            console.error('Save failed:', error);
+            alert('Save failed: ' + error.message);
+          })
+          .saveIndependentReadingData(semester, bookTitle, bookAuthor, reflectionIndex, date, pagesRead, totalPages, reflectionText);
+      }
+      
+      function showAllStudentReading() {
+        showScreen('teacher-ir-screen');
+        
+        // Show loading
+        document.getElementById('loading-teacher-ir').classList.remove('hidden');
+        document.getElementById('teacher-ir-data').classList.add('hidden');
+        
+        // Load all student data
+        google.script.run
+          .withSuccessHandler(onAllStudentReadingLoaded)
+          .withFailureHandler(onAllStudentReadingError)
+          .getAllIndependentReadingData();
+      }
+      
+      function onAllStudentReadingLoaded(response) {
+        document.getElementById('loading-teacher-ir').classList.add('hidden');
+        
+        if (!response.success) {
+          onAllStudentReadingError({ message: response.error });
+          return;
+        }
+        
+        const container = document.getElementById('teacher-ir-data');
+        
+        if (!response.students || response.students.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+              <h3>No Student Data</h3>
+              <p>No students have submitted independent reading data yet.</p>
+            </div>
+          `;
+        } else {
+          // Group students by name and semester
+          const studentGroups = {};
+          response.students.forEach(entry => {
+            const key = entry.studentName;
+            if (!studentGroups[key]) {
+              studentGroups[key] = { semester1: null, semester2: null };
+            }
+            if (entry.semester === 'Semester 1') {
+              studentGroups[key].semester1 = entry;
+            } else if (entry.semester === 'Semester 2') {
+              studentGroups[key].semester2 = entry;
+            }
+          });
+          
+          let html = '';
+          Object.entries(studentGroups).forEach(([studentName, data]) => {
+            html += `
+              <div class="teacher-ir-student">
+                <div class="teacher-ir-student-name">${studentName}</div>
+            `;
+            
+            // Semester 1
+            if (data.semester1) {
+              html += `
+                <div class="teacher-ir-book">
+                  <div class="teacher-ir-book-title">Semester 1: "${data.semester1.bookTitle}" by ${data.semester1.bookAuthor}</div>
+                  ${data.semester1.reflections.map((reflection, index) => {
+                    if (reflection.date || reflection.text) {
+                      return `
+                        <div class="teacher-ir-reflection">
+                          <div class="teacher-ir-reflection-header">Reflection ${index + 1} - ${reflection.date} (${reflection.pagesRead}/${reflection.totalPages} pages)</div>
+                          <div>${reflection.text || 'No reflection text'}</div>
+                        </div>
+                      `;
+                    }
+                    return '';
+                  }).join('')}
+                </div>
+              `;
+            }
+            
+            // Semester 2
+            if (data.semester2) {
+              html += `
+                <div class="teacher-ir-book">
+                  <div class="teacher-ir-book-title">Semester 2: "${data.semester2.bookTitle}" by ${data.semester2.bookAuthor}</div>
+                  ${data.semester2.reflections.map((reflection, index) => {
+                    if (reflection.date || reflection.text) {
+                      return `
+                        <div class="teacher-ir-reflection">
+                          <div class="teacher-ir-reflection-header">Reflection ${index + 1} - ${reflection.date} (${reflection.pagesRead}/${reflection.totalPages} pages)</div>
+                          <div>${reflection.text || 'No reflection text'}</div>
+                        </div>
+                      `;
+                    }
+                    return '';
+                  }).join('')}
+                </div>
+              `;
+            }
+            
+            if (!data.semester1 && !data.semester2) {
+              html += `<p style="color: #666; font-style: italic;">No reading data submitted yet.</p>`;
+            }
+            
+            html += `</div>`;
+          });
+          
+          container.innerHTML = html;
+        }
+        
+        document.getElementById('teacher-ir-data').classList.remove('hidden');
+      }
+      
+      function onAllStudentReadingError(error) {
+        document.getElementById('loading-teacher-ir').classList.add('hidden');
+        document.getElementById('teacher-ir-data').innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <h3>Error Loading Student Data</h3>
+            <p>${error.message}</p>
+            <button onclick="showAllStudentReading()" class="got-it-btn">Try Again</button>
+          </div>
+        `;
+        document.getElementById('teacher-ir-data').classList.remove('hidden');
+      }
+      
       // Learning Portfolio Functions
+      
       function showLearningPortfolio() {
+        showScreen('learning-portfolio-screen');
+        loadPortfolioUnits();
+      }
+      
+      
+      
+      function loadPortfolioUnits() {
         showScreen('loading-indicator');
         google.script.run
           .withSuccessHandler(onPortfolioSummaryLoaded)
@@ -1141,6 +2227,9 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         
         portfolioUnits = response.enabledUnits;
         displayPortfolioUnits(response.unitSummaries);
+        
+        // Show the portfolio unit grid
+        document.getElementById('portfolio-unit-grid').style.display = 'block';
       }
       
       function displayPortfolioUnits(unitSummaries) {
@@ -1190,13 +2279,8 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         
         currentPortfolioUnit = unitName;
         
-        if (isTeacher) {
-          // Teachers can view portfolio as student or manage targets
-          alert('Teacher portfolio management coming soon!');
-        } else {
-          // Students see their portfolio for this unit
-          showUnitPortfolio(unitName);
-        }
+        // All units now support the learning portfolio system
+        showUnitPortfolio(unitName);
       }
       
       function showUnitPortfolio(unitName) {
@@ -1208,139 +2292,157 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         document.getElementById('targets-content').innerHTML = '';
         showScreen('unit-portfolio-screen');
         
-        // Check if this is Unit 1 (three-phase system)
-        if (unitName === "Unit 1: Coming of Age") {
-          // Load learning targets and Unit 1 specific proficiency data
-          Promise.all([
+        // All units now use the three-phase system
+        const promises = [
+          new Promise((resolve, reject) => {
+            google.script.run
+              .withSuccessHandler(resolve)
+              .withFailureHandler(reject)
+              .getLearningTargetsFromSheet(unitName);
+          })
+        ];
+        
+        // Only load student proficiency data for students, not teachers
+        if (!isTeacher) {
+          promises.push(
             new Promise((resolve, reject) => {
               google.script.run
                 .withSuccessHandler(resolve)
                 .withFailureHandler(reject)
-                .getLearningTargetsForUnit(unitName);
-            }),
-            new Promise((resolve, reject) => {
-              google.script.run
-                .withSuccessHandler(resolve)
-                .withFailureHandler(reject)
-                .getUnit1ProficiencyData();
+                .getLearningPortfolioData(unitName);
             })
-          ]).then(([targetsResponse, proficiencyResponse]) => {
-            document.getElementById('loading-targets').classList.add('hidden');
-            
-            if (!targetsResponse.success) {
-              throw new Error(targetsResponse.error);
-            }
-            if (!proficiencyResponse.success) {
-              throw new Error(proficiencyResponse.error);
-            }
-            
-            learningTargetsData = targetsResponse.targets;
-            studentProficiencyData = proficiencyResponse.proficiencyData;
-            
-            displayUnit1ThreePhases();
-          }).catch(error => {
-            document.getElementById('loading-targets').classList.add('hidden');
-            onLoadError({ message: error.message || error.toString() });
-          });
-        } else {
-          // Load learning targets and student proficiency data (regular single-phase system)
-          Promise.all([
-            new Promise((resolve, reject) => {
-              google.script.run
-                .withSuccessHandler(resolve)
-                .withFailureHandler(reject)
-                .getLearningTargetsForUnit(unitName);
-            }),
-            new Promise((resolve, reject) => {
-              google.script.run
-                .withSuccessHandler(resolve)
-                .withFailureHandler(reject)
-                .getStudentProficiencyData();
-            })
-          ]).then(([targetsResponse, proficiencyResponse]) => {
-            document.getElementById('loading-targets').classList.add('hidden');
-            
-            if (!targetsResponse.success) {
-              throw new Error(targetsResponse.error);
-            }
-            if (!proficiencyResponse.success) {
-              throw new Error(proficiencyResponse.error);
-            }
-            
-            learningTargetsData = targetsResponse.targets;
-            studentProficiencyData = proficiencyResponse.proficiencyData;
-            
-            displayLearningTargets();
-          }).catch(error => {
-            document.getElementById('loading-targets').classList.add('hidden');
-            onLoadError({ message: error.message || error.toString() });
-          });
+          );
         }
+        
+        Promise.all(promises).then((responses) => {
+          document.getElementById('loading-targets').classList.add('hidden');
+          
+          const targetsResponse = responses[0];
+          const proficiencyResponse = responses[1] || { success: true, proficiencyData: {} };
+          
+          if (!targetsResponse.success) {
+            throw new Error(targetsResponse.error);
+          }
+          if (!proficiencyResponse.success) {
+            throw new Error(proficiencyResponse.error);
+          }
+          
+          learningTargetsData = targetsResponse.targets;
+          studentProficiencyData = proficiencyResponse.proficiencyData;
+          
+          // Store proficiency options for display
+          window.proficiencyOptions = targetsResponse.proficiencyOptions;
+          
+          displayThreePhases();
+        }).catch(error => {
+          document.getElementById('loading-targets').classList.add('hidden');
+          onLoadError({ message: error.message || error.toString() });
+        });
       }
       
-      function displayUnit1ThreePhases() {
+      function displayThreePhases() {
         const container = document.getElementById('targets-content');
         
         if (learningTargetsData.length === 0) {
-          container.innerHTML = '<p>No learning targets have been set up for Unit 1 yet.</p>';
+          container.innerHTML = '<p>No learning targets have been set up for this unit yet.</p>';
           return;
         }
         
-        const phases = [
-          { key: 'Beginning', title: 'Beginning of Unit Proficiency', subtitle: 'What do you know at the start?', cssClass: 'phase-beginning' },
-          { key: 'Middle', title: 'Middle of Unit Proficiency', subtitle: 'How are you progressing?', cssClass: 'phase-middle' },
-          { key: 'End', title: 'End of Unit Proficiency', subtitle: 'What have you mastered?', cssClass: 'phase-end' }
-        ];
+        const phases = ['Beginning', 'Middle', 'End'];
         
-        const phasesHTML = phases.map(phase => {
-          const targetsHTML = learningTargetsData.map(target => {
-            const currentLevel = (studentProficiencyData[target.target] && studentProficiencyData[target.target][phase.key]) || 0;
+        // Create table-style layout with learning targets as rows and phases as columns
+        const targetsRowsHTML = learningTargetsData.map(target => {
+          const phaseCellsHTML = phases.map(phase => {
+            const currentLevel = (studentProficiencyData[target.target] && studentProficiencyData[target.target][phase]) || 0;
             
-            return `
-              <div class="phase-learning-target">
-                <div class="phase-target-title">${target.target}</div>
-                <div class="phase-target-description">${target.description}</div>
-                <div class="phase-proficiency-selector">
-                  <label>Current level:</label>
-                  <select onchange="updateUnit1ProficiencyLevel('${target.target}', '${phase.key}', this.value)" data-target="${target.target}" data-phase="${phase.key}">
-                    <option value="0" ${currentLevel == 0 ? 'selected' : ''}>Not Started</option>
-                    <option value="1" ${currentLevel == 1 ? 'selected' : ''}>Developing</option>
-                    <option value="2" ${currentLevel == 2 ? 'selected' : ''}>Proficient</option>
-                    <option value="3" ${currentLevel == 3 ? 'selected' : ''}>Mastered</option>
+            if (isTeacher) {
+              // Teacher view - interactive dropdowns that don't save
+              return `
+                <td class="phase-cell">
+                  <select onchange="teacherDemoDropdown(this)" 
+                          data-target="${target.target}" data-phase="${phase}"
+                          style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; background-color: #f8f9fa;">
+                    <option value="0">Not Started</option>
+                    ${window.proficiencyOptions ? window.proficiencyOptions.map(option => 
+                      `<option value="${option.value}">${option.label}</option>`
+                    ).join('') : 
+                    `<option value="1">Beginning</option>
+                     <option value="2">Developing</option>
+                     <option value="3">Proficient</option>
+                     <option value="4">Mastery</option>`}
                   </select>
-                </div>
-              </div>
-            `;
+                </td>
+              `;
+            } else {
+              // Student view - interactive dropdowns that save
+              return `
+                <td class="phase-cell">
+                  <select onchange="updateProficiencyLevel('${target.target}', '${phase}', this.value)" 
+                          data-target="${target.target}" data-phase="${phase}"
+                          style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="0" ${currentLevel == 0 ? 'selected' : ''}>Not Started</option>
+                    ${window.proficiencyOptions ? window.proficiencyOptions.map(option => 
+                      `<option value="${option.value}" ${currentLevel == option.value ? 'selected' : ''}>${option.label}</option>`
+                    ).join('') : 
+                    `<option value="1" ${currentLevel == 1 ? 'selected' : ''}>Beginning</option>
+                     <option value="2" ${currentLevel == 2 ? 'selected' : ''}>Developing</option>
+                     <option value="3" ${currentLevel == 3 ? 'selected' : ''}>Proficient</option>
+                     <option value="4" ${currentLevel == 4 ? 'selected' : ''}>Mastery</option>`}
+                  </select>
+                </td>
+              `;
+            }
           }).join('');
           
           return `
-            <div class="proficiency-phase-section ${phase.cssClass}">
-              <div class="phase-save-indicator" id="save-indicator-${phase.key}">✓ Saved</div>
-              <div class="phase-header">
-                <h3 class="phase-title">${phase.title}</h3>
-                <p class="phase-subtitle">${phase.subtitle}</p>
-              </div>
-              <div class="phase-targets-grid">
-                ${targetsHTML}
-              </div>
-            </div>
+            <tr class="target-row">
+              <td class="target-name">
+                <div class="target-title">${target.target}</div>
+              </td>
+              ${phaseCellsHTML}
+            </tr>
           `;
         }).join('');
         
         container.innerHTML = `
-          <div class="proficiency-phases-container">
-            ${phasesHTML}
+          ${isTeacher ? 
+            '<div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;"><strong>Teacher View:</strong> You can interact with the dropdowns to see how they work for students. Your selections are for demonstration only and will not be saved.</div>' : 
+            ''}
+          <div class="unit1-grid-container">
+            <table class="unit1-proficiency-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+              <thead>
+                <tr>
+                  <th style="text-align: left; padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; font-family: 'Patrick Hand', cursive; font-size: 1.2em;">Learning Target</th>
+                  <th style="text-align: center; padding: 15px; background-color: #fff8e1; border: 1px solid #ffc107; font-family: 'Patrick Hand', cursive; font-size: 1.2em; color: #f57c00;">Beginning</th>
+                  <th style="text-align: center; padding: 15px; background-color: #e3f2fd; border: 1px solid #2196f3; font-family: 'Patrick Hand', cursive; font-size: 1.2em; color: #0277bd;">Middle</th>
+                  <th style="text-align: center; padding: 15px; background-color: #e8f5e8; border: 1px solid #4caf50; font-family: 'Patrick Hand', cursive; font-size: 1.2em; color: #2e7d32;">End</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${targetsRowsHTML}
+              </tbody>
+            </table>
           </div>
         `;
         
         // Set up navigation buttons
         document.getElementById('back-to-portfolio-btn').onclick = () => {
-          showLearningPortfolio();
+          if (isTeacher) {
+            showLearningPortfolio();
+          } else {
+            showScreen('main-landing-screen');
+          }
         };
         
-        document.getElementById('save-portfolio-btn').onclick = () => {
-          saveAllUnit1ProficiencyLevels();
-        };
+        if (isTeacher) {
+          // Hide save button for teachers and update back button text
+          document.getElementById('save-portfolio-btn').style.display = 'none';
+          document.getElementById('back-to-portfolio-btn').textContent = '← Back to Portfolio';
+        } else {
+          document.getElementById('save-portfolio-btn').onclick = () => {
+            saveAllProficiencyLevels();
+          };
+        }
       }
 
       function displayLearningTargets() {
@@ -1466,42 +2568,50 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           .updateTeacherUnitSettings(unitName, isEnabled);
       }
       
-      // Unit 1 Three-Phase Functions
-      function updateUnit1ProficiencyLevel(learningTarget, phase, level) {
+      // Three-Phase Functions
+      function updateProficiencyLevel(learningTarget, phase, level) {
         // Update local data
         if (!studentProficiencyData[learningTarget]) {
           studentProficiencyData[learningTarget] = {};
         }
         studentProficiencyData[learningTarget][phase] = parseInt(level);
         
-        // Show saving indicator
-        const indicator = document.getElementById(`save-indicator-${phase}`);
-        if (indicator) {
-          indicator.classList.add('visible');
-          setTimeout(() => {
-            indicator.classList.remove('visible');
-          }, 2000);
-        }
-        
-        // Auto-save to backend
+        // Auto-save to backend using Unit 1 specific function
         google.script.run
           .withSuccessHandler(() => {
             console.log(`Auto-saved ${learningTarget} ${phase}: ${level}`);
+            // Show brief visual feedback
+            const selector = document.querySelector(`select[data-target="${learningTarget}"][data-phase="${phase}"]`);
+            if (selector) {
+              const originalBg = selector.style.backgroundColor;
+              selector.style.backgroundColor = '#d1e7dd';
+              setTimeout(() => {
+                selector.style.backgroundColor = originalBg;
+              }, 1000);
+            }
           })
           .withFailureHandler((error) => {
             console.error('Auto-save failed:', error);
-            // Could show error indicator here
+            // Show error feedback
+            const selector = document.querySelector(`select[data-target="${learningTarget}"][data-phase="${phase}"]`);
+            if (selector) {
+              const originalBg = selector.style.backgroundColor;
+              selector.style.backgroundColor = '#f8d7da';
+              setTimeout(() => {
+                selector.style.backgroundColor = originalBg;
+              }, 2000);
+            }
           })
-          .saveStudentProficiency(currentPortfolioUnit, learningTarget, parseInt(level), phase);
+          .saveLearningPortfolioProficiency(learningTarget, parseInt(level), phase);
       }
       
-      function saveAllUnit1ProficiencyLevels() {
+      function saveAllProficiencyLevels() {
         const saveButton = document.getElementById('save-portfolio-btn');
         const originalText = saveButton.textContent;
         saveButton.textContent = '💾 Saving...';
         saveButton.disabled = true;
         
-        // Get all current selections and save them
+        // Get all current selections from the new grid layout and save them
         const targets = learningTargetsData;
         const phases = ['Beginning', 'Middle', 'End'];
         const savePromises = [];
@@ -1515,7 +2625,7 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
                 google.script.run
                   .withSuccessHandler(resolve)
                   .withFailureHandler(reject)
-                  .saveStudentProficiency(currentPortfolioUnit, target.target, level, phase);
+                  .saveLearningPortfolioProficiency(target.target, level, phase);
               }));
             }
           });
@@ -1535,6 +2645,19 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           }, 2000);
           console.error('Save failed:', error);
         });
+      }
+      
+      // Teacher demo dropdown function (non-saving)
+      function teacherDemoDropdown(selectElement) {
+        // This function is called when teachers interact with dropdowns
+        // It provides visual feedback but doesn't save data
+        console.log(`Teacher demo: Selected ${selectElement.value} for ${selectElement.dataset.target} - ${selectElement.dataset.phase}`);
+        
+        // Optional: Add visual feedback that it's demo only
+        selectElement.style.backgroundColor = '#fff3cd';
+        setTimeout(() => {
+          selectElement.style.backgroundColor = '#f8f9fa';
+        }, 1000);
       }
     </script>
   </body>

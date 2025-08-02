@@ -16,6 +16,10 @@ const STUDENT_EXEMPLAR_PROGRESS_SHEET = "Student_Exemplar_Progress";
 const LEARNING_TARGETS_SHEET = "Learning_Targets";
 // The name of the sheet for student proficiency tracking
 const STUDENT_PROFICIENCY_SHEET = "Student_Proficiency";
+// The name of the sheet for Unit Learning Targets
+const UNIT_LEARNING_TARGETS_SHEET = "Unit Learning Targets";
+// The name of the sheet for Independent Reading
+const INDEPENDENT_READING_SHEET = "Independent Reading";
 
 // --- CRITICAL: YOUR EMAIL HAS BEEN ADDED HERE ---
 const TEACHER_CONFIG = {
@@ -130,7 +134,7 @@ function getTeacherUnitSettingsData(teacherEmail) {
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
-    .setTitle('English 9 Learning Portfolio & Grammar Practice')
+    .setTitle('English 9 Learning Hub')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
@@ -394,6 +398,16 @@ function initializeStudentProficiencySheet(spreadsheet) {
         }
       }
     }
+  }
+  return sheet;
+}
+
+// Helper function to initialize Unit Learning Targets sheet if it doesn't exist
+function initializeUnitLearningTargetsSheet(spreadsheet) {
+  let sheet = spreadsheet.getSheetByName(UNIT_LEARNING_TARGETS_SHEET);
+  if (!sheet) {
+    // If the sheet doesn't exist, return null - it should be created manually by teachers
+    throw new Error(`The "${UNIT_LEARNING_TARGETS_SHEET}" sheet does not exist. Please create it manually with the proper structure.`);
   }
   return sheet;
 }
@@ -722,31 +736,8 @@ function updateExemplar(unitName, exemplarNumber, exemplarData) {
 // PUBLIC API: Get learning targets for a specific unit
 function getLearningTargetsForUnit(unitName) {
   try {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = initializeLearningTargetsSheet(ss);
-    const data = sheet.getDataRange().getValues();
-    
-    if (data.length < 2) {
-      return { success: true, targets: [] };
-    }
-    
-    const headers = data[0];
-    const unitIndex = headers.indexOf("Unit");
-    const targetIndex = headers.indexOf("Learning_Target");
-    const descriptionIndex = headers.indexOf("Description");
-    const orderIndex = headers.indexOf("Order");
-    
-    const targets = data
-      .slice(1)
-      .filter(row => row[unitIndex] === unitName)
-      .sort((a, b) => (a[orderIndex] || 999) - (b[orderIndex] || 999))
-      .map(row => ({
-        target: row[targetIndex] || "",
-        description: row[descriptionIndex] || "",
-        order: row[orderIndex] || 999
-      }));
-    
-    return { success: true, targets: targets };
+    // All units now use the generic function from the Unit Learning Targets sheet
+    return getLearningTargetsFromSheet(unitName);
   } catch (e) {
     return { success: false, error: e.toString() };
   }
@@ -1007,3 +998,476 @@ function testExemplarSystem() {
     };
   }
 }
+
+// PUBLIC API: Get Learning Portfolio data from dedicated sheet for any unit
+function getLearningPortfolioData(unitName) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeUnitLearningTargetsSheet(ss);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { success: true, proficiencyData: {} };
+    }
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Student_Email");
+    const targetIndex = headers.indexOf("Learning_Target");
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
+    const levelIndex = headers.indexOf("Proficiency_Level");
+    
+    const proficiencyData = {};
+    data.slice(1)
+      .filter(row => row[emailIndex] === userEmail)
+      .forEach(row => {
+        const target = row[targetIndex];
+        const phase = row[phaseIndex] || PROFICIENCY_PHASES.SINGLE;
+        const level = row[levelIndex];
+        
+        if (!proficiencyData[target]) {
+          proficiencyData[target] = {};
+        }
+        proficiencyData[target][phase] = level;
+      });
+    
+    return { success: true, proficiencyData: proficiencyData };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get learning targets from the "Unit Learning Targets" sheet for any unit
+function getLearningTargetsFromSheet(unitName) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = getSheetSafely(ss, UNIT_LEARNING_TARGETS_SHEET);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { success: true, targets: [], proficiencyOptions: [] };
+    }
+    
+    // Read learning targets from Column B (index 1)
+    // Read proficiency options from Columns C, D, E (indices 2, 3, 4)
+    const targets = [];
+    const proficiencyOptions = [];
+    
+    // Set fixed proficiency options as requested: Beginning, Developing, Proficient, Mastery
+    proficiencyOptions.push(
+      { value: 1, label: 'Beginning' },
+      { value: 2, label: 'Developing' },
+      { value: 3, label: 'Proficient' },
+      { value: 4, label: 'Mastery' }
+    );
+    
+    // Read learning targets from Column B (starting from row 2), filtered by Column A
+    // Use a Set to prevent duplicates
+    const seenTargets = new Set();
+    for (let i = 1; i < data.length; i++) {
+      const unitColumn = data[i][0]; // Column A - Unit identifier
+      const learningTarget = data[i][1]; // Column B - Learning target
+      
+      // Only include targets where Column A matches the requested unit
+      if (unitColumn && unitColumn.toString().trim() === unitName && 
+          learningTarget && learningTarget.toString().trim()) {
+        
+        const targetText = learningTarget.toString().trim();
+        // Prevent duplicates
+        if (!seenTargets.has(targetText)) {
+          seenTargets.add(targetText);
+          targets.push({
+            target: targetText,
+            description: targetText, // Using target as description for now
+            order: i
+          });
+        }
+      }
+    }
+    
+    return { 
+      success: true, 
+      targets: targets,
+      proficiencyOptions: proficiencyOptions
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Save Learning Portfolio proficiency level
+function saveLearningPortfolioProficiency(learningTarget, proficiencyLevel, proficiencyPhase = PROFICIENCY_PHASES.SINGLE) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Get student name from roster
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const rosterSheet = getSheetSafely(ss, ROSTER_SHEET);
+    const rosterData = rosterSheet.getDataRange().getValues();
+    const studentInfo = rosterData.find(row => row[0] === userEmail);
+    
+    if (!studentInfo) {
+      throw new Error("Student not found in roster.");
+    }
+    
+    const studentName = studentInfo[1];
+    const sheet = initializeUnitLearningTargetsSheet(ss);
+    const data = sheet.getDataRange().getValues();
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Student_Email");
+    const nameIndex = headers.indexOf("Student_Name");
+    const targetIndex = headers.indexOf("Learning_Target");
+    const phaseIndex = headers.indexOf("Proficiency_Phase");
+    const levelIndex = headers.indexOf("Proficiency_Level");
+    const updatedIndex = headers.indexOf("Last_Updated");
+    
+    // Find existing row or create new one
+    let rowFound = false;
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      const existingPhase = row[phaseIndex] || PROFICIENCY_PHASES.SINGLE;
+      if (row[emailIndex] === userEmail && row[targetIndex] === learningTarget && existingPhase === proficiencyPhase) {
+        // Update existing row
+        sheet.getRange(i + 1, levelIndex + 1).setValue(proficiencyLevel);
+        sheet.getRange(i + 1, updatedIndex + 1).setValue(new Date());
+        rowFound = true;
+        break;
+      }
+    }
+    
+    // If no existing row found, add new row
+    if (!rowFound) {
+      sheet.appendRow([userEmail, studentName, learningTarget, proficiencyPhase, proficiencyLevel, new Date(), ""]);
+    }
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// --- INDEPENDENT READING FUNCTIONS ---
+
+// Helper function to initialize Independent Reading sheet for a specific teacher
+function initializeTeacherIndependentReadingSheet(spreadsheet, teacherName) {
+  const sheetName = `Independent Reading - ${teacherName}`;
+  let sheet = spreadsheet.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(sheetName);
+    sheet.getRange(1, 1, 1, 17).setValues([[
+      "Student_Email", "Student_Name", "Semester", "Book_Title", "Book_Author", 
+      "Reflection_1_Date", "Reflection_1_Pages_Read", "Reflection_1_Total_Pages", "Reflection_1_Text",
+      "Reflection_2_Date", "Reflection_2_Pages_Read", "Reflection_2_Total_Pages", "Reflection_2_Text",
+      "Reflection_3_Date", "Reflection_3_Pages_Read", "Reflection_3_Total_Pages", "Reflection_3_Text"
+    ]]);
+  }
+  return sheet;
+}
+
+// Helper function to get teacher name from student email using roster
+function getStudentTeacherFromRoster(studentEmail) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const rosterSheet = getSheetSafely(ss, ROSTER_SHEET);
+    const rosterData = rosterSheet.getDataRange().getValues();
+    const studentInfo = rosterData.find(row => row[0] === studentEmail);
+    
+    if (!studentInfo) {
+      throw new Error("Student not found in roster. Please contact your teacher.");
+    }
+    
+    return studentInfo[2]; // Teacher display name
+  } catch (e) {
+    throw new Error(`Error finding student's teacher: ${e.toString()}`);
+  }
+}
+
+// PUBLIC API: Get Independent Reading data for current user
+function getIndependentReadingData() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    
+    // Get student's teacher and use teacher-specific sheet
+    const teacherName = getStudentTeacherFromRoster(userEmail);
+    const sheet = initializeTeacherIndependentReadingSheet(ss, teacherName);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { success: true, semester1: {}, semester2: {} };
+    }
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Student_Email");
+    const semesterIndex = headers.indexOf("Semester");
+    const titleIndex = headers.indexOf("Book_Title");
+    const authorIndex = headers.indexOf("Book_Author");
+    
+    let semester1Data = {};
+    let semester2Data = {};
+    
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      if (row[emailIndex] === userEmail) {
+        const semester = row[semesterIndex];
+        const bookData = {
+          title: row[titleIndex] || "",
+          author: row[authorIndex] || "",
+          reflections: [
+            {
+              date: row[headers.indexOf("Reflection_1_Date")] || "",
+              pagesRead: row[headers.indexOf("Reflection_1_Pages_Read")] || "",
+              totalPages: row[headers.indexOf("Reflection_1_Total_Pages")] || "",
+              text: row[headers.indexOf("Reflection_1_Text")] || ""
+            },
+            {
+              date: row[headers.indexOf("Reflection_2_Date")] || "",
+              pagesRead: row[headers.indexOf("Reflection_2_Pages_Read")] || "",
+              totalPages: row[headers.indexOf("Reflection_2_Total_Pages")] || "",
+              text: row[headers.indexOf("Reflection_2_Text")] || ""
+            },
+            {
+              date: row[headers.indexOf("Reflection_3_Date")] || "",
+              pagesRead: row[headers.indexOf("Reflection_3_Pages_Read")] || "",
+              totalPages: row[headers.indexOf("Reflection_3_Total_Pages")] || "",
+              text: row[headers.indexOf("Reflection_3_Text")] || ""
+            }
+          ]
+        };
+        
+        if (semester === "Semester 1") {
+          semester1Data = bookData;
+        } else if (semester === "Semester 2") {
+          semester2Data = bookData;
+        }
+      }
+    }
+    
+    return { 
+      success: true, 
+      semester1: semester1Data, 
+      semester2: semester2Data 
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Save Independent Reading data
+function saveIndependentReadingData(semester, bookTitle, bookAuthor, reflectionIndex, date, pagesRead, totalPages, reflectionText) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    
+    // Get student info and teacher from roster
+    const rosterSheet = getSheetSafely(ss, ROSTER_SHEET);
+    const rosterData = rosterSheet.getDataRange().getValues();
+    const studentInfo = rosterData.find(row => row[0] === userEmail);
+    
+    if (!studentInfo) {
+      throw new Error("Student not found in roster. Please contact your teacher.");
+    }
+    
+    const studentName = studentInfo[1];
+    const teacherName = studentInfo[2];
+    
+    // Use teacher-specific sheet
+    const sheet = initializeTeacherIndependentReadingSheet(ss, teacherName);
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    
+    // Find existing row for this student and semester
+    let rowIndex = -1;
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] === userEmail && data[i][2] === semester) {
+        rowIndex = i;
+        break;
+      }
+    }
+    
+    // Prepare the row data
+    const rowData = [
+      userEmail, studentName, semester, bookTitle, bookAuthor,
+      "", "", "", "", // Reflection 1
+      "", "", "", "", // Reflection 2  
+      "", "", "", ""  // Reflection 3
+    ];
+    
+    // Set the specific reflection data
+    const reflectionStartIndex = 5 + (reflectionIndex * 4);
+    rowData[reflectionStartIndex] = date;
+    rowData[reflectionStartIndex + 1] = pagesRead;
+    rowData[reflectionStartIndex + 2] = totalPages;
+    rowData[reflectionStartIndex + 3] = reflectionText;
+    
+    if (rowIndex >= 0) {
+      // Update existing row - preserve other reflection data
+      const existingRow = data[rowIndex];
+      for (let i = 0; i < rowData.length; i++) {
+        if (i < 5 || (i >= reflectionStartIndex && i < reflectionStartIndex + 4)) {
+          // Update book info and current reflection
+          sheet.getRange(rowIndex + 1, i + 1).setValue(rowData[i]);
+        }
+      }
+    } else {
+      // Add new row
+      sheet.appendRow(rowData);
+    }
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get all Independent Reading data for teachers
+function getAllIndependentReadingData() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Check if user is a teacher
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    if (!teacherInfo) {
+      throw new Error("Access denied. Only teachers can view all student data.");
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeTeacherIndependentReadingSheet(ss, teacherInfo.name);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { success: true, students: [] };
+    }
+    
+    const headers = data[0];
+    const students = [];
+    
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      students.push({
+        studentName: row[1],
+        semester: row[2],
+        bookTitle: row[3],
+        bookAuthor: row[4],
+        reflections: [
+          {
+            date: row[5],
+            pagesRead: row[6],
+            totalPages: row[7],
+            text: row[8]
+          },
+          {
+            date: row[9],
+            pagesRead: row[10],
+            totalPages: row[11],
+            text: row[12]
+          },
+          {
+            date: row[13],
+            pagesRead: row[14],
+            totalPages: row[15],
+            text: row[16]
+          }
+        ]
+      });
+    }
+    
+    return { success: true, students: students };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get Independent Reading dashboard data for teachers
+function getIndependentReadingDashboard() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Check if user is a teacher
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    if (!teacherInfo) {
+      throw new Error("Access denied. Only teachers can view dashboard data.");
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeTeacherIndependentReadingSheet(ss, teacherInfo.name);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) {
+      return { 
+        success: true, 
+        teacherName: teacherInfo.name,
+        stats: {
+          totalStudents: 0,
+          semester1Students: 0,
+          semester2Students: 0,
+          completedSemester1: 0,
+          completedSemester2: 0
+        },
+        students: []
+      };
+    }
+    
+    const headers = data[0];
+    const studentProgress = {};
+    
+    // Process each row to build student progress data
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      const studentName = row[1];
+      const semester = row[2];
+      const bookTitle = row[3];
+      const bookAuthor = row[4];
+      
+      if (!studentProgress[studentName]) {
+        studentProgress[studentName] = {
+          name: studentName,
+          semester1: { hasBook: false, reflectionsCompleted: 0, totalReflections: 3 },
+          semester2: { hasBook: false, reflectionsCompleted: 0, totalReflections: 3 }
+        };
+      }
+      
+      const semesterKey = semester === 'Semester 1' ? 'semester1' : 'semester2';
+      if (semesterKey && bookTitle) {
+        studentProgress[studentName][semesterKey].hasBook = true;
+        studentProgress[studentName][semesterKey].bookTitle = bookTitle;
+        studentProgress[studentName][semesterKey].bookAuthor = bookAuthor;
+        
+        // Count completed reflections
+        let reflectionsCompleted = 0;
+        for (let r = 0; r < 3; r++) {
+          const reflectionStartIndex = 5 + (r * 4);
+          if (row[reflectionStartIndex] && row[reflectionStartIndex + 3]) { // Date and text exist
+            reflectionsCompleted++;
+          }
+        }
+        studentProgress[studentName][semesterKey].reflectionsCompleted = reflectionsCompleted;
+      }
+    }
+    
+    // Calculate statistics
+    const students = Object.values(studentProgress);
+    const totalStudents = students.length;
+    const semester1Students = students.filter(s => s.semester1.hasBook).length;
+    const semester2Students = students.filter(s => s.semester2.hasBook).length;
+    const completedSemester1 = students.filter(s => s.semester1.reflectionsCompleted === 3).length;
+    const completedSemester2 = students.filter(s => s.semester2.reflectionsCompleted === 3).length;
+    
+    return {
+      success: true,
+      teacherName: teacherInfo.name,
+      stats: {
+        totalStudents,
+        semester1Students,
+        semester2Students,
+        completedSemester1,
+        completedSemester2
+      },
+      students: students.sort((a, b) => a.name.localeCompare(b.name))
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
