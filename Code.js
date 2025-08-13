@@ -2,10 +2,14 @@
 const SPREADSHEET_ID = "173tUIsQFYL8QeI-65DW62SeyOuBEK8v2t5Lhtmq5qSo";
 // The name of the sheet with questions
 const QUESTIONS_SHEET = "Questions";
+// The name of the sheet with MCA questions
+const MCA_QUESTIONS_SHEET = "MCA Questions";
 // The name of the sheet for the student roster
 const ROSTER_SHEET = "Student Roster";
 // The name of the sheet for teacher unit settings
 const UNIT_SETTINGS_SHEET = "Unit_Settings";
+// The name of the sheet for teacher MCA unit settings
+const MCA_UNIT_SETTINGS_SHEET = "MCA_Unit_Settings";
 // The name of the sheet for exemplars
 const EXEMPLARS_SHEET = "Exemplars";
 // The name of the sheet for extra exemplars (teacher-contributed)
@@ -21,11 +25,28 @@ const UNIT_LEARNING_TARGETS_SHEET = "Unit Learning Targets";
 // The name of the sheet for Independent Reading
 const INDEPENDENT_READING_SHEET = "Independent Reading";
 
+// State Standards sheet names for each unit
+const UNIT1_STANDARDS_SHEET = "Unit 1 Coming of Age State Standards";
+const UNIT2_STANDARDS_SHEET = "Unit 2 Personal Narrative State Standards";
+const UNIT3_STANDARDS_SHEET = "Unit 3 Novel study state Standards";
+const UNIT4_STANDARDS_SHEET = "Unit 4 Short Story State Standards";
+const UNIT5_STANDARDS_SHEET = "Unit 5 Romeo and Juliet State Standards";
+const UNIT5_ENRICHED_STANDARDS_SHEET = "Unit 5 (Enriched) Macbeth State standards";
+const UNIT6_STANDARDS_SHEET = "Unit 6 Nonfiction state standards";
+const UNIT6_ENRICHED_STANDARDS_SHEET = "Unit 6 (enriched) frankenstein state standards";
+const UNIT7_STANDARDS_SHEET = "Unit 7 resilience state standards";
+
 // --- CRITICAL: YOUR EMAIL HAS BEEN ADDED HERE ---
 const TEACHER_CONFIG = {
   "jennifer.ivers@orono.k12.mn.us": { name: "Ms. Ivers", sheet: "Ivers" },
   "email.for.ms.cole@yourschool.edu": { name: "Ms. Cole", sheet: "Cole" },         // <-- UPDATE THIS EMAIL
   "email.for.ms.erickson@yourschool.edu": { name: "Ms. Erickson", sheet: "Erickson" } // <-- UPDATE THIS EMAIL
+};
+
+// Teacher Viewers - get full teacher interface but don't appear as teachers to students
+const TEACHER_VIEWERS = {
+  // Add teacher viewer emails here - they will see full teacher interface but not be listed as teachers for students
+  // Example: "viewer.email@yourschool.edu": { name: "Viewer Name" }
 };
 
 // --- Define proficiency bands (single source of truth) ---
@@ -42,6 +63,51 @@ const PORTFOLIO_PROFICIENCY_LEVELS = {
   PROFICIENT: { value: 2, label: 'Proficient', cssClass: 'proficiency-proficient' },
   MASTERED: { value: 3, label: 'Mastered', cssClass: 'proficiency-mastered' }
 };
+
+// --- Master list of all 41 English 9 state standards ---
+const MASTER_STANDARDS_LIST = [
+  { code: "9.1.1.1", description: "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.", category: "Reading" },
+  { code: "9.1.2.2", description: "Determine a theme or central idea of a text and analyze in detail its development over the course of the text.", category: "Reading" },
+  { code: "9.1.3.3", description: "Analyze how complex characters develop over the course of a text, interact with other characters.", category: "Reading" },
+  { code: "9.1.4.4", description: "Determine the meaning of words and phrases as they are used in the text, including figurative and connotative meanings.", category: "Reading" },
+  { code: "9.1.5.5", description: "Analyze how an author's choices concerning how to structure a text create effects such as mystery, tension, or surprise.", category: "Reading" },
+  { code: "9.1.6.6", description: "Analyze a particular point of view or cultural experience reflected in a work of literature from outside the United States.", category: "Reading" },
+  { code: "9.1.7.7", description: "Analyze the representation of a subject or a key scene in two different artistic mediums.", category: "Reading" },
+  { code: "9.1.9.9", description: "Analyze how an author draws on and transforms source material in a specific work.", category: "Reading" },
+  { code: "9.1.10.10", description: "By the end of grade 9, read and comprehend literature in the grades 9-10 text complexity band proficiently.", category: "Reading" },
+  { code: "9.2.1.1", description: "Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.", category: "Reading" },
+  { code: "9.2.2.2", description: "Determine a central idea of a text and analyze its development over the course of the text.", category: "Reading" },
+  { code: "9.2.3.3", description: "Analyze how the author unfolds an analysis or series of ideas or events.", category: "Reading" },
+  { code: "9.2.4.4", description: "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings.", category: "Reading" },
+  { code: "9.2.5.5", description: "Analyze in detail how an author's ideas or claims are developed and refined by particular sentences, paragraphs, or larger portions of a text.", category: "Reading" },
+  { code: "9.2.6.6", description: "Determine an author's point of view or purpose in a text and analyze how an author uses rhetoric to advance that point of view or purpose.", category: "Reading" },
+  { code: "9.2.7.7", description: "Analyze various accounts of a subject told in different mediums, determining which details are emphasized in each account.", category: "Reading" },
+  { code: "9.2.8.8", description: "Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is valid.", category: "Reading" },
+  { code: "9.2.9.9", description: "Analyze seminal U.S. documents of historical and literary significance, including how they address related themes and concepts.", category: "Reading" },
+  { code: "9.2.10.10", description: "By the end of grade 9, read and comprehend literary nonfiction in the grades 9-10 text complexity band proficiently.", category: "Reading" },
+  { code: "9.3.1.1", description: "Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant evidence.", category: "Writing" },
+  { code: "9.3.2.2", description: "Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly.", category: "Writing" },
+  { code: "9.3.3.3", description: "Write narratives to develop real or imagined experiences or events using effective technique, well-chosen details, and well-structured event sequences.", category: "Writing" },
+  { code: "9.3.4.4", description: "Produce clear and coherent writing in which the development, organization, and style are appropriate to task, purpose, and audience.", category: "Writing" },
+  { code: "9.3.5.5", description: "Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.", category: "Writing" },
+  { code: "9.3.6.6", description: "Use technology, including the Internet, to produce, publish, and update individual or shared writing products.", category: "Writing" },
+  { code: "9.3.7.7", description: "Conduct short as well as more sustained research projects to answer a question or solve a problem.", category: "Writing" },
+  { code: "9.3.8.8", description: "Gather relevant information from multiple authoritative print and digital sources, using advanced searches effectively.", category: "Writing" },
+  { code: "9.3.9.9", description: "Draw evidence from literary or informational texts to support analysis, reflection, and research.", category: "Writing" },
+  { code: "9.3.10.10", description: "Write routinely over extended time frames and shorter time frames for a range of tasks, purposes, and audiences.", category: "Writing" },
+  { code: "9.4.1.1", description: "Initiate and participate effectively in a range of collaborative discussions on grades 9-10 topics, texts, and issues.", category: "Speaking & Listening" },
+  { code: "9.4.2.2", description: "Integrate multiple sources of information presented in diverse media or formats evaluating the credibility and accuracy of each source.", category: "Speaking & Listening" },
+  { code: "9.4.3.3", description: "Evaluate a speaker's point of view, reasoning, and use of evidence and rhetoric, identifying any fallacious reasoning or exaggerated or distorted evidence.", category: "Speaking & Listening" },
+  { code: "9.4.4.4", description: "Present information, findings, and supporting evidence clearly, concisely, and logically such that listeners can follow the line of reasoning.", category: "Speaking & Listening" },
+  { code: "9.4.5.5", description: "Make strategic use of digital media in presentations to enhance understanding of findings, reasoning, and evidence.", category: "Speaking & Listening" },
+  { code: "9.4.6.6", description: "Adapt speech to a variety of contexts and tasks, demonstrating command of formal English when indicated or appropriate.", category: "Speaking & Listening" },
+  { code: "9.5.1.1", description: "Demonstrate command of the conventions of standard English grammar and usage when writing or speaking.", category: "Language" },
+  { code: "9.5.2.2", description: "Demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.", category: "Language" },
+  { code: "9.5.3.3", description: "Apply knowledge of language to understand how language functions in different contexts.", category: "Language" },
+  { code: "9.5.4.4", description: "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grades 9-10 reading and content.", category: "Language" },
+  { code: "9.5.5.5", description: "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.", category: "Language" },
+  { code: "9.5.6.6", description: "Acquire and use accurately general academic and domain-specific words and phrases, sufficient for reading, writing, speaking, and listening at the college and career readiness level.", category: "Language" }
+];
 
 // --- Define proficiency phases ---
 const PROFICIENCY_PHASES = {
@@ -73,6 +139,29 @@ function initializeUnitSettingsSheet(spreadsheet) {
   let sheet = spreadsheet.getSheetByName(UNIT_SETTINGS_SHEET);
   if (!sheet) {
     sheet = spreadsheet.insertSheet(UNIT_SETTINGS_SHEET);
+    sheet.getRange(1, 1, 1, 3).setValues([["Teacher Email", "Unit Name", "Is Enabled"]]);
+    
+    // Initialize with all units enabled for all teachers
+    const teachers = Object.keys(TEACHER_CONFIG);
+    const initData = [];
+    teachers.forEach(teacherEmail => {
+      ALL_UNITS.forEach(unitName => {
+        initData.push([teacherEmail, unitName, true]);
+      });
+    });
+    
+    if (initData.length > 0) {
+      sheet.getRange(2, 1, initData.length, 3).setValues(initData);
+    }
+  }
+  return sheet;
+}
+
+// Helper function to initialize MCA unit settings sheet if it doesn't exist
+function initializeMCAUnitSettingsSheet(spreadsheet) {
+  let sheet = spreadsheet.getSheetByName(MCA_UNIT_SETTINGS_SHEET);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(MCA_UNIT_SETTINGS_SHEET);
     sheet.getRange(1, 1, 1, 3).setValues([["Teacher Email", "Unit Name", "Is Enabled"]]);
     
     // Initialize with all units enabled for all teachers
@@ -130,6 +219,45 @@ function getTeacherUnitSettingsData(teacherEmail) {
   }
 }
 
+// Helper function to get teacher's MCA unit settings
+function getTeacherMCAUnitSettingsData(teacherEmail) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeMCAUnitSettingsSheet(ss);
+    const data = sheet.getDataRange().getValues();
+    
+    if (data.length < 2) return {};
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Teacher Email");
+    const unitIndex = headers.indexOf("Unit Name");
+    const enabledIndex = headers.indexOf("Is Enabled");
+    
+    const settings = {};
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      if (row[emailIndex] === teacherEmail) {
+        settings[row[unitIndex]] = row[enabledIndex];
+      }
+    }
+    
+    // Ensure all units have a setting (default to true if missing)
+    ALL_UNITS.forEach(unit => {
+      if (settings[unit] === undefined) {
+        settings[unit] = true;
+      }
+    });
+    
+    return settings;
+  } catch (e) {
+    console.error('Error getting teacher MCA unit settings:', e);
+    // Default to all enabled if there's an error
+    const defaultSettings = {};
+    ALL_UNITS.forEach(unit => defaultSettings[unit] = true);
+    return defaultSettings;
+  }
+}
+
 // ROUTING: Serves the unified HTML page for all users
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index')
@@ -143,11 +271,18 @@ function getRoleAndUserInfo() {
   try {
     const userEmail = Session.getActiveUser().getEmail();
     const isTeacher = Object.keys(TEACHER_CONFIG).includes(userEmail);
+    const isTeacherViewer = Object.keys(TEACHER_VIEWERS).includes(userEmail);
     
     if (isTeacher) {
       return { 
         isTeacher: true,
         teacherName: TEACHER_CONFIG[userEmail].name
+      };
+    } else if (isTeacherViewer) {
+      return {
+        isTeacher: true, // They see teacher interface
+        isViewer: true,  // But they're marked as viewer
+        teacherName: TEACHER_VIEWERS[userEmail].name
       };
     } else {
       // For students, check if they're registered and get their info
@@ -177,6 +312,7 @@ function getRoleAndUserInfo() {
           enabledUnits: enabledUnits
         };
       } else {
+        // Only show actual teachers to students, not viewers
         const teacherNames = Object.values(TEACHER_CONFIG).map(t => t.name);
         return { 
           isTeacher: false,
@@ -215,20 +351,361 @@ function registerStudent(studentData) {
 // --- The rest of the functions are unchanged, but included for completeness. ---
 
 function getStudentBestScores(sheet) { const data = sheet.getDataRange().getValues(); if (data.length < 2) return {}; const headers = data.shift(); const nameIndex = headers.indexOf("Student Name"); const unitIndex = headers.indexOf("Unit"); const percentageIndex = headers.indexOf("Percentage"); return data.reduce((acc, row) => { const studentName = row[nameIndex]; const unit = row[unitIndex]; const percentage = Number(row[percentageIndex]); if (!studentName || !unit) return acc; if (!acc[studentName]) acc[studentName] = {}; if (!acc[studentName][unit] || percentage > acc[studentName][unit]) { acc[studentName][unit] = percentage; } return acc; }, {}); }
-function getTeacherDashboardOverview() { try { const userEmail = Session.getActiveUser().getEmail(); const teacherInfo = TEACHER_CONFIG[userEmail]; if (!teacherInfo) throw new Error("Access Denied."); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const sheet = getSheetSafely(ss, teacherInfo.sheet); const studentBestScores = getStudentBestScores(sheet); const allStudents = Object.keys(studentBestScores); if (allStudents.length === 0) { return { success: true, teacherName: teacherInfo.name, overview: {} }; } const unitStats = {}; allStudents.forEach(studentName => { Object.keys(studentBestScores[studentName]).forEach(unitName => { if (!unitStats[unitName]) { unitStats[unitName] = { developing: 0, proficient: 0, mastered: 0, total: 0 }; } const score = studentBestScores[studentName][unitName]; if (score >= PROFICIENCY_BANDS.MASTERED.min) unitStats[unitName].mastered++; else if (score >= PROFICIENCY_BANDS.PROFICIENT.min) unitStats[unitName].proficient++; else unitStats[unitName].developing++; unitStats[unitName].total++; }); }); Object.keys(unitStats).forEach(unitName => { const stats = unitStats[unitName]; stats.masteredPct = (stats.mastered / stats.total * 100).toFixed(1); stats.proficientPct = (stats.proficient / stats.total * 100).toFixed(1); stats.developingPct = (100 - parseFloat(stats.masteredPct) - parseFloat(stats.proficientPct)).toFixed(1); }); return { success: true, teacherName: teacherInfo.name, overview: unitStats }; } catch(e) { return { success: false, error: e.toString() }; } }
-function getUnitDetailsForTeacher(unitName) { try { const userEmail = Session.getActiveUser().getEmail(); const teacherInfo = TEACHER_CONFIG[userEmail]; if (!teacherInfo) throw new Error("Access Denied."); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const sheet = getSheetSafely(ss, teacherInfo.sheet); const studentBestScores = getStudentBestScores(sheet); const unitDetails = Object.keys(studentBestScores) .map(studentName => ({ studentName: studentName, bestScore: studentBestScores[studentName][unitName] })) .sort((a, b) => a.studentName.localeCompare(b.studentName)); return { success: true, details: unitDetails }; } catch(e) { return { success: false, error: e.toString() }; } }
+function getTeacherDashboardOverview() { 
+  try { 
+    const userEmail = Session.getActiveUser().getEmail(); 
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) throw new Error("Access Denied."); 
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
+    
+    // If it's a viewer, aggregate data from all teacher sheets
+    if (viewerInfo) {
+      const allTeacherData = {};
+      const combinedStats = {};
+      
+      Object.values(TEACHER_CONFIG).forEach(teacher => {
+        try {
+          const sheet = ss.getSheetByName(teacher.sheet);
+          if (sheet) {
+            const studentBestScores = getStudentBestScores(sheet);
+            allTeacherData[teacher.name] = studentBestScores;
+            
+            // Add to combined stats
+            Object.keys(studentBestScores).forEach(studentName => {
+              Object.keys(studentBestScores[studentName]).forEach(unitName => {
+                if (!combinedStats[unitName]) {
+                  combinedStats[unitName] = { developing: 0, proficient: 0, mastered: 0, total: 0 };
+                }
+                const score = studentBestScores[studentName][unitName];
+                if (score >= PROFICIENCY_BANDS.MASTERED.min) combinedStats[unitName].mastered++;
+                else if (score >= PROFICIENCY_BANDS.PROFICIENT.min) combinedStats[unitName].proficient++;
+                else combinedStats[unitName].developing++;
+                combinedStats[unitName].total++;
+              });
+            });
+          }
+        } catch (e) {
+          // Skip if sheet doesn't exist
+        }
+      });
+      
+      Object.keys(combinedStats).forEach(unitName => {
+        const stats = combinedStats[unitName];
+        stats.masteredPct = (stats.mastered / stats.total * 100).toFixed(1);
+        stats.proficientPct = (stats.proficient / stats.total * 100).toFixed(1);
+        stats.developingPct = (100 - parseFloat(stats.masteredPct) - parseFloat(stats.proficientPct)).toFixed(1);
+      });
+      
+      return { 
+        success: true, 
+        teacherName: viewerInfo.name,
+        isViewer: true,
+        overview: combinedStats,
+        allTeacherData: allTeacherData
+      };
+    }
+    
+    // Regular teacher logic
+    const sheet = getSheetSafely(ss, teacherInfo.sheet); 
+    const studentBestScores = getStudentBestScores(sheet); 
+    const allStudents = Object.keys(studentBestScores); 
+    if (allStudents.length === 0) { 
+      return { success: true, teacherName: teacherInfo.name, overview: {} }; 
+    } 
+    const unitStats = {}; 
+    allStudents.forEach(studentName => { 
+      Object.keys(studentBestScores[studentName]).forEach(unitName => { 
+        if (!unitStats[unitName]) { 
+          unitStats[unitName] = { developing: 0, proficient: 0, mastered: 0, total: 0 }; 
+        } 
+        const score = studentBestScores[studentName][unitName]; 
+        if (score >= PROFICIENCY_BANDS.MASTERED.min) unitStats[unitName].mastered++; 
+        else if (score >= PROFICIENCY_BANDS.PROFICIENT.min) unitStats[unitName].proficient++; 
+        else unitStats[unitName].developing++; 
+        unitStats[unitName].total++; 
+      }); 
+    }); 
+    Object.keys(unitStats).forEach(unitName => { 
+      const stats = unitStats[unitName]; 
+      stats.masteredPct = (stats.mastered / stats.total * 100).toFixed(1); 
+      stats.proficientPct = (stats.proficient / stats.total * 100).toFixed(1); 
+      stats.developingPct = (100 - parseFloat(stats.masteredPct) - parseFloat(stats.proficientPct)).toFixed(1); 
+    }); 
+    return { success: true, teacherName: teacherInfo.name, overview: unitStats }; 
+  } catch(e) { 
+    return { success: false, error: e.toString() }; 
+  } 
+}
+function getUnitDetailsForTeacher(unitName) { 
+  try { 
+    const userEmail = Session.getActiveUser().getEmail(); 
+    const teacherInfo = TEACHER_CONFIG[userEmail]; 
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) throw new Error("Access Denied."); 
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
+    
+    // If it's a viewer, aggregate data from all teacher sheets
+    if (viewerInfo) {
+      const allStudentDetails = [];
+      
+      Object.values(TEACHER_CONFIG).forEach(teacher => {
+        try {
+          const sheet = ss.getSheetByName(teacher.sheet);
+          if (sheet) {
+            const studentBestScores = getStudentBestScores(sheet);
+            Object.keys(studentBestScores).forEach(studentName => {
+              if (studentBestScores[studentName][unitName]) {
+                allStudentDetails.push({
+                  studentName: studentName,
+                  bestScore: studentBestScores[studentName][unitName],
+                  teacher: teacher.name
+                });
+              }
+            });
+          }
+        } catch (e) {
+          // Skip if sheet doesn't exist
+        }
+      });
+      
+      return { 
+        success: true, 
+        details: allStudentDetails.sort((a, b) => a.studentName.localeCompare(b.studentName)),
+        isViewer: true
+      }; 
+    }
+    
+    // Regular teacher logic
+    const sheet = getSheetSafely(ss, teacherInfo.sheet); 
+    const studentBestScores = getStudentBestScores(sheet); 
+    const unitDetails = Object.keys(studentBestScores) 
+      .map(studentName => ({ 
+        studentName: studentName, 
+        bestScore: studentBestScores[studentName][unitName] 
+      })) 
+      .sort((a, b) => a.studentName.localeCompare(b.studentName)); 
+    return { success: true, details: unitDetails }; 
+  } catch(e) { 
+    return { success: false, error: e.toString() }; 
+  } 
+}
 function saveQuizResult(resultData) { try { const userEmail = Session.getActiveUser().getEmail(); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const rosterSheet = getSheetSafely(ss, ROSTER_SHEET); const rosterData = rosterSheet.getDataRange().getValues(); const studentInfo = rosterData.find(row => row[0] === userEmail); if (!studentInfo) throw new Error("Could not find student in the roster."); const studentName = studentInfo[1]; const teacherDisplayName = studentInfo[2]; const teacherEntry = Object.values(TEACHER_CONFIG).find(t => t.name === teacherDisplayName); if (!teacherEntry) throw new Error(`Configuration error: No sheet found for teacher "${teacherDisplayName}".`); const resultsSheetName = teacherEntry.sheet; const resultsSheet = getSheetSafely(ss, resultsSheetName); const timestamp = new Date(); const score = resultData.score; const total = resultData.total; const percentage = total > 0 ? ((score / total) * 100).toFixed(0) : 0; resultsSheet.appendRow([timestamp, userEmail, studentName, resultData.unit, score, total, percentage]); return { success: true }; } catch (e) { return { success: false, error: e.toString() }; } }
+
+function saveMCAQuizResult(resultData) { try { const userEmail = Session.getActiveUser().getEmail(); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const rosterSheet = getSheetSafely(ss, ROSTER_SHEET); const rosterData = rosterSheet.getDataRange().getValues(); const studentInfo = rosterData.find(row => row[0] === userEmail); if (!studentInfo) throw new Error("Could not find student in the roster."); const studentName = studentInfo[1]; const teacherDisplayName = studentInfo[2]; const teacherEntry = Object.values(TEACHER_CONFIG).find(t => t.name === teacherDisplayName); if (!teacherEntry) throw new Error(`Configuration error: No sheet found for teacher "${teacherDisplayName}".`); const resultsSheetName = `MCA_${teacherEntry.sheet}`; let resultsSheet = ss.getSheetByName(resultsSheetName); if (!resultsSheet) { resultsSheet = ss.insertSheet(resultsSheetName); resultsSheet.getRange(1, 1, 1, 7).setValues([["Timestamp", "Email", "Student Name", "Unit", "Score", "Total", "Percentage"]]); } const timestamp = new Date(); const score = resultData.score; const total = resultData.total; const percentage = total > 0 ? ((score / total) * 100).toFixed(0) : 0; resultsSheet.appendRow([timestamp, userEmail, studentName, resultData.unit, score, total, percentage]); return { success: true }; } catch (e) { return { success: false, error: e.toString() }; } }
 function getStudentProgress() { try { const userEmail = Session.getActiveUser().getEmail(); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const rosterSheet = getSheetSafely(ss, ROSTER_SHEET); const rosterData = rosterSheet.getDataRange().getValues(); const studentInfo = rosterData.find(row => row[0] === userEmail); if (!studentInfo) throw new Error("Could not find student in the roster."); const teacherDisplayName = studentInfo[2]; const teacherEntry = Object.values(TEACHER_CONFIG).find(t => t.name === teacherDisplayName); if (!teacherEntry) throw new Error(`Configuration error: No sheet found for teacher "${teacherDisplayName}".`); const resultsSheetName = teacherEntry.sheet; const sheet = getSheetSafely(ss, resultsSheetName); const studentBestScores = getStudentBestScores(sheet); return { success: true, progress: studentBestScores[studentInfo[1]] || {} }; } catch (e) { return { success: false, error: e.toString() }; } }
+
+function getMCAStudentProgress() { try { const userEmail = Session.getActiveUser().getEmail(); const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const rosterSheet = getSheetSafely(ss, ROSTER_SHEET); const rosterData = rosterSheet.getDataRange().getValues(); const studentInfo = rosterData.find(row => row[0] === userEmail); if (!studentInfo) throw new Error("Could not find student in the roster."); const teacherDisplayName = studentInfo[2]; const teacherEntry = Object.values(TEACHER_CONFIG).find(t => t.name === teacherDisplayName); if (!teacherEntry) throw new Error(`Configuration error: No sheet found for teacher "${teacherDisplayName}".`); const resultsSheetName = `MCA_${teacherEntry.sheet}`; const sheet = ss.getSheetByName(resultsSheetName); if (!sheet) return { success: true, progress: {} }; const studentBestScores = getStudentBestScores(sheet); return { success: true, progress: studentBestScores[studentInfo[1]] || {} }; } catch (e) { return { success: false, error: e.toString() }; } }
+
+function getMCATeacherDashboardOverview() { 
+  try { 
+    const userEmail = Session.getActiveUser().getEmail(); 
+    const teacherInfo = TEACHER_CONFIG[userEmail]; 
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) throw new Error("Access Denied."); 
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
+    
+    // If it's a viewer, aggregate MCA data from all teacher sheets
+    if (viewerInfo) {
+      const combinedStats = {};
+      
+      Object.values(TEACHER_CONFIG).forEach(teacher => {
+        try {
+          const sheet = ss.getSheetByName(`MCA_${teacher.sheet}`);
+          if (sheet) {
+            const studentBestScores = getStudentBestScores(sheet);
+            Object.keys(studentBestScores).forEach(studentName => {
+              Object.keys(studentBestScores[studentName]).forEach(unitName => {
+                if (!combinedStats[unitName]) {
+                  combinedStats[unitName] = { developing: 0, proficient: 0, mastered: 0, total: 0 };
+                }
+                const score = studentBestScores[studentName][unitName];
+                if (score >= PROFICIENCY_BANDS.MASTERED.min) combinedStats[unitName].mastered++;
+                else if (score >= PROFICIENCY_BANDS.PROFICIENT.min) combinedStats[unitName].proficient++;
+                else combinedStats[unitName].developing++;
+                combinedStats[unitName].total++;
+              });
+            });
+          }
+        } catch (e) {
+          // Skip if sheet doesn't exist
+        }
+      });
+      
+      Object.keys(combinedStats).forEach(unitName => {
+        const stats = combinedStats[unitName];
+        stats.masteredPct = (stats.mastered / stats.total * 100).toFixed(1);
+        stats.proficientPct = (stats.proficient / stats.total * 100).toFixed(1);
+        stats.developingPct = (100 - parseFloat(stats.masteredPct) - parseFloat(stats.proficientPct)).toFixed(1);
+      });
+      
+      return { 
+        success: true, 
+        teacherName: viewerInfo.name,
+        isViewer: true,
+        overview: combinedStats
+      };
+    }
+    
+    // Regular teacher logic
+    const sheetName = `MCA_${teacherInfo.sheet}`; 
+    const sheet = ss.getSheetByName(sheetName); 
+    if (!sheet) return { success: true, teacherName: teacherInfo.name, overview: {} }; 
+    const studentBestScores = getStudentBestScores(sheet); 
+    const allStudents = Object.keys(studentBestScores); 
+    if (allStudents.length === 0) { 
+      return { success: true, teacherName: teacherInfo.name, overview: {} }; 
+    } 
+    const unitStats = {}; 
+    allStudents.forEach(studentName => { 
+      Object.keys(studentBestScores[studentName]).forEach(unitName => { 
+        if (!unitStats[unitName]) { 
+          unitStats[unitName] = { developing: 0, proficient: 0, mastered: 0, total: 0 }; 
+        } 
+        const score = studentBestScores[studentName][unitName]; 
+        if (score >= PROFICIENCY_BANDS.MASTERED.min) unitStats[unitName].mastered++; 
+        else if (score >= PROFICIENCY_BANDS.PROFICIENT.min) unitStats[unitName].proficient++; 
+        else unitStats[unitName].developing++; 
+        unitStats[unitName].total++; 
+      }); 
+    }); 
+    Object.keys(unitStats).forEach(unitName => { 
+      const stats = unitStats[unitName]; 
+      stats.masteredPct = (stats.mastered / stats.total * 100).toFixed(1); 
+      stats.proficientPct = (stats.proficient / stats.total * 100).toFixed(1); 
+      stats.developingPct = (100 - parseFloat(stats.masteredPct) - parseFloat(stats.proficientPct)).toFixed(1); 
+    }); 
+    return { success: true, teacherName: teacherInfo.name, overview: unitStats }; 
+  } catch(e) { 
+    return { success: false, error: e.toString() }; 
+  } 
+}
+
+function getMCAUnitDetailsForTeacher(unitName) { 
+  try { 
+    const userEmail = Session.getActiveUser().getEmail(); 
+    const teacherInfo = TEACHER_CONFIG[userEmail]; 
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) throw new Error("Access Denied."); 
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
+    
+    // If it's a viewer, aggregate MCA data from all teacher sheets
+    if (viewerInfo) {
+      const allStudentDetails = [];
+      
+      Object.values(TEACHER_CONFIG).forEach(teacher => {
+        try {
+          const sheet = ss.getSheetByName(`MCA_${teacher.sheet}`);
+          if (sheet) {
+            const studentBestScores = getStudentBestScores(sheet);
+            Object.keys(studentBestScores).forEach(studentName => {
+              if (studentBestScores[studentName][unitName]) {
+                allStudentDetails.push({
+                  studentName: studentName,
+                  bestScore: studentBestScores[studentName][unitName],
+                  teacher: teacher.name
+                });
+              }
+            });
+          }
+        } catch (e) {
+          // Skip if sheet doesn't exist
+        }
+      });
+      
+      return { 
+        success: true, 
+        details: allStudentDetails.sort((a, b) => a.studentName.localeCompare(b.studentName)),
+        isViewer: true
+      }; 
+    }
+    
+    // Regular teacher logic
+    const sheetName = `MCA_${teacherInfo.sheet}`; 
+    const sheet = ss.getSheetByName(sheetName); 
+    if (!sheet) return { success: true, details: [] }; 
+    const studentBestScores = getStudentBestScores(sheet); 
+    const unitDetails = Object.keys(studentBestScores) 
+      .map(studentName => ({ 
+        studentName: studentName, 
+        bestScore: studentBestScores[studentName][unitName] 
+      })) 
+      .sort((a, b) => a.studentName.localeCompare(b.studentName)); 
+    return { success: true, details: unitDetails }; 
+  } catch(e) { 
+    return { success: false, error: e.toString() }; 
+  } 
+}
 function getQuestionsForUnit(unitName) { try { const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const sheet = getSheetSafely(ss, QUESTIONS_SHEET); const data = sheet.getDataRange().getValues(); const headers = data.shift(); const unitIndex = headers.indexOf('Unit'); const questionIndex = headers.indexOf('Question'); const answerIndex = headers.indexOf('Answer'); const incorrect1Index = headers.indexOf('Incorrect 1'); const incorrect2Index = headers.indexOf('Incorrect 2'); const incorrect3Index = headers.indexOf('Incorrect 3'); if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) { throw new Error("A required column (Unit, Question, or Answer) is missing from the questions sheet."); } const questions = data .filter(row => row[unitIndex] === unitName && row[questionIndex]) .map(row => { const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean); return { question: row[questionIndex], answer: row[answerIndex], options: options }; }); return questions; } catch (e) { return { error: true, message: e.toString() }; } }
+
+function getMCAQuestionsForUnit(unitName) { 
+  try { 
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
+    const sheet = getSheetSafely(ss, MCA_QUESTIONS_SHEET); 
+    const data = sheet.getDataRange().getValues(); 
+    const headers = data.shift(); 
+    
+    const unitIndex = headers.indexOf('Unit'); 
+    const questionIndex = headers.indexOf('Question'); 
+    const passageIndex = headers.indexOf('Passage'); // Column C - Passage
+    const answerIndex = headers.indexOf('Answer'); 
+    const incorrect1Index = headers.indexOf('Incorrect 1'); 
+    const incorrect2Index = headers.indexOf('Incorrect 2'); 
+    const incorrect3Index = headers.indexOf('Incorrect 3'); 
+    
+    if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) { 
+      throw new Error("A required column (Unit, Question, or Answer) is missing from the MCA questions sheet."); 
+    } 
+    
+    const questions = data 
+      .filter(row => row[unitIndex] === unitName && row[questionIndex]) 
+      .map(row => { 
+        const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean); 
+        return { 
+          question: row[questionIndex], 
+          passage: passageIndex !== -1 ? (row[passageIndex] || '') : '', // Include passage from column C
+          answer: row[answerIndex], 
+          options: options 
+        }; 
+      }); 
+    
+    return questions; 
+  } catch (e) { 
+    return { error: true, message: e.toString() }; 
+  } 
+}
 
 // PUBLIC API: Get teacher's unit settings (for teacher interface)
 function getTeacherUnitSettings() {
   try {
     const userEmail = Session.getActiveUser().getEmail();
     const teacherInfo = TEACHER_CONFIG[userEmail];
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
     
-    if (!teacherInfo) {
+    if (!teacherInfo && !viewerInfo) {
       throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    // Viewers see all units enabled (read-only)
+    if (viewerInfo) {
+      const allUnitsEnabled = {};
+      ALL_UNITS.forEach(unit => {
+        allUnitsEnabled[unit] = true;
+      });
+      return { 
+        success: true, 
+        settings: allUnitsEnabled,
+        allUnits: ALL_UNITS,
+        isViewer: true
+      };
     }
     
     const settings = getTeacherUnitSettingsData(userEmail);
@@ -248,9 +725,15 @@ function updateTeacherUnitSettings(unitName, isEnabled) {
   try {
     const userEmail = Session.getActiveUser().getEmail();
     const teacherInfo = TEACHER_CONFIG[userEmail];
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
     
-    if (!teacherInfo) {
+    if (!teacherInfo && !viewerInfo) {
       throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    // Viewers cannot modify settings
+    if (viewerInfo) {
+      return { success: false, error: "Viewers cannot modify unit settings." };
     }
     
     if (!ALL_UNITS.includes(unitName)) {
@@ -259,6 +742,94 @@ function updateTeacherUnitSettings(unitName, isEnabled) {
     
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = initializeUnitSettingsSheet(ss);
+    const data = sheet.getDataRange().getValues();
+    
+    const headers = data[0];
+    const emailIndex = headers.indexOf("Teacher Email");
+    const unitIndex = headers.indexOf("Unit Name");
+    const enabledIndex = headers.indexOf("Is Enabled");
+    
+    // Find existing row or create new one
+    let rowFound = false;
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+      if (row[emailIndex] === userEmail && row[unitIndex] === unitName) {
+        sheet.getRange(i + 1, enabledIndex + 1).setValue(isEnabled);
+        rowFound = true;
+        break;
+      }
+    }
+    
+    // If no existing row found, add new row
+    if (!rowFound) {
+      sheet.appendRow([userEmail, unitName, isEnabled]);
+    }
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get teacher's MCA unit settings (for teacher interface)
+function getTeacherMCAUnitSettings() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) {
+      throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    // Viewers see all MCA units enabled (read-only)
+    if (viewerInfo) {
+      const allUnitsEnabled = {};
+      ALL_UNITS.forEach(unit => {
+        allUnitsEnabled[unit] = true;
+      });
+      return { 
+        success: true, 
+        settings: allUnitsEnabled,
+        allUnits: ALL_UNITS,
+        isViewer: true
+      };
+    }
+    
+    const settings = getTeacherMCAUnitSettingsData(userEmail);
+    
+    return { 
+      success: true, 
+      settings: settings,
+      allUnits: ALL_UNITS
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Update teacher's MCA unit setting (toggle on/off)
+function updateTeacherMCAUnitSettings(unitName, isEnabled) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    const viewerInfo = TEACHER_VIEWERS[userEmail];
+    
+    if (!teacherInfo && !viewerInfo) {
+      throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    // Viewers cannot modify MCA settings
+    if (viewerInfo) {
+      return { success: false, error: "Viewers cannot modify MCA unit settings." };
+    }
+    
+    if (!ALL_UNITS.includes(unitName)) {
+      throw new Error(`Invalid unit name: ${unitName}`);
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = initializeMCAUnitSettingsSheet(ss);
     const data = sheet.getDataRange().getValues();
     
     const headers = data[0];
@@ -1069,8 +1640,12 @@ function getLearningTargetsFromSheet(unitName) {
       const learningTarget = data[i][1]; // Column B - Learning target
       
       // Only include targets where Column A matches the requested unit
-      if (unitColumn && unitColumn.toString().trim() === unitName && 
-          learningTarget && learningTarget.toString().trim()) {
+      // Support both full unit names (e.g., "Unit 2: Personal Narrative") and short names (e.g., "Unit 2")
+      const unitColumnText = unitColumn ? unitColumn.toString().trim() : '';
+      const unitShortName = unitName.split(':')[0].trim(); // Extract "Unit 2" from "Unit 2: Personal Narrative"
+      
+      if (unitColumn && learningTarget && learningTarget.toString().trim() &&
+          (unitColumnText === unitName || unitColumnText === unitShortName)) {
         
         const targetText = learningTarget.toString().trim();
         // Prevent duplicates
@@ -1140,6 +1715,206 @@ function saveLearningPortfolioProficiency(learningTarget, proficiencyLevel, prof
     if (!rowFound) {
       sheet.appendRow([userEmail, studentName, learningTarget, proficiencyPhase, proficiencyLevel, new Date(), ""]);
     }
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// --- PORTFOLIO TEACHER DASHBOARD FUNCTIONS ---
+
+// Get portfolio student data for teacher dashboard
+function getPortfolioStudentData(unitName) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Verify this is a teacher
+    if (!TEACHER_CONFIG[userEmail]) {
+      return { success: false, error: "Access denied. Teachers only." };
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const proficiencySheet = getSheetSafely(ss, STUDENT_PROFICIENCY_SHEET);
+    const rosterSheet = getSheetSafely(ss, ROSTER_SHEET);
+    
+    // Get all proficiency data
+    const proficiencyData = proficiencySheet.getDataRange().getValues();
+    const headers = proficiencyData[0];
+    
+    // Get roster data for student names
+    const rosterData = rosterSheet.getDataRange().getValues();
+    const rosterHeaders = rosterData[0];
+    
+    const dashboardData = [];
+    
+    // Process proficiency data for the specific unit
+    for (let i = 1; i < proficiencyData.length; i++) {
+      const row = proficiencyData[i];
+      const studentEmail = row[0];
+      const learningTarget = row[2];
+      const phase = row[3];
+      const proficiencyLevel = row[4];
+      const lastUpdated = row[5];
+      
+      // Skip if this is not for the current unit - check if learning target belongs to unit
+      // For now, we'll include all targets and let frontend filter
+      
+      // Get student name from roster
+      const studentInfo = rosterData.find(rosterRow => rosterRow[0] === studentEmail);
+      const studentName = studentInfo ? studentInfo[1] : studentEmail;
+      
+      dashboardData.push({
+        studentEmail: studentEmail,
+        studentName: studentName,
+        learningTarget: learningTarget,
+        phase: phase,
+        proficiencyLevel: proficiencyLevel,
+        lastUpdated: lastUpdated
+      });
+    }
+    
+    return { success: true, data: dashboardData };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// Export portfolio dashboard data as CSV
+function exportPortfolioDashboard(unitName) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Verify this is a teacher
+    if (!TEACHER_CONFIG[userEmail]) {
+      return { success: false, error: "Access denied. Teachers only." };
+    }
+    
+    const dashboardResult = getPortfolioStudentData(unitName);
+    if (!dashboardResult.success) {
+      return dashboardResult;
+    }
+    
+    // Create CSV content
+    let csvContent = "Student Name,Learning Target,Phase,Proficiency Level,Last Updated\n";
+    
+    dashboardResult.data.forEach(entry => {
+      const proficiencyText = getProficiencyText(entry.proficiencyLevel);
+      const lastUpdated = entry.lastUpdated ? new Date(entry.lastUpdated).toLocaleDateString() : 'Never';
+      
+      csvContent += `"${entry.studentName}","${entry.learningTarget}","${entry.phase}","${proficiencyText}","${lastUpdated}"\n`;
+    });
+    
+    return { success: true, csvData: csvContent };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// Helper function to get proficiency text from level
+function getProficiencyText(level) {
+  switch(parseInt(level)) {
+    case 0: return 'Not Started';
+    case 1: return 'Beginning';
+    case 2: return 'Developing';
+    case 3: return 'Proficient';
+    case 4: return 'Mastery';
+    default: return 'Unknown';
+  }
+}
+
+// Add new learning target
+function addLearningTarget(unitName, targetText, phases) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Verify this is a teacher
+    if (!TEACHER_CONFIG[userEmail]) {
+      return { success: false, error: "Access denied. Teachers only." };
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const targetsSheet = getSheetSafely(ss, UNIT_LEARNING_TARGETS_SHEET);
+    
+    // Add new row with the learning target
+    targetsSheet.appendRow([
+      unitName,
+      targetText,
+      phases.beginning ? 'Yes' : 'No',
+      phases.middle ? 'Yes' : 'No',
+      phases.end ? 'Yes' : 'No',
+      phases.single ? 'Yes' : 'No'
+    ]);
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// Delete learning target
+function deleteLearningTarget(unitName, targetText) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Verify this is a teacher
+    if (!TEACHER_CONFIG[userEmail]) {
+      return { success: false, error: "Access denied. Teachers only." };
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const targetsSheet = getSheetSafely(ss, UNIT_LEARNING_TARGETS_SHEET);
+    
+    const data = targetsSheet.getDataRange().getValues();
+    
+    // Find and delete the row
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] === unitName && data[i][1] === targetText) {
+        targetsSheet.deleteRow(i + 1);
+        break;
+      }
+    }
+    
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// Update learning targets
+function updateLearningTargets(unitName, changes) {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    
+    // Verify this is a teacher
+    if (!TEACHER_CONFIG[userEmail]) {
+      return { success: false, error: "Access denied. Teachers only." };
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const targetsSheet = getSheetSafely(ss, UNIT_LEARNING_TARGETS_SHEET);
+    
+    const data = targetsSheet.getDataRange().getValues();
+    const unitRows = [];
+    
+    // Find all rows for this unit
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] === unitName) {
+        unitRows.push(i);
+      }
+    }
+    
+    // Update each row based on the changes
+    changes.forEach((change, index) => {
+      if (index < unitRows.length) {
+        const rowIndex = unitRows[index] + 1; // +1 for sheet indexing
+        targetsSheet.getRange(rowIndex, 2).setValue(change.target); // Target text
+        targetsSheet.getRange(rowIndex, 3).setValue(change.phases.beginning ? 'Yes' : 'No');
+        targetsSheet.getRange(rowIndex, 4).setValue(change.phases.middle ? 'Yes' : 'No');
+        targetsSheet.getRange(rowIndex, 5).setValue(change.phases.end ? 'Yes' : 'No');
+        targetsSheet.getRange(rowIndex, 6).setValue(change.phases.single ? 'Yes' : 'No');
+      }
+    });
     
     return { success: true };
   } catch (e) {
@@ -1465,6 +2240,399 @@ function getIndependentReadingDashboard() {
         completedSemester2
       },
       students: students.sort((a, b) => a.name.localeCompare(b.name))
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// --- STATE STANDARDS ALIGNMENT FUNCTIONS ---
+
+// Array of all unit standards sheets for easy iteration
+const ALL_STANDARDS_SHEETS = [
+  { name: "Unit 1: Coming of Age", sheet: UNIT1_STANDARDS_SHEET },
+  { name: "Unit 2: Personal Narrative", sheet: UNIT2_STANDARDS_SHEET },
+  { name: "Unit 3: Novel Study", sheet: UNIT3_STANDARDS_SHEET },
+  { name: "Unit 4: Short Story", sheet: UNIT4_STANDARDS_SHEET },
+  { name: "Unit 5: Romeo and Juliet", sheet: UNIT5_STANDARDS_SHEET },
+  { name: "Unit 5 (Enriched): Macbeth", sheet: UNIT5_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 6: Nonfiction", sheet: UNIT6_STANDARDS_SHEET },
+  { name: "Unit 6 (Enriched): Frankenstein", sheet: UNIT6_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 7: Resilience", sheet: UNIT7_STANDARDS_SHEET }
+];
+
+// PUBLIC API: Get comprehensive state standards overview (teacher only)
+function getStateStandardsOverview() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    
+    if (!teacherInfo) {
+      throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const unitStandardsData = {};
+    let uniqueStandards = new Set();
+    let totalUnitStandards = 0;
+    
+    // Process each unit's standards sheet
+    ALL_STANDARDS_SHEETS.forEach(unitInfo => {
+      try {
+        const sheet = ss.getSheetByName(unitInfo.sheet);
+        if (sheet) {
+          const data = sheet.getDataRange().getValues();
+          if (data.length > 1) {
+            const headers = data[0].map(h => h.toString().toLowerCase());
+            const rows = data.slice(1);
+            
+            // Find column indices
+            const standardIndex = headers.findIndex(h => h.includes('standard'));
+            const formativeIndex = headers.findIndex(h => h.includes('formative'));
+            const summativeIndex = headers.findIndex(h => h.includes('summative'));
+            const categoryIndex = headers.findIndex(h => h.includes('category') || h.includes('domain'));
+            
+            const unitStandards = [];
+            
+            rows.forEach(row => {
+              if (row[standardIndex] && row[standardIndex].toString().trim()) {
+                const standardCode = row[standardIndex].toString().trim();
+                const formativeAssessment = formativeIndex >= 0 ? row[formativeIndex] : '';
+                const summativeAssessment = summativeIndex >= 0 ? row[summativeIndex] : '';
+                const category = categoryIndex >= 0 ? row[categoryIndex] : 'Other';
+                
+                unitStandards.push({
+                  code: standardCode,
+                  formativeAssessment: formativeAssessment,
+                  summativeAssessment: summativeAssessment,
+                  category: category
+                });
+                
+                uniqueStandards.add(standardCode);
+                totalUnitStandards++;
+              }
+            });
+            
+            unitStandardsData[unitInfo.name] = {
+              standards: unitStandards,
+              sheetExists: true,
+              standardsCount: unitStandards.length
+            };
+          } else {
+            unitStandardsData[unitInfo.name] = {
+              standards: [],
+              sheetExists: true,
+              standardsCount: 0
+            };
+          }
+        } else {
+          unitStandardsData[unitInfo.name] = {
+            standards: [],
+            sheetExists: false,
+            standardsCount: 0,
+            error: 'Sheet not found'
+          };
+        }
+      } catch (unitError) {
+        unitStandardsData[unitInfo.name] = {
+          standards: [],
+          sheetExists: false,
+          standardsCount: 0,
+          error: unitError.toString()
+        };
+      }
+    });
+    
+    return { 
+      success: true, 
+      teacherName: teacherInfo.name,
+      unitStandardsData: unitStandardsData,
+      overview: {
+        totalUnits: ALL_STANDARDS_SHEETS.length,
+        totalStandards: uniqueStandards.size,
+        totalStandardsOccurrences: totalUnitStandards
+      }
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get detailed standards data organized by unit (teacher only)
+function getStandardsByUnit() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    
+    if (!teacherInfo) {
+      throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const unitStandardsData = {};
+    
+    // Process each unit's standards sheet
+    ALL_STANDARDS_SHEETS.forEach(unitInfo => {
+      try {
+        const sheet = ss.getSheetByName(unitInfo.sheet);
+        if (sheet) {
+          const data = sheet.getDataRange().getValues();
+          if (data.length > 1) {
+            const headers = data[0];
+            const standardsRows = data.slice(1);
+            
+            // Parse standards data based on sheet structure
+            const standards = standardsRows
+              .filter(row => row[0] && row[0].toString().trim()) // Has content in first column
+              .map((row, index) => {
+                const standard = {};
+                headers.forEach((header, colIndex) => {
+                  if (header && row[colIndex] !== undefined) {
+                    const headerKey = header.toString().toLowerCase().replace(/\s+/g, '_');
+                    standard[headerKey] = row[colIndex];
+                  }
+                });
+                standard.id = `${unitInfo.name}_${index + 1}`;
+                return standard;
+              });
+            
+            unitStandardsData[unitInfo.name] = {
+              standards: standards,
+              sheetExists: true,
+              standardsCount: standards.length
+            };
+          } else {
+            unitStandardsData[unitInfo.name] = {
+              standards: [],
+              sheetExists: true,
+              standardsCount: 0
+            };
+          }
+        } else {
+          unitStandardsData[unitInfo.name] = {
+            standards: [],
+            sheetExists: false,
+            standardsCount: 0,
+            error: 'Sheet not found'
+          };
+        }
+      } catch (unitError) {
+        unitStandardsData[unitInfo.name] = {
+          standards: [],
+          sheetExists: false,
+          standardsCount: 0,
+          error: unitError.toString()
+        };
+      }
+    });
+    
+    return { 
+      success: true, 
+      teacherName: teacherInfo.name,
+      unitStandardsData: unitStandardsData 
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get standards coverage analysis with gaps and overlaps (teacher only)
+function getStandardsCoverageAnalysis() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    
+    if (!teacherInfo) {
+      throw new Error("Access Denied. This function is only available to teachers.");
+    }
+    
+    // Get all standards data first
+    const unitDataResult = getStandardsByUnit();
+    if (!unitDataResult.success) {
+      return unitDataResult;
+    }
+    
+    const unitStandardsData = unitDataResult.unitStandardsData;
+    const allStandardsCodes = new Set();
+    const standardsToUnits = {}; // Map standards to units that cover them
+    const duplicateStandards = {};
+    
+    // Analyze standards across all units
+    Object.keys(unitStandardsData).forEach(unitName => {
+      const unitData = unitStandardsData[unitName];
+      if (unitData.standards) {
+        unitData.standards.forEach(standard => {
+          // Try to find a standard code field
+          const standardCode = standard.standard_code || 
+                              standard.code || 
+                              standard.standard || 
+                              standard.id ||
+                              Object.values(standard)[0]; // First non-empty value
+          
+          if (standardCode && standardCode.toString().trim()) {
+            const code = standardCode.toString().trim();
+            allStandardsCodes.add(code);
+            
+            if (!standardsToUnits[code]) {
+              standardsToUnits[code] = [];
+            }
+            standardsToUnits[code].push(unitName);
+            
+            // Track duplicates
+            if (standardsToUnits[code].length > 1) {
+              duplicateStandards[code] = standardsToUnits[code];
+            }
+          }
+        });
+      }
+    });
+    
+    // Calculate coverage statistics
+    const totalUniqueStandards = allStandardsCodes.size;
+    const duplicateCount = Object.keys(duplicateStandards).length;
+    const coverageByUnit = {};
+    
+    Object.keys(unitStandardsData).forEach(unitName => {
+      const unitData = unitStandardsData[unitName];
+      coverageByUnit[unitName] = {
+        totalStandards: unitData.standardsCount,
+        uniqueStandards: unitData.standards ? 
+          new Set(unitData.standards.map(s => 
+            (s.standard_code || s.code || s.standard || s.id || Object.values(s)[0] || '').toString().trim()
+          ).filter(code => code)).size : 0,
+        sheetExists: unitData.sheetExists
+      };
+    });
+    
+    return {
+      success: true,
+      teacherName: teacherInfo.name,
+      analysis: {
+        totalUniqueStandards: totalUniqueStandards,
+        duplicateStandards: duplicateStandards,
+        duplicateCount: duplicateCount,
+        coverageByUnit: coverageByUnit,
+        standardsToUnits: standardsToUnits
+      }
+    };
+  } catch (e) {
+    return { success: false, error: e.toString() };
+  }
+}
+
+// PUBLIC API: Get all standards data in one comprehensive call (teacher only)
+function getAllStandardsData() {
+  try {
+    const userEmail = Session.getActiveUser().getEmail();
+    const teacherInfo = TEACHER_CONFIG[userEmail];
+    
+    // TEMPORARY: Allow access for testing even if not a configured teacher
+    // if (!teacherInfo) {
+    //   throw new Error("Access Denied. This function is only available to teachers.");
+    // }
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const unitData = {};
+    
+    // Process each unit's standards sheet with master standards list
+    ALL_STANDARDS_SHEETS.forEach(unitInfo => {
+      try {
+        const sheet = ss.getSheetByName(unitInfo.sheet);
+        if (sheet) {
+          const data = sheet.getDataRange().getValues();
+          if (data.length > 1) {
+            const headers = data[0].map(h => h.toString().toLowerCase());
+            const rows = data.slice(1);
+            
+            // Correct column mapping based on actual spreadsheet structure
+            const anchorIndex = 2;       // Column C (Anchor strand)
+            const benchmarkCodeIndex = 3; // Column D (Benchmark code)  
+            const benchmarkDescIndex = 4; // Column E (Benchmark description)
+            const formativeIndex = 5;     // Column F (Formative assessment)
+            const summativeIndex = 6;     // Column G (Summative assessment)
+            
+            // Organize by assessment type instead of anchor strands
+            const assessmentGroups = {
+              formativeOnly: [],
+              summativeOnly: [],
+              both: []
+            };
+            let totalCoveredStandards = 0;
+            
+            rows.forEach(row => {
+              if (row[benchmarkCodeIndex] && row[benchmarkCodeIndex].toString().trim()) {
+                const anchorStrand = row[anchorIndex] ? row[anchorIndex].toString().trim() : 'Other';
+                const benchmarkCode = row[benchmarkCodeIndex].toString().trim();
+                const benchmarkDesc = row[benchmarkDescIndex] ? row[benchmarkDescIndex].toString().trim() : 'No description';
+                
+                // Get assessment data from specific columns
+                const formativeValue = (row[formativeIndex] && row.length > formativeIndex) ? 
+                  row[formativeIndex].toString().trim() : '';
+                const summativeValue = (row[summativeIndex] && row.length > summativeIndex) ? 
+                  row[summativeIndex].toString().trim() : '';
+                
+                const hasFormative = formativeValue.toLowerCase() === 'x';
+                const hasSummative = summativeValue.toLowerCase() === 'x';
+                
+                // Only include benchmark if it has "x" in formative OR summative column
+                if (hasFormative || hasSummative) {
+                  const standard = {
+                    code: benchmarkCode,
+                    description: benchmarkDesc,
+                    formative: hasFormative,
+                    summative: hasSummative,
+                    anchorStrand: anchorStrand
+                  };
+                  
+                  // Group by assessment type
+                  if (hasFormative && hasSummative) {
+                    assessmentGroups.both.push(standard);
+                  } else if (hasFormative) {
+                    assessmentGroups.formativeOnly.push(standard);
+                  } else if (hasSummative) {
+                    assessmentGroups.summativeOnly.push(standard);
+                  }
+                  
+                  totalCoveredStandards++;
+                }
+              }
+            });
+            
+            unitData[unitInfo.name] = {
+              assessmentGroups: assessmentGroups,
+              sheetExists: true,
+              standardsCount: totalCoveredStandards
+            };
+          } else {
+            unitData[unitInfo.name] = {
+              assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
+              sheetExists: true,
+              standardsCount: 0
+            };
+          }
+        } else {
+          unitData[unitInfo.name] = {
+            assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
+            sheetExists: false,
+            standardsCount: 0,
+            error: 'Sheet not found'
+          };
+        }
+      } catch (unitError) {
+        unitData[unitInfo.name] = {
+          assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
+          sheetExists: false,
+          standardsCount: 0,
+          error: unitError.toString()
+        };
+      }
+    });
+    
+    return {
+      success: true,
+      teacherName: teacherInfo ? teacherInfo.name : "Testing User",
+      unitData: unitData,
+      masterStandards: MASTER_STANDARDS_LIST
     };
   } catch (e) {
     return { success: false, error: e.toString() };

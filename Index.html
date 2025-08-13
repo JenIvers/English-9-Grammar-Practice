@@ -7,14 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-      body{font-family:'Nunito',sans-serif;background-color:#87CEEB;color:#34495e;margin:0;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}
+      body{font-family:'Nunito',sans-serif;background-color:#faf9f7;color:#34495e;margin:0;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}
       
 .container{background-color:#fff;padding:2em 3em;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:100%;max-width:1200px;text-align:center;border:1px solid #f7f7f7}
       
 .hidden{display:none}h1,h2,h3{font-family:'Patrick Hand',cursive;color:#2c3e50}h1{font-size:3.5em;margin-bottom:.2em;margin-top:0}h2{font-size:2em;color:#34495e;margin-top:0}h3{font-size:1.8em;margin-top:1.5em;margin-bottom:0.5em}
 
       /* Shared Unit Grid Styles */
+      /* Grammar Practice Unit Grid - Grid Layout */
       #unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:2em}
+      
+      /* MCA Unit Grid - Grid Layout */
+      #mca-unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:2em}
+      
+      /* Learning Portfolio Grid - Grid Layout */
+      #portfolio-unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:2em}
       .unit-button{display:block;text-decoration:none;color:#2c3e50;background-color:#f8f9fa;border-radius:8px;padding:20px;position:relative;overflow:visible;transition:transform .2s ease,box-shadow .2s ease;border:2px solid #dee2e6;cursor:pointer;text-align:center}
       .unit-button:hover{transform:translateY(-3px);box-shadow:0 6px 12px rgba(0,0,0,.15);border-color:#adb5bd}
       .unit-title{font-family:'Patrick Hand',cursive;font-size:1.4em;margin-bottom:10px;font-weight:bold}
@@ -69,6 +76,22 @@
       .score-developing{color:#E74C3C;font-weight:bold}
       .score-unattempted{color:#95a5a6;font-style:italic}
 
+      /* Portfolio Dashboard Table */
+      #portfolio-dashboard-table{width:100%;border-collapse:collapse;margin-top:1em}
+      #portfolio-dashboard-table th,#portfolio-dashboard-table td{padding:12px 15px;border:1px solid #ddd;text-align:left}
+      #portfolio-dashboard-table th{background-color:#34495e;color:#fff;font-family:'Nunito'}
+      #portfolio-dashboard-table tr:nth-child(even){background-color:#f8f9fa}
+      .proficiency-beginning{color:#95a5a6;font-style:italic}
+      .proficiency-developing{color:#E74C3C;font-weight:bold}
+      .proficiency-proficient{color:#F39C12;font-weight:bold}
+      .proficiency-mastery{color:#2ECC71;font-weight:bold}
+
+      /* Edit Targets Styles */
+      .target-edit-item{background-color:#f8f9fa;border-radius:8px;padding:15px;margin-bottom:15px;border:1px solid #dee2e6}
+      .target-edit-text{width:100%;padding:8px;border:1px solid #ced4da;border-radius:4px;font-size:1em;margin-bottom:10px}
+      .target-phases{display:flex;gap:15px;align-items:center;margin-bottom:10px}
+      .target-actions{display:flex;gap:10px;justify-content:flex-end}
+
       /* Exemplars Screen Styles */
       #exemplars-screen{text-align:center}
       .exemplar-container{background-color:#f8f9fa;border-radius:10px;padding:2em;margin:1em auto;max-width:800px;border:1px solid #dee2e6}
@@ -91,8 +114,8 @@
 
       /* Student Choice Screen Styles */
       #student-choice-screen{text-align:center}
-      .choice-container{background-color:#fff;padding:2em 3em;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:100%;max-width:600px;margin:0 auto;border:1px solid #f7f7f7}
-      .choice-buttons{display:flex;flex-direction:column;gap:20px;margin:2em 0}
+      .choice-container{background-color:#fff;padding:2em 3em;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:100%;max-width:900px;margin:0 auto;border:1px solid #f7f7f7}
+      .choice-buttons{display:flex;flex-direction:column;gap:15px;margin:2em 0}
       .choice-btn{font-family:'Nunito',sans-serif;font-weight:700;border:none;padding:25px 30px;border-radius:15px;cursor:pointer;font-size:1.2em;transition:all .3s ease;box-shadow:0 4px 10px rgba(0,0,0,.1);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
       .choice-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.15)}
       .exemplars-choice{background-color:#e3f2fd;color:#1565c0;border:2px solid #2196f3}
@@ -108,10 +131,6 @@
 
       /* Learning Portfolio Styles */
       #learning-portfolio-screen{text-align:center}
-      #portfolio-unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:2em}
-      .portfolio-unit-button{display:block;text-decoration:none;color:#2c3e50;background-color:#f8f9fa;border-radius:8px;padding:20px;position:relative;overflow:visible;transition:transform .2s ease,box-shadow .2s ease;border:2px solid #dee2e6;cursor:pointer;text-align:center}
-      .portfolio-unit-button:hover{transform:translateY(-3px);box-shadow:0 6px 12px rgba(0,0,0,.15);border-color:#adb5bd}
-      .portfolio-unit-title{font-family:'Patrick Hand',cursive;font-size:1.4em;margin-bottom:10px;font-weight:bold}
       .portfolio-unit-status{font-family:'Nunito',sans-serif;font-size:0.9em;color:#6c757d}
       
       /* Unit Portfolio Screen Styles */
@@ -204,6 +223,11 @@
       #independent-reading-btn:hover {
         background-color: #e1bee7 !important;
         border-color: #8e24aa !important;
+      }
+      /* MCA Practice Button Hover */
+      #mca-practice-btn:hover {
+        background-color: #ffe0b2 !important;
+        border-color: #f57c00 !important;
       }
 
       /* Independent Reading Styles */
@@ -476,6 +500,1156 @@
         background-color: #28a745;
       }
 
+      /* Teacher Independent Reading Modal Styles */
+      .ir-teacher-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+      .ir-teacher-modal.show {
+        display: flex;
+      }
+      .ir-teacher-modal-content {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+      .ir-teacher-modal h3 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 2em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+      .ir-teacher-modal-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .ir-teacher-modal-btn {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .ir-teacher-modal-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+      /* Grammar Practice Modal Button Styles - Match Learning Targets */
+      .ir-modal-student-view {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+      }
+      .ir-modal-student-view:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .ir-modal-dashboard {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+      }
+      .ir-modal-dashboard:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .ir-modal-edit-mca {
+        background-color: #6f42c1;
+        color: #fff;
+        border: none;
+      }
+      .ir-modal-edit-mca:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .ir-modal-teach-exemplars {
+        background-color: #fd7e14;
+        color: #fff;
+        border: none;
+      }
+      .ir-modal-teach-exemplars:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+      }
+      .ir-modal-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #6c757d;
+        padding: 5px;
+      }
+      .ir-modal-close:hover {
+        color: #495057;
+      }
+
+      /* Independent Reading Semester Choice Styles */
+      .ir-semester1-choice {
+        background-color: #e3f2fd;
+        color: #1565c0;
+        border: 2px solid #2196f3;
+      }
+      .ir-semester1-choice:hover {
+        background-color: #bbdefb;
+        border-color: #1976d2;
+      }
+      .ir-semester2-choice {
+        background-color: #fff3e0;
+        color: #e65100;
+        border: 2px solid #ff9800;
+      }
+      .ir-semester2-choice:hover {
+        background-color: #ffe0b2;
+        border-color: #f57c00;
+      }
+
+      /* Dynamic Body Background Colors - Using Darker Border Colors */
+      body.body-learning-portfolio {
+        background-color: #2196f3 !important;
+      }
+      body.body-grammar-practice {
+        background-color: #4caf50 !important;
+      }
+      body.body-independent-reading {
+        background-color: #9c27b0 !important;
+      }
+      body.body-mca-practice {
+        background-color: #ff9800 !important;
+      }
+      body.body-default {
+        background-color: #87CEEB !important;
+      }
+      body.body-standards {
+        background-color: #faf9f7 !important;
+      }
+
+      /* State Standards Alignment Styles */
+      #standards-alignment-screen {
+        text-align: center;
+      }
+      
+      .standards-nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+      
+      .standards-nav-btn {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: 2px solid #f9a825;
+        background-color: #fff;
+        color: #f57f17;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1em;
+      }
+      
+      .standards-nav-btn:hover {
+        background-color: #f9a825;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(249, 168, 37, 0.3);
+      }
+      
+      .standards-nav-btn.active {
+        background-color: #f9a825;
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(249, 168, 37, 0.2);
+      }
+
+      /* Standards Stats Grid */
+      .standards-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .standards-stat-card {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        border: 2px solid #f9a825;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .standards-stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+      
+      .standards-stat-number {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 3em;
+        margin: 0;
+        color: #f57f17;
+      }
+      
+      .standards-stat-label {
+        font-family: 'Nunito', sans-serif;
+        color: #6c757d;
+        margin-top: 8px;
+        font-size: 1em;
+      }
+
+      /* Unit Summary Grid */
+      .unit-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+      
+      .unit-summary-card {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        border: 2px solid #f9a825;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .unit-summary-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .unit-summary-title {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.4em;
+        color: #f57f17;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      
+      .unit-summary-count {
+        font-family: 'Nunito', sans-serif;
+        font-size: 2em;
+        color: #f9a825;
+        text-align: center;
+        margin: 10px 0;
+      }
+      
+      .unit-summary-status {
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.9em;
+        color: #6c757d;
+        text-align: center;
+      }
+
+      /* Categories Breakdown */
+      .categories-breakdown {
+        margin: 40px 0;
+      }
+      
+      .categories-breakdown h3 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 2em;
+        color: #f57f17;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+      
+      .category-stat-card {
+        background-color: #fff9c4;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #f9a825;
+        transition: transform 0.2s ease;
+      }
+      
+      .category-stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(249, 168, 37, 0.2);
+      }
+      
+      .category-name {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        color: #f57f17;
+        margin-bottom: 8px;
+      }
+      
+      .category-count {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 2em;
+        color: #f9a825;
+        margin: 0;
+      }
+
+      /* Standards by Unit View */
+      .unit-standards-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .search-filter-bar {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .standards-search-input, .standards-filter-select {
+        font-family: 'Nunito', sans-serif;
+        padding: 12px 16px;
+        border: 2px solid #f9a825;
+        border-radius: 25px;
+        font-size: 1em;
+        background-color: #fff;
+        color: #333;
+        min-width: 200px;
+      }
+      
+      .standards-search-input:focus, .standards-filter-select:focus {
+        outline: none;
+        border-color: #f57f17;
+        box-shadow: 0 0 5px rgba(245, 127, 23, 0.3);
+      }
+      
+      .unit-standards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+      }
+      
+      /* Standards Control Styles */
+      .standards-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 25px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+      }
+      
+      .search-container {
+        position: relative;
+        flex: 1;
+        min-width: 250px;
+      }
+      
+      .clear-search-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .clear-search-btn:hover {
+        background-color: #e9ecef;
+        color: #495057;
+      }
+      
+      .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .control-btn {
+        padding: 8px 15px;
+        border: 2px solid #007bff;
+        background-color: #fff;
+        color: #007bff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: all 0.2s ease;
+      }
+      
+      .control-btn:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+      
+      #standards-search:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      }
+      
+      .unit-standards-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      
+      .unit-standards-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
+        border-color: #007bff;
+      }
+      
+      .unit-standards-card.selected {
+        background-color: #e3f2fd;
+        border-color: #007bff;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+      }
+      
+      .unit-standards-title {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.2em;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        font-weight: bold;
+        text-align: left;
+      }
+      
+      .standards-list {
+        max-height: 300px;
+        overflow-y: auto;
+        text-align: left;
+      }
+      
+      .standard-item {
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 6px;
+        border-left: 3px solid #007bff;
+      }
+      
+      .standard-code {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        color: #007bff;
+        font-size: 0.9em;
+      }
+      
+      .standard-description {
+        font-family: 'Nunito', sans-serif;
+        color: #495057;
+        margin: 3px 0;
+        line-height: 1.4;
+        font-size: 0.85em;
+      }
+
+      /* Coverage Analysis Styles */
+      .coverage-analysis-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .coverage-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .coverage-stat-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      
+      .coverage-stat-number {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 3em;
+        margin: 0;
+        color: #007bff;
+      }
+      
+      .coverage-stat-label {
+        font-family: 'Nunito', sans-serif;
+        color: #6c757d;
+        margin-top: 8px;
+        font-size: 1em;
+      }
+      
+      .unit-coverage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .unit-coverage-card {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        border: 2px solid #f9a825;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      .unit-coverage-title {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.3em;
+        color: #f57f17;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      
+      .coverage-details {
+        font-family: 'Nunito', sans-serif;
+        color: #495057;
+        line-height: 1.5;
+      }
+
+      /* Duplicate Standards Section */
+      .duplicate-standards-section {
+        margin-top: 40px;
+      }
+      
+      .duplicate-standards-section h4 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.8em;
+        color: #f57f17;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .duplicate-standards-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+      }
+      
+      .duplicate-standard-item {
+        background-color: #fff9c4;
+        border-radius: 10px;
+        padding: 15px;
+        border: 2px solid #f9a825;
+      }
+      
+      .duplicate-standard-code {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        color: #f57f17;
+        margin-bottom: 8px;
+      }
+      
+      .duplicate-units-list {
+        font-family: 'Nunito', sans-serif;
+        color: #495057;
+        font-size: 0.9em;
+      }
+
+      /* Standards Reference Styles */
+      .reference-container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      
+      .reference-search-bar {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .standards-reference-list {
+        text-align: left;
+      }
+      
+      .reference-standard-item {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border: 2px solid #f9a825;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .reference-standard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .reference-standard-code {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        color: #f57f17;
+        font-size: 1.1em;
+      }
+      
+      .reference-standard-category {
+        font-family: 'Nunito', sans-serif;
+        background-color: #fff9c4;
+        color: #f57f17;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        font-weight: 600;
+      }
+      
+      .reference-standard-description {
+        font-family: 'Nunito', sans-serif;
+        color: #495057;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+      
+      .reference-units-covered {
+        font-family: 'Nunito', sans-serif;
+        color: #6c757d;
+        font-size: 0.9em;
+        font-style: italic;
+      }
+
+      /* General Section Styles */
+      .standards-section {
+        margin-top: 30px;
+      }
+      
+      .standards-section h3 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 2em;
+        color: #f57f17;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* New Simplified Standards Interface Styles */
+      .unit-selector-container {
+        margin: 30px 0;
+        text-align: center;
+      }
+
+      .unit-selector-container h3 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.8em;
+        color: #ad1457;
+        margin-bottom: 25px;
+      }
+
+      .unit-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .unit-selector-btn {
+        background: linear-gradient(135deg, #faf9f7 0%, #f5f4f2 100%);
+        border: 3px solid #8d6e63;
+        border-radius: 20px;
+        padding: 25px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Nunito', sans-serif;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+      }
+
+      .unit-selector-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+        background: linear-gradient(135deg, #f0ede8 0%, #e8e4df 100%);
+      }
+
+      .unit-selector-btn.active {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+      }
+
+      .unit-number {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 5px;
+      }
+
+      .unit-selector-btn.active .unit-number {
+        color: white;
+      }
+
+      .unit-title {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #007bff;
+        line-height: 1.2;
+      }
+
+      .unit-selector-btn.active .unit-title {
+        color: white;
+      }
+
+      .standards-coverage-section {
+        margin-top: 40px;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #faf9f7;
+        border-radius: 20px;
+        padding: 30px;
+      }
+
+      .standards-coverage-section h3 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.8em;
+        color: #ad1457;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .coverage-legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f5f4f2;
+        border-radius: 15px;
+        border: 2px solid #007bff;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+
+      .status-indicator {
+        font-size: 1.2em;
+      }
+
+      .assessment-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: bold;
+        color: white;
+      }
+
+      .assessment-badge.formative {
+        background-color: #2196f3;
+      }
+
+      .assessment-badge.summative {
+        background-color: #ff9800;
+      }
+
+      .assessment-badge.both {
+        background: linear-gradient(45deg, #2196f3 50%, #ff9800 50%);
+      }
+
+      .standards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .standard-item {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid #e1e1e1;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .standard-item.covered {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+      }
+
+      .standard-item.not-covered {
+        border-color: #e0e0e0;
+        background: #fafafa;
+        opacity: 0.7;
+      }
+
+      .standard-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .standard-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .standard-code {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #ad1457;
+      }
+
+      .standard-status {
+        font-size: 1.3em;
+      }
+
+      .standard-description {
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.95em;
+        line-height: 1.4;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .assessment-info {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .assessment-info .assessment-badge {
+        font-size: 0.8em;
+        padding: 4px 10px;
+      }
+
+      /* New grouped standards layout styles */
+      .standards-section-group {
+        margin-bottom: 35px;
+      }
+
+      .section-header {
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+        border: 2px solid #4caf50;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
+      }
+
+      .not-covered-section .section-header {
+        background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+        border-color: #9e9e9e;
+        box-shadow: 0 2px 8px rgba(158, 158, 158, 0.1);
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.4em;
+        font-weight: bold;
+        color: #2e7d32;
+      }
+
+      .not-covered-section .section-title {
+        color: #616161;
+      }
+
+      .section-icon {
+        font-size: 1.2em;
+      }
+
+      .section-name {
+        flex-grow: 1;
+      }
+
+      .section-count {
+        background-color: #4caf50;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.85em;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+      }
+
+      .not-covered-section .section-count {
+        background-color: #9e9e9e;
+      }
+
+      .collapsible-header {
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .collapsible-header:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(158, 158, 158, 0.15);
+      }
+
+      .toggle-icon {
+        font-size: 0.8em;
+        margin-left: 8px;
+        transition: transform 0.2s ease;
+      }
+
+      .section-standards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .section-standards-grid.collapsed {
+        display: none;
+      }
+
+      .covered-section .standard-item {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+        box-shadow: 0 3px 10px rgba(76, 175, 80, 0.1);
+      }
+
+      .covered-section .standard-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+      }
+
+      .not-covered-section .standard-item {
+        opacity: 0.6;
+        border-color: #e0e0e0;
+        background: #f9f9f9;
+      }
+
+      .not-covered-text {
+        font-style: italic;
+        color: #757575;
+        font-size: 0.9em;
+      }
+
+      .assessment-badge.unspecified {
+        background-color: #607d8b;
+      }
+
+      /* Enhanced assessment badge styling for grouped view */
+      .covered-section .assessment-badge {
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Assessment Type Section Styles */
+      .assessment-type-section {
+        margin-bottom: 40px;
+        border: 2px solid #2196f3;
+        border-radius: 15px;
+        padding: 20px;
+        background: linear-gradient(135deg, #faf9f7 0%, #f5f4f2 100%);
+      }
+
+      .both-section {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+      }
+
+      .summative-section {
+        border-color: #dc3545;
+        background: linear-gradient(135deg, #ffebee 0%, #fde7e9 100%);
+      }
+
+      .formative-section {
+        border-color: #28a745;
+        background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+      }
+
+      .assessment-type-header {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid;
+      }
+
+      .both-section .assessment-type-header {
+        border-bottom-color: #4caf50;
+      }
+
+      .summative-section .assessment-type-header {
+        border-bottom-color: #dc3545;
+      }
+
+      .formative-section .assessment-type-header {
+        border-bottom-color: #28a745;
+      }
+
+      .assessment-type-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.6em;
+        font-weight: bold;
+        color: #1565c0;
+      }
+
+      .assessment-icon {
+        font-size: 1.3em;
+      }
+
+      .assessment-name {
+        flex-grow: 1;
+      }
+
+      .assessment-count {
+        background-color: #2196f3;
+        color: white;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+      }
+
+      .standards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .standard-item {
+        background: white;
+        border-radius: 10px;
+        padding: 18px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        border: 2px solid #e1f5fe;
+        transition: all 0.2s ease;
+      }
+
+      .standard-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+        border-color: #81d4fa;
+      }
+
+      .standard-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .standard-code {
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #1565c0;
+      }
+
+      .standard-status {
+        font-size: 1.2em;
+      }
+
+      .standard-description {
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.95em;
+        line-height: 1.4;
+        color: #333;
+        margin-bottom: 12px;
+      }
+
+      .standard-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .assessment-badge {
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        font-weight: 600;
+        color: white;
+      }
+
+      .both-badge {
+        background-color: #4caf50;
+      }
+
+      .summative-badge {
+        background-color: #dc3545;
+      }
+
+      .formative-badge {
+        background-color: #28a745;
+      }
+
+      .anchor-strand-tag {
+        background-color: #e3f2fd;
+        color: #1565c0;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 500;
+        border: 1px solid #bbdefb;
+      }
+
+      .no-standards-message {
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-size: 1.2em;
+        color: #666;
+        padding: 40px;
+        background: #f5f5f5;
+        border-radius: 10px;
+        border: 2px dashed #ccc;
+      }
+
       /* Button Styles */
       #try-again-btn,#main-menu-btn,#back-to-home-btn,#register-btn,#back-to-units-btn,#back-to-units-from-results-btn{font-family:'Nunito',sans-serif;font-weight:700;color:#fff;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;margin-top:10px;transition:all .2s ease;box-shadow:0 2px 5px rgba(0,0,0,.1)}
       #try-again-btn:hover,#main-menu-btn:hover,#back-to-home-btn:hover,#register-btn:hover,#back-to-units-btn:hover,#back-to-units-from-results-btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.15)}
@@ -512,6 +1686,14 @@
               📖 Independent Reading
               <span class="choice-description">Track your independent reading progress</span>
             </button>
+            <button id="mca-practice-btn" class="choice-btn" style="background-color:#fff3e0; color:#e65100; border:2px solid #ff9800;">
+              📝 MCA Practice
+              <span class="choice-description">Practice MCA test questions by unit</span>
+            </button>
+            <button id="standards-alignment-btn" class="choice-btn hidden" style="background-color:#faf9f7; color:#5d4e37; border:2px solid #8d6e63;">
+              📊 State Standards Alignment
+              <span class="choice-description">View curriculum standards coverage and alignment</span>
+            </button>
           </div>
         </div>
       </div>
@@ -522,14 +1704,50 @@
         <div id="unit-grid">Loading units...</div>
         <button id="back-to-main-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
       </div>
+      <!-- MCA Unit Selection Screen -->
+      <div id="mca-unit-selection-screen" class="hidden">
+        <h2 id="mca-welcome-message">Choose a Unit for MCA Practice</h2>
+        <div id="mca-unit-grid">Loading MCA units...</div>
+        <button id="back-to-main-from-mca-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
+      </div>
 
-      <!-- Learning Portfolio Screen -->
+      <!-- Learning Portfolio Unit Selection Screen -->
       <div id="learning-portfolio-screen" class="hidden">
-        <h2 id="portfolio-welcome-message">Learning Portfolio</h2>
+        <h2 id="portfolio-welcome-message">Learning Portfolio - Choose a Unit</h2>
         <p>Track your learning progress and set proficiency goals for each unit.</p>
         
         <div id="portfolio-unit-grid">Loading portfolio...</div>
         <button id="back-to-main-from-portfolio-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
+      </div>
+
+      <!-- Learning Portfolio Teacher Choice Screen -->
+      <div id="portfolio-teacher-choice-screen" class="hidden">
+        <h2>Learning Portfolio - <span id="portfolio-choice-unit-title">Unit</span></h2>
+        <p>Choose how you'd like to interact with this unit's learning targets.</p>
+        
+        <div class="choice-container">
+          <div class="choice-buttons">
+            <button id="portfolio-view-as-student-btn" class="choice-btn exemplars-choice">
+              <span style="font-size: 2em;">👤</span>
+              <span style="font-size: 1.2em; font-weight: bold;">View as Student</span>
+              <span style="font-size: 0.9em; color: #666;">See the learning targets interface as students do</span>
+            </button>
+            
+            <button id="portfolio-teacher-dashboard-btn" class="choice-btn practice-choice">
+              <span style="font-size: 2em;">📊</span>
+              <span style="font-size: 1.2em; font-weight: bold;">View Dashboard</span>
+              <span style="font-size: 0.9em; color: #666;">See student progress and proficiency data</span>
+            </button>
+            
+            <button id="portfolio-edit-targets-btn" class="choice-btn" style="background-color: #f3e5f5; color: #6a1b9a; border: 2px solid #9c27b0;">
+              <span style="font-size: 2em;">✏️</span>
+              <span style="font-size: 1.2em; font-weight: bold;">Edit Learning Targets</span>
+              <span style="font-size: 0.9em; color: #666;">Modify the learning targets for this unit</span>
+            </button>
+          </div>
+          
+          <button id="back-to-portfolio-units-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Unit Selection</button>
+        </div>
       </div>
 
       <!-- Individual Unit Portfolio Screen -->
@@ -545,6 +1763,78 @@
         <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
           <button id="back-to-portfolio-btn" class="exemplar-nav-btn">← Back to Portfolio</button>
           <button id="save-portfolio-btn" class="got-it-btn">💾 Save Progress</button>
+        </div>
+      </div>
+
+      <!-- Learning Portfolio Teacher Dashboard Screen -->
+      <div id="portfolio-teacher-dashboard-screen" class="hidden">
+        <h2>Learning Portfolio Dashboard - <span id="dashboard-unit-title">Unit</span></h2>
+        <p>View student progress and proficiency data for learning targets.</p>
+        
+        <div id="portfolio-dashboard-content">
+          <div id="loading-dashboard" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading student data...</p>
+          </div>
+          <div id="dashboard-results-container" class="hidden">
+            <table id="portfolio-dashboard-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Learning Target</th>
+                  <th>Phase</th>
+                  <th>Proficiency Level</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-table-body">
+                <!-- Student data will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+          <button id="back-to-portfolio-choice-btn" class="exemplar-nav-btn">← Back to Options</button>
+          <button id="export-dashboard-btn" class="got-it-btn">📁 Export Data</button>
+        </div>
+      </div>
+
+      <!-- Learning Portfolio Edit Targets Screen -->
+      <div id="portfolio-edit-targets-screen" class="hidden">
+        <h2>Edit Learning Targets - <span id="edit-targets-unit-title">Unit</span></h2>
+        <p>Add, edit, or remove learning targets for this unit.</p>
+        
+        <div id="edit-targets-content">
+          <div id="loading-edit-targets" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading learning targets...</p>
+          </div>
+          <div id="edit-targets-container" class="hidden">
+            <div id="existing-targets-list">
+              <!-- Existing targets will be populated here -->
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #ddd;">
+              <h3>Add New Learning Target</h3>
+              <div style="display: flex; flex-direction: column; gap: 15px; max-width: 600px; margin: 0 auto;">
+                <input type="text" id="new-target-text" placeholder="Enter learning target description..." style="padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em;">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                  <label style="font-weight: bold;">Phases:</label>
+                  <label><input type="checkbox" id="new-target-beginning" checked> Beginning</label>
+                  <label><input type="checkbox" id="new-target-middle" checked> Middle</label>
+                  <label><input type="checkbox" id="new-target-end" checked> End</label>
+                  <label><input type="checkbox" id="new-target-single"> Single Phase</label>
+                </div>
+                <button id="add-new-target-btn" class="got-it-btn" style="align-self: flex-start;">+ Add Target</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+          <button id="back-to-portfolio-choice-from-edit-btn" class="exemplar-nav-btn">← Back to Options</button>
+          <button id="save-targets-changes-btn" class="got-it-btn">💾 Save All Changes</button>
         </div>
       </div>
 
@@ -765,6 +2055,70 @@
         
         <button id="back-to-main-from-reading-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
       </div>
+
+      <!-- Teacher Independent Reading Modal -->
+      <div id="ir-teacher-modal" class="ir-teacher-modal">
+        <div class="ir-teacher-modal-content">
+          <button class="ir-modal-close" onclick="closeIRTeacherModal()">✕</button>
+          <h3>📖 Independent Reading</h3>
+          <p>Choose how you'd like to view Independent Reading:</p>
+          <div class="ir-teacher-modal-buttons">
+            <button class="ir-teacher-modal-btn ir-modal-student-view" onclick="irModalSelectOption('student-view')">
+              👤 View as Student
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-dashboard" onclick="irModalSelectOption('dashboard')">
+              📊 View Dashboard
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-edit-mca" onclick="irModalSelectOption('edit-ir')">
+              ✏️ Edit Independent Reading
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher Grammar Practice Modal -->
+      <div id="gp-teacher-modal" class="ir-teacher-modal">
+        <div class="ir-teacher-modal-content">
+          <button class="ir-modal-close" onclick="closeGPTeacherModal()">✕</button>
+          <h3 id="gp-modal-title">🎯 Grammar Practice - Unit Name</h3>
+          <p>Choose how you'd like to work with this unit:</p>
+          <div class="ir-teacher-modal-buttons">
+            <button class="ir-teacher-modal-btn ir-modal-student-view" onclick="gpModalSelectOption('student-view')">
+              👤 View as Student
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-dashboard" onclick="gpModalSelectOption('dashboard')">
+              📊 View Dashboard
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-edit-mca" onclick="gpModalSelectOption('edit-questions')">
+              ✏️ Edit Questions
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-teach-exemplars" onclick="gpModalSelectOption('teach-exemplars')">
+              📖 Teach with Exemplars
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher Independent Reading Semester Selection Screen -->
+      <div id="ir-semester-selection-screen" class="hidden">
+        <h2>📖 Independent Reading</h2>
+        <p>Select which semester you'd like to work with:</p>
+        
+        <div class="choice-container">
+          <div class="choice-buttons">
+            <button class="choice-btn ir-semester1-choice" onclick="selectIRSemester('semester1')">
+              📚 Semester 1
+              <span class="choice-description">Fall semester independent reading</span>
+            </button>
+            <button class="choice-btn ir-semester2-choice" onclick="selectIRSemester('semester2')">
+              📖 Semester 2
+              <span class="choice-description">Spring semester independent reading</span>
+            </button>
+          </div>
+        </div>
+        
+        <button id="back-to-main-from-ir-semester-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
+      </div>
       
       <!-- Teacher Independent Reading View Screen -->
       <div id="teacher-ir-screen" class="hidden">
@@ -872,6 +2226,44 @@
         </div>
       </div>
 
+      <!-- Portfolio Teacher Modal -->
+      <div id="portfolio-teacher-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3 id="portfolio-modal-unit-title"></h3>
+          <div class="teacher-actions">
+            <button id="portfolio-view-student-btn" class="action-btn practice-btn">
+              👤 View as Student
+            </button>
+            <button id="portfolio-dashboard-btn" class="action-btn results-btn">
+              📊 View Dashboard
+            </button>
+            <button id="portfolio-edit-btn" class="action-btn edit-btn">
+              ✏️ Edit Learning Targets
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- MCA Teacher Modal -->
+      <div id="mca-teacher-modal" class="ir-teacher-modal">
+        <div class="ir-teacher-modal-content">
+          <button class="ir-modal-close" onclick="closeMCATeacherModal()">✕</button>
+          <h3 id="mca-modal-title">📝 MCA Practice - Unit Name</h3>
+          <p>Choose how you'd like to work with this unit:</p>
+          <div class="ir-teacher-modal-buttons">
+            <button class="ir-teacher-modal-btn ir-modal-student-view" onclick="mcaModalSelectOption('student-view')">
+              👤 View as Student
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-dashboard" onclick="mcaModalSelectOption('dashboard')">
+              📊 View Dashboard
+            </button>
+            <button class="ir-teacher-modal-btn ir-modal-edit-mca" onclick="mcaModalSelectOption('edit-questions')">
+              ✏️ Edit MCA Questions
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Teacher Results Screen -->
       <div id="teacher-results-screen" class="hidden">
         <button id="back-to-units-from-results-btn">← Back to Units</button>
@@ -884,6 +2276,122 @@
           <thead><tr><th>Student Name</th><th>Best Score</th></tr></thead>
           <tbody></tbody>
         </table>
+      </div>
+
+      <!-- State Standards Alignment Screen -->
+      <div id="standards-alignment-screen" class="hidden">
+        <h1>📊 State Standards Alignment</h1>
+        <h2 id="standards-welcome-message">English 9 Curriculum Standards Coverage</h2>
+        
+        <!-- Loading Indicator -->
+        <div id="standards-loading" class="loading-indicator hidden">
+          <div class="spinner"></div>
+          <p>Loading standards data...</p>
+        </div>
+
+        <!-- Unit Selector -->
+        <div class="unit-selector-container">
+          <h3>Select a Unit to View Standards Coverage</h3>
+          <div class="unit-buttons-grid">
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 1: Coming of Age')">
+              <div class="unit-number">1</div>
+              <div class="unit-title">Coming of Age</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 2: Personal Narrative')">
+              <div class="unit-number">2</div>
+              <div class="unit-title">Personal Narrative</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 3: Novel Study')">
+              <div class="unit-number">3</div>
+              <div class="unit-title">Novel Study</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 4: Short Story')">
+              <div class="unit-number">4</div>
+              <div class="unit-title">Short Story</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 5: Romeo and Juliet')">
+              <div class="unit-number">5</div>
+              <div class="unit-title">Romeo and Juliet</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 5 (Enriched): Macbeth')">
+              <div class="unit-number">5E</div>
+              <div class="unit-title">Macbeth (Enriched)</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 6: Nonfiction')">
+              <div class="unit-number">6</div>
+              <div class="unit-title">Nonfiction</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 6 (Enriched): Frankenstein')">
+              <div class="unit-number">6E</div>
+              <div class="unit-title">Frankenstein (Enriched)</div>
+            </button>
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 7: Resilience')">
+              <div class="unit-number">7</div>
+              <div class="unit-title">Resilience</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Standards Coverage Display -->
+        <div id="standards-coverage-display" class="standards-coverage-section hidden">
+          <h3 id="selected-unit-title">Unit Standards Coverage</h3>
+          
+          <!-- Search and Filter Controls -->
+          <div class="standards-controls">
+            <div class="search-container">
+              <input type="text" id="standards-search" placeholder="Search standards by code or description..." style="
+                width: 100%;
+                max-width: 400px;
+                padding: 10px 15px;
+                border: 2px solid #dee2e6;
+                border-radius: 25px;
+                font-size: 1em;
+                outline: none;
+                transition: border-color 0.3s ease;
+              ">
+              <button id="clear-search" class="clear-search-btn" title="Clear search">✕</button>
+            </div>
+            <div class="filter-controls">
+              <select id="category-filter" style="
+                padding: 8px 12px;
+                border: 2px solid #dee2e6;
+                border-radius: 8px;
+                background-color: #fff;
+                margin-left: 10px;
+              ">
+                <option value="">All Categories</option>
+              </select>
+              <button id="expand-all-btn" class="control-btn">Expand All</button>
+              <button id="collapse-all-btn" class="control-btn">Collapse All</button>
+            </div>
+          </div>
+          
+          <div class="coverage-legend">
+            <div class="legend-item">
+              <span class="status-indicator covered">✅</span>
+              <span class="legend-text">Covered in this unit</span>
+            </div>
+            <div class="legend-item">
+              <span class="status-indicator not-covered">❌</span>
+              <span class="legend-text">Not covered in this unit</span>
+            </div>
+            <div class="legend-item">
+              <span class="assessment-badge formative">📝 Formative</span>
+            </div>
+            <div class="legend-item">
+              <span class="assessment-badge summative">📊 Summative</span>
+            </div>
+            <div class="legend-item">
+              <span class="assessment-badge both">📝📊 Both</span>
+            </div>
+          </div>
+          
+          <div id="standards-grid" class="unit-standards-grid">
+            <!-- Standards will be populated by JavaScript -->
+          </div>
+        </div>
+        
+        <button id="back-to-main-from-standards-btn" class="exemplar-nav-btn" style="margin-top: 20px;">← Back to Main Menu</button>
       </div>
 
       <!-- Loading/Error -->
@@ -899,9 +2407,12 @@
       let allQuestions = [], currentQuestionIndex = 0, score = 0, userAnswers = [], currentUnit = '';
       let userInfo = {};
       let isTeacher = false;
+      let isTeacherViewer = false; // Track if user is a teacher viewer
       let isTeacherViewingAsStudent = false; // Track if teacher is in student view mode
       let availableUnits = []; // This will be populated based on user type and teacher settings
       let teacherUnitSettings = {}; // Store teacher's unit enable/disable settings
+      let teacherMCAUnitSettings = {}; // Store teacher's MCA unit enable/disable settings
+      let currentMCAUnit = '';
       
       // Exemplar variables
       let allExemplars = [], currentExemplarIndex = 0;
@@ -944,6 +2455,9 @@
         }
         
         // Update welcome messages based on user type
+        // TEMPORARY: Always show Standards Alignment button for testing
+        document.getElementById('standards-alignment-btn').classList.remove('hidden');
+        
         if (isTeacher) {
           document.getElementById('main-welcome-message').textContent = `Welcome, ${userInfo.teacherName}!`;
           document.getElementById('welcome-message').textContent = `Welcome, ${userInfo.teacherName}! Choose a Unit`;
@@ -977,6 +2491,14 @@
         document.getElementById('independent-reading-btn').onclick = () => {
           showIndependentReading();
         };
+        
+        document.getElementById('mca-practice-btn').onclick = () => {
+          loadMCAUnitsForSharedView();
+        };
+        
+        document.getElementById('standards-alignment-btn').onclick = () => {
+          showStandardsAlignmentScreen();
+        };
       }
 
       function loadUnitsForSharedView() {
@@ -995,11 +2517,34 @@
         }
       }
 
+      function loadMCAUnitsForSharedView() {
+        const container = document.getElementById('mca-unit-grid');
+        container.innerHTML = '';
+        
+        if (isTeacher) {
+          // For teachers, load MCA unit settings first, then display
+          loadTeacherMCAUnitSettings();
+        } else if (userInfo.isRegistered) {
+          // For students, load MCA progress data
+          google.script.run.withSuccessHandler(displayMCAUnitsWithProgress).withFailureHandler(onLoadError).getMCAStudentProgress();
+        } else {
+          // For unregistered students, show simple unit buttons
+          displayMCAUnitsWithProgress({ success: true, progress: {} });
+        }
+      }
+
       function loadTeacherUnitSettings() {
         google.script.run
           .withSuccessHandler(onTeacherUnitSettingsLoaded)
           .withFailureHandler(onLoadError)
           .getTeacherUnitSettings();
+      }
+
+      function loadTeacherMCAUnitSettings() {
+        google.script.run
+          .withSuccessHandler(onTeacherMCAUnitSettingsLoaded)
+          .withFailureHandler(onLoadError)
+          .getTeacherMCAUnitSettings();
       }
 
       function onTeacherUnitSettingsLoaded(response) {
@@ -1009,8 +2554,21 @@
         }
         
         teacherUnitSettings = response.settings;
+        isTeacherViewer = response.isViewer || false; // Track viewer status
         // Now display units with toggle controls
         displayUnitsWithProgress({ success: true, progress: {} });
+      }
+
+      function onTeacherMCAUnitSettingsLoaded(response) {
+        if (!response.success) {
+          onLoadError({ message: response.error });
+          return;
+        }
+        
+        teacherMCAUnitSettings = response.settings;
+        isTeacherViewer = response.isViewer || false; // Track viewer status for MCA too
+        // Now display MCA units with toggle controls
+        displayMCAUnitsWithProgress({ success: true, progress: {} });
       }
 
       function displayUnitsWithProgress(progressResponse) {
@@ -1037,14 +2595,23 @@
           if (isTeacher) {
             const isEnabled = teacherUnitSettings[unit] !== false; // Default to true if not set
             
-            toggleHTML = `
-              <div class="unit-toggle-wrapper" onclick="event.stopPropagation()">
-                <label class="unit-inline-toggle">
-                  <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="handleInlineUnitToggle('${unit}', this.checked, this)">
-                  <span class="unit-inline-slider"></span>
-                </label>
-              </div>
-            `;
+            if (isTeacherViewer) {
+              // Viewers see a "View Only" badge instead of toggle
+              toggleHTML = `
+                <div class="viewer-badge" title="View Only Access">
+                  <span style="font-size: 0.8em; background: #007bff; color: white; padding: 4px 8px; border-radius: 12px;">👁 Viewer</span>
+                </div>
+              `;
+            } else {
+              toggleHTML = `
+                <div class="unit-toggle-wrapper" onclick="event.stopPropagation()">
+                  <label class="unit-inline-toggle">
+                    <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="handleInlineUnitToggle('${unit}', this.checked, this)">
+                    <span class="unit-inline-slider"></span>
+                  </label>
+                </div>
+              `;
+            }
           }
           
           button.innerHTML = `
@@ -1061,6 +2628,65 @@
         };
         
         showScreen('unit-selection-screen');
+      }
+
+      function displayMCAUnitsWithProgress(progressResponse) {
+        const container = document.getElementById('mca-unit-grid');
+        container.innerHTML = '';
+        
+        const progressData = progressResponse.progress || {};
+        
+        availableUnits.forEach(unit => {
+          const bestScore = progressData[unit] || 0;
+          let progressText = isTeacher ? 'Click to select action' : 'Not attempted';
+          
+          if (!isTeacher && bestScore > 0) {
+            if (bestScore >= 90) progressText = `Mastered (${bestScore}%)`;
+            else if (bestScore >= 70) progressText = `Proficient (${bestScore}%)`;
+            else progressText = `Developing (${bestScore}%)`;
+          }
+          
+          const button = document.createElement('div');
+          button.className = 'unit-button';
+          button.onclick = (e) => handleMCAUnitClick(unit, e);
+          
+          let toggleHTML = '';
+          if (isTeacher) {
+            const isEnabled = teacherMCAUnitSettings[unit] !== false; // Default to true if not set
+            
+            if (isTeacherViewer) {
+              // Viewers see a "View Only" badge instead of toggle for MCA too
+              toggleHTML = `
+                <div class="viewer-badge" title="View Only Access">
+                  <span style="font-size: 0.8em; background: #007bff; color: white; padding: 4px 8px; border-radius: 12px;">👁 Viewer</span>
+                </div>
+              `;
+            } else {
+              toggleHTML = `
+                <div class="unit-toggle-wrapper" onclick="event.stopPropagation()">
+                  <label class="unit-inline-toggle">
+                    <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="handleInlineMCAUnitToggle('${unit}', this.checked, this)">
+                    <span class="unit-inline-slider"></span>
+                  </label>
+                </div>
+              `;
+            }
+          }
+          
+          button.innerHTML = `
+            ${toggleHTML}
+            <div class="unit-title">${unit}</div>
+            <div class="unit-progress">${progressText}</div>
+          `;
+          container.appendChild(button);
+        });
+        
+        // Set up back to main button
+        document.getElementById('back-to-main-from-mca-btn').onclick = () => {
+          showScreen('main-landing-screen');
+        };
+        
+        showScreen('mca-unit-selection-screen');
       }
 
       function handleUnitClick(unitName, event) {
@@ -1107,40 +2733,131 @@
           .updateTeacherUnitSettings(unitName, isEnabled);
       }
 
+      function handleMCAUnitClick(unitName, event) {
+        // Prevent click if it's from the toggle area
+        if (event && event.target.closest('.unit-toggle-wrapper')) {
+          return;
+        }
+        
+        currentMCAUnit = unitName;
+        
+        if (isTeacher) {
+          showMCATeacherModal(unitName);
+        } else {
+          startMCAQuiz(unitName);
+        }
+      }
+
+      // Inline MCA Unit Toggle Handler
+      function handleInlineMCAUnitToggle(unitName, isEnabled, toggleElement) {
+        // Update local settings immediately for UI responsiveness
+        teacherMCAUnitSettings[unitName] = isEnabled;
+        
+        // Save to backend
+        google.script.run
+          .withSuccessHandler(() => {
+            // Success - settings already updated locally
+            console.log(`MCA Unit ${unitName} ${isEnabled ? 'enabled' : 'disabled'}`);
+          })
+          .withFailureHandler((error) => {
+            // Revert on error
+            teacherMCAUnitSettings[unitName] = !isEnabled;
+            toggleElement.checked = !isEnabled;
+            onLoadError({ message: error.message });
+          })
+          .updateTeacherMCAUnitSettings(unitName, isEnabled);
+      }
+
       // Teacher Modal Functions
       function showTeacherModal(unitName) {
-        document.getElementById('modal-unit-title').textContent = unitName;
-        document.getElementById('teacher-modal').classList.add('show');
+        showGPTeacherModal(unitName);
+      }
+
+      let selectedGPUnit = '';
+
+      function showGPTeacherModal(unitName) {
+        selectedGPUnit = unitName;
+        document.getElementById('gp-modal-title').textContent = `🎯 Grammar Practice - ${unitName}`;
+        document.getElementById('gp-teacher-modal').classList.add('show');
         
-        // Set up modal event handlers
-        document.querySelector('.close').onclick = closeTeacherModal;
-        document.getElementById('practice-as-student-btn').onclick = () => {
-          closeTeacherModal();
-          enterStudentView(unitName);
-        };
-        document.getElementById('view-results-btn').onclick = () => {
-          closeTeacherModal();
-          showTeacherResults(unitName);
-        };
-        document.getElementById('teach-with-exemplars-btn').onclick = () => {
-          closeTeacherModal();
-          startExemplars(unitName);
-        };
-        document.getElementById('edit-questions-btn').onclick = () => {
-          closeTeacherModal();
-          alert('Question editing feature coming soon!');
-        };
-        
-        // Close modal when clicking outside
-        window.onclick = (event) => {
-          if (event.target.classList.contains('modal')) {
-            closeTeacherModal();
+        // Add click handler to close modal when clicking outside
+        document.getElementById('gp-teacher-modal').onclick = (e) => {
+          if (e.target === document.getElementById('gp-teacher-modal')) {
+            closeGPTeacherModal();
           }
         };
       }
 
-      function closeTeacherModal() {
-        document.getElementById('teacher-modal').classList.remove('show');
+      function closeGPTeacherModal() {
+        document.getElementById('gp-teacher-modal').classList.remove('show');
+      }
+
+      function gpModalSelectOption(option) {
+        closeGPTeacherModal();
+        
+        switch(option) {
+          case 'student-view':
+            enterStudentView(selectedGPUnit);
+            break;
+          case 'dashboard':
+            showTeacherResults(selectedGPUnit);
+            break;
+          case 'edit-questions':
+            editQuestions(selectedGPUnit);
+            break;
+          case 'teach-exemplars':
+            startExemplars(selectedGPUnit);
+            break;
+        }
+      }
+
+      function editQuestions(unitName) {
+        // This function will be implemented to show question editing interface
+        alert(`Edit Questions functionality for ${unitName} will be implemented here.`);
+        // For now, redirect back to unit selection
+        showScreen('unit-selection-screen');
+      }
+
+      let selectedMCAUnit = '';
+
+      function showMCATeacherModal(unitName) {
+        selectedMCAUnit = unitName;
+        document.getElementById('mca-modal-title').textContent = `📝 MCA Practice - ${unitName}`;
+        document.getElementById('mca-teacher-modal').classList.add('show');
+        
+        // Add click handler to close modal when clicking outside
+        document.getElementById('mca-teacher-modal').onclick = (e) => {
+          if (e.target === document.getElementById('mca-teacher-modal')) {
+            closeMCATeacherModal();
+          }
+        };
+      }
+
+      function closeMCATeacherModal() {
+        document.getElementById('mca-teacher-modal').classList.remove('show');
+      }
+
+      function mcaModalSelectOption(option) {
+        closeMCATeacherModal();
+        
+        switch(option) {
+          case 'student-view':
+            enterMCAStudentView(selectedMCAUnit);
+            break;
+          case 'dashboard':
+            showMCATeacherResults(selectedMCAUnit);
+            break;
+          case 'edit-questions':
+            editMCAQuestions(selectedMCAUnit);
+            break;
+        }
+      }
+
+      function editMCAQuestions(unitName) {
+        // This function will be implemented to show MCA question editing interface
+        alert(`Edit MCA Questions functionality for ${unitName} will be implemented here.`);
+        // For now, redirect back to MCA unit selection
+        showScreen('mca-unit-selection-screen');
       }
 
 
@@ -1156,6 +2873,20 @@
           .withSuccessHandler(onTeacherResultsLoaded)
           .withFailureHandler(onLoadError)
           .getUnitDetailsForTeacher(unitName);
+      }
+
+      function showMCATeacherResults(unitName) {
+        document.getElementById('teacher-results-title').textContent = `MCA Results for: ${unitName}`;
+        document.getElementById('loading-indicator-teacher').classList.remove('hidden');
+        document.getElementById('teacher-results-table').classList.add('hidden');
+        showScreen('teacher-results-screen');
+        
+        document.getElementById('back-to-units-from-results-btn').onclick = () => showScreen('mca-unit-selection-screen');
+        
+        google.script.run
+          .withSuccessHandler(onTeacherResultsLoaded)
+          .withFailureHandler(onLoadError)
+          .getMCAUnitDetailsForTeacher(unitName);
       }
 
       function onTeacherResultsLoaded(response) {
@@ -1500,9 +3231,29 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         google.script.run.withSuccessHandler(onQuestionsLoaded).withFailureHandler(onLoadError).getQuestionsForUnit(unitName);
       }
 
+      function startMCAQuiz(unitName) {
+        currentMCAUnit = unitName;
+        showScreen('loading-indicator');
+        google.script.run.withSuccessHandler(onMCAQuestionsLoaded).withFailureHandler(onLoadError).getMCAQuestionsForUnit(unitName);
+      }
+
       function onQuestionsLoaded(questions) {
         if (questions.error || questions.length === 0) {
           onLoadError({ message: questions.error ? questions.message : `No questions found for "${currentUnit}".` });
+          return;
+        }
+        
+        allQuestions = questions.map(q => ({...q, options: shuffleArray(q.options)}));
+        currentQuestionIndex = 0;
+        score = 0;
+        userAnswers = [];
+        showScreen('quiz-screen');
+        displayQuestion();
+      }
+
+      function onMCAQuestionsLoaded(questions) {
+        if (questions.error || questions.length === 0) {
+          onLoadError({ message: questions.error ? questions.message : `No MCA questions found for "${currentMCAUnit}".` });
           return;
         }
         
@@ -1520,8 +3271,17 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         const isLastQuestion = currentQuestionIndex === allQuestions.length - 1;
         const nextButtonText = isLastQuestion ? "See Results" : "Go to next question";
         
+        // Build the passage section if it exists
+        const passageSection = question.passage && question.passage.trim() ? `
+          <div id="passage-container" style="background-color: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 4px solid #007bff;">
+            <h3 style="color: #007bff; margin-top: 0; font-family: 'Patrick Hand', cursive;">📖 Reading Passage</h3>
+            <div style="font-family: 'Nunito', sans-serif; line-height: 1.6; color: #495057; white-space: pre-wrap;">${question.passage}</div>
+          </div>
+        ` : '';
+        
         document.getElementById('quiz-screen').innerHTML = `
           <div id="progress-container"><p>Question ${currentQuestionIndex + 1} of ${allQuestions.length}</p></div>
+          ${passageSection}
           <h2 id="question-text">${question.question}</h2>
           <div id="answer-options">${question.options.map(opt => `<button class="option-btn">${opt}</button>`).join('')}</div>
           <div id="question-answer-result" style="margin: 20px 0; min-height: 60px;"></div>
@@ -1587,11 +3347,16 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
 
       function showResults() {
-        const resultData = { unit: currentUnit, score: score, total: allQuestions.length };
+        const unitName = currentMCAUnit || currentUnit;
+        const resultData = { unit: unitName, score: score, total: allQuestions.length };
         
         // Save results for registered students
         if (!isTeacher && userInfo.isRegistered) {
-          google.script.run.withFailureHandler(err => console.error('Failed to save result:', err)).saveQuizResult(resultData);
+          if (currentMCAUnit) {
+            google.script.run.withFailureHandler(err => console.error('Failed to save MCA result:', err)).saveMCAQuizResult(resultData);
+          } else {
+            google.script.run.withFailureHandler(err => console.error('Failed to save result:', err)).saveQuizResult(resultData);
+          }
         }
         
         document.getElementById('results-screen').innerHTML = `
@@ -1617,20 +3382,61 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         
         showScreen('results-screen');
         
-        document.getElementById('try-again-btn').onclick = () => startQuiz(currentUnit);
+        document.getElementById('try-again-btn').onclick = () => {
+          if (currentMCAUnit) {
+            startMCAQuiz(currentMCAUnit);
+          } else {
+            startQuiz(currentUnit);
+          }
+        };
         document.getElementById('main-menu-btn').onclick = () => {
           if (isTeacherViewingAsStudent) {
             returnToTeacherView();
           } else {
-            showScreen('unit-selection-screen');
+            if (currentMCAUnit) {
+              showScreen('mca-unit-selection-screen');
+            } else {
+              showScreen('unit-selection-screen');
+            }
           }
         };
       }
 
       // Utility Functions
+      function updateBodyBackground(screenId) {
+        // Remove all existing background classes
+        document.body.classList.remove('body-learning-portfolio', 'body-grammar-practice', 'body-independent-reading', 'body-mca-practice', 'body-default');
+        
+        // Add appropriate background class based on screen
+        if (screenId === 'learning-portfolio-screen' || 
+            screenId === 'portfolio-teacher-choice-screen' || 
+            screenId === 'unit-portfolio-screen' || 
+            screenId === 'portfolio-teacher-dashboard-screen' || 
+            screenId === 'portfolio-edit-targets-screen') {
+          document.body.classList.add('body-learning-portfolio');
+        } else if (screenId === 'unit-selection-screen' || 
+                   screenId === 'student-choice-screen' || 
+                   screenId === 'exemplars-screen' || 
+                   screenId === 'quiz-screen' || 
+                   screenId === 'results-screen' || 
+                   screenId === 'teacher-results-screen') {
+          document.body.classList.add('body-grammar-practice');
+        } else if (screenId === 'independent-reading-screen' || 
+                   screenId === 'ir-semester-selection-screen' || 
+                   screenId === 'teacher-ir-screen') {
+          document.body.classList.add('body-independent-reading');
+        } else if (screenId === 'mca-unit-selection-screen') {
+          document.body.classList.add('body-mca-practice');
+        } else {
+          // Default background for main screen, registration, etc.
+          document.body.classList.add('body-default');
+        }
+      }
+
       function showScreen(screenId) {
         document.querySelectorAll('.container > div:not(.hidden)').forEach(el => el.classList.add('hidden'));
         document.getElementById(screenId).classList.remove('hidden');
+        updateBodyBackground(screenId);
       }
 
       function hideScreen(screenId) {
@@ -1672,15 +3478,84 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         showStudentChoiceScreen(unitName);
       }
 
+      function enterMCAStudentView(unitName) {
+        isTeacherViewingAsStudent = true;
+        currentMCAUnit = unitName;
+        // Start MCA quiz directly (no exemplars for MCA)
+        startMCAQuiz(unitName);
+      }
+
       function returnToTeacherView() {
         isTeacherViewingAsStudent = false;
-        showScreen('unit-selection-screen');
+        if (currentMCAUnit) {
+          currentMCAUnit = '';
+          showScreen('mca-unit-selection-screen');
+        } else {
+          showScreen('unit-selection-screen');
+        }
       }
       
       // Independent Reading Functions
       let currentIRView = 'dashboard'; // dashboard, student, detailed
       
       function showIndependentReading() {
+        // For teachers, show semester selection first
+        if (isTeacher) {
+          showIRSemesterSelection();
+        } else {
+          // For students, go directly to their individual view
+          showStudentIndependentReading();
+        }
+      }
+
+      function showIRSemesterSelection() {
+        showScreen('ir-semester-selection-screen');
+        
+        // Set up navigation button
+        document.getElementById('back-to-main-from-ir-semester-btn').onclick = () => {
+          showScreen('main-landing-screen');
+        };
+      }
+
+      let selectedIRSemester = '';
+
+      function selectIRSemester(semester) {
+        selectedIRSemester = semester;
+        showIRTeacherModal();
+      }
+
+      function showIRTeacherModal() {
+        document.getElementById('ir-teacher-modal').classList.add('show');
+        
+        // Add click handler to close modal when clicking outside
+        document.getElementById('ir-teacher-modal').onclick = (e) => {
+          if (e.target === document.getElementById('ir-teacher-modal')) {
+            closeIRTeacherModal();
+          }
+        };
+      }
+
+      function closeIRTeacherModal() {
+        document.getElementById('ir-teacher-modal').classList.remove('show');
+      }
+
+      function irModalSelectOption(option) {
+        closeIRTeacherModal();
+        
+        switch(option) {
+          case 'student-view':
+            showStudentIndependentReading();
+            break;
+          case 'dashboard':
+            showTeacherIndependentReadingDashboard();
+            break;
+          case 'edit-ir':
+            showEditIndependentReading();
+            break;
+        }
+      }
+
+      function showStudentIndependentReading() {
         showScreen('independent-reading-screen');
         
         // Show loading and hide all containers
@@ -1691,23 +3566,52 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         
         // Set up navigation buttons
         document.getElementById('back-to-main-from-reading-btn').onclick = () => {
-          showScreen('main-landing-screen');
+          if (isTeacher) {
+            showIRSemesterSelection();
+          } else {
+            showScreen('main-landing-screen');
+          }
         };
         
         document.getElementById('back-to-ir-from-teacher-btn').onclick = () => {
-          showIndependentReading();
+          showIRSemesterSelection();
+        };
+        
+        // Load student view data
+        loadStudentIndependentReading();
+      }
+
+      function showTeacherIndependentReadingDashboard() {
+        showScreen('independent-reading-screen');
+        
+        // Show loading and hide all containers
+        document.getElementById('loading-ir').classList.remove('hidden');
+        document.getElementById('ir-semesters-container').classList.add('hidden');
+        document.getElementById('teacher-ir-controls').classList.add('hidden');
+        document.getElementById('ir-dashboard-container').classList.add('hidden');
+        
+        // Set up navigation buttons
+        document.getElementById('back-to-main-from-reading-btn').onclick = () => {
+          showIRSemesterSelection();
+        };
+        
+        document.getElementById('back-to-ir-from-teacher-btn').onclick = () => {
+          showIRSemesterSelection();
         };
         
         // Set up teacher control buttons
         document.getElementById('ir-dashboard-btn').onclick = () => switchIRView('dashboard');
         document.getElementById('ir-student-view-btn').onclick = () => switchIRView('student');
         
-        // Load appropriate data based on user type
-        if (isTeacher) {
-          loadTeacherIndependentReading();
-        } else {
-          loadStudentIndependentReading();
-        }
+        // Load teacher dashboard data
+        loadTeacherIndependentReading();
+      }
+
+      function showEditIndependentReading() {
+        // This function will be implemented to show Independent Reading editing interface
+        alert(`Edit Independent Reading functionality for ${selectedIRSemester} will be implemented here.`);
+        // For now, redirect back to semester selection
+        showIRSemesterSelection();
       }
       
       function loadTeacherIndependentReading() {
@@ -2210,7 +4114,10 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       
       
       function loadPortfolioUnits() {
-        showScreen('loading-indicator');
+        // Show loading state within the portfolio screen instead of switching screens
+        const container = document.getElementById('portfolio-unit-grid');
+        container.innerHTML = '<div class="loading-indicator"><div class="spinner"></div><p>Loading portfolio units...</p></div>';
+        
         google.script.run
           .withSuccessHandler(onPortfolioSummaryLoaded)
           .withFailureHandler(onLoadError)
@@ -2218,8 +4125,6 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
       
       function onPortfolioSummaryLoaded(response) {
-        hideScreen('loading-indicator');
-        
         if (!response.success) {
           onLoadError({ message: response.error });
           return;
@@ -2228,8 +4133,8 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         portfolioUnits = response.enabledUnits;
         displayPortfolioUnits(response.unitSummaries);
         
-        // Show the portfolio unit grid
-        document.getElementById('portfolio-unit-grid').style.display = 'block';
+        // Ensure the portfolio unit grid is visible
+        document.getElementById('portfolio-unit-grid').style.display = 'grid';
       }
       
       function displayPortfolioUnits(unitSummaries) {
@@ -2237,28 +4142,37 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         container.innerHTML = '';
         
         unitSummaries.forEach(unitData => {
-          const button = document.createElement('div');
-          button.className = 'portfolio-unit-button';
-          button.onclick = (e) => handlePortfolioUnitClick(unitData.unit, e);
+          const button = document.createElement('a');
+          button.className = 'unit-button';
+          button.href = '#';
+          button.onclick = (e) => {
+            e.preventDefault();
+            handlePortfolioUnitClick(unitData.unit, e);
+          };
           
           let toggleHTML = '';
           if (isTeacher) {
             const isEnabled = portfolioUnitSettings[unitData.unit] !== false; // Default to true if not set
             
             toggleHTML = `
-              <div class="portfolio-toggle-wrapper" onclick="event.stopPropagation()">
-                <label class="portfolio-inline-toggle">
+              <div class="unit-toggle-wrapper" onclick="event.stopPropagation()">
+                <label class="unit-inline-toggle">
                   <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="handlePortfolioUnitToggle('${unitData.unit}', this.checked, this)">
-                  <span class="portfolio-slider"></span>
+                  <span class="unit-inline-slider"></span>
                 </label>
               </div>
             `;
           }
           
+          let progressText = unitData.status;
+          if (unitData.targetCount) {
+            progressText += ` (${unitData.targetCount} targets)`;
+          }
+          
           button.innerHTML = `
             ${toggleHTML}
-            <div class="portfolio-unit-title">${unitData.unit}</div>
-            <div class="portfolio-unit-status">${unitData.status} (${unitData.targetCount} targets)</div>
+            <div class="unit-title">${unitData.unit}</div>
+            <div class="unit-progress">${progressText}</div>
           `;
           container.appendChild(button);
         });
@@ -2273,14 +4187,19 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       
       function handlePortfolioUnitClick(unitName, event) {
         // Prevent click if it's from the toggle area
-        if (event && event.target.closest('.portfolio-toggle-wrapper')) {
+        if (event && event.target.closest('.unit-toggle-wrapper')) {
           return;
         }
         
         currentPortfolioUnit = unitName;
         
-        // All units now support the learning portfolio system
-        showUnitPortfolio(unitName);
+        if (isTeacher) {
+          // Show teacher modal
+          showPortfolioTeacherModal(unitName);
+        } else {
+          // Students go directly to learning targets
+          showUnitPortfolio(unitName);
+        }
       }
       
       function showUnitPortfolio(unitName) {
@@ -2427,11 +4346,8 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         
         // Set up navigation buttons
         document.getElementById('back-to-portfolio-btn').onclick = () => {
-          if (isTeacher) {
-            showLearningPortfolio();
-          } else {
-            showScreen('main-landing-screen');
-          }
+          // Both teachers and students go back to the portfolio unit selection
+          showScreen('learning-portfolio-screen');
         };
         
         if (isTeacher) {
@@ -2568,6 +4484,343 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           .updateTeacherUnitSettings(unitName, isEnabled);
       }
       
+      // Portfolio Teacher Choice Functions
+      function showPortfolioTeacherChoice(unitName) {
+        document.getElementById('portfolio-choice-unit-title').textContent = unitName;
+        
+        // Set up button handlers
+        document.getElementById('portfolio-view-as-student-btn').onclick = () => {
+          showUnitPortfolio(unitName);
+        };
+        
+        document.getElementById('portfolio-teacher-dashboard-btn').onclick = () => {
+          showPortfolioTeacherDashboard(unitName);
+        };
+        
+        document.getElementById('portfolio-edit-targets-btn').onclick = () => {
+          showPortfolioEditTargets(unitName);
+        };
+        
+        document.getElementById('back-to-portfolio-units-btn').onclick = () => {
+          showScreen('learning-portfolio-screen');
+        };
+        
+        showScreen('portfolio-teacher-choice-screen');
+      }
+      
+      // Portfolio Teacher Modal Functions
+      function showPortfolioTeacherModal(unitName) {
+        document.getElementById('portfolio-modal-unit-title').textContent = unitName;
+        document.getElementById('portfolio-teacher-modal').classList.add('show');
+        
+        // Set up modal event handlers
+        document.querySelector('#portfolio-teacher-modal .close').onclick = closePortfolioTeacherModal;
+        document.getElementById('portfolio-view-student-btn').onclick = () => {
+          closePortfolioTeacherModal();
+          showUnitPortfolio(unitName);
+        };
+        document.getElementById('portfolio-dashboard-btn').onclick = () => {
+          closePortfolioTeacherModal();
+          showPortfolioTeacherDashboard(unitName);
+        };
+        document.getElementById('portfolio-edit-btn').onclick = () => {
+          closePortfolioTeacherModal();
+          showPortfolioEditTargets(unitName);
+        };
+        
+        // Close modal when clicking outside
+        window.onclick = (event) => {
+          if (event.target === document.getElementById('portfolio-teacher-modal')) {
+            closePortfolioTeacherModal();
+          }
+        };
+      }
+
+      function closePortfolioTeacherModal() {
+        document.getElementById('portfolio-teacher-modal').classList.remove('show');
+      }
+      
+      function showPortfolioTeacherDashboard(unitName) {
+        document.getElementById('dashboard-unit-title').textContent = unitName;
+        
+        // Show loading state
+        document.getElementById('loading-dashboard').classList.remove('hidden');
+        document.getElementById('dashboard-results-container').classList.add('hidden');
+        showScreen('portfolio-teacher-dashboard-screen');
+        
+        // Load student proficiency data for this unit
+        google.script.run
+          .withSuccessHandler(onPortfolioDashboardLoaded)
+          .withFailureHandler(onPortfolioDashboardError)
+          .getPortfolioStudentData(unitName);
+      }
+      
+      function onPortfolioDashboardLoaded(response) {
+        document.getElementById('loading-dashboard').classList.add('hidden');
+        
+        if (!response.success) {
+          onLoadError({ message: response.error });
+          return;
+        }
+        
+        displayPortfolioDashboard(response.data);
+        document.getElementById('dashboard-results-container').classList.remove('hidden');
+        
+        // Set up dashboard button handlers
+        document.getElementById('back-to-portfolio-choice-btn').onclick = () => {
+          showScreen('learning-portfolio-screen');
+        };
+        
+        document.getElementById('export-dashboard-btn').onclick = () => {
+          exportDashboardData();
+        };
+      }
+      
+      function onPortfolioDashboardError(error) {
+        document.getElementById('loading-dashboard').classList.add('hidden');
+        onLoadError({ message: error.message || error.toString() });
+      }
+      
+      function displayPortfolioDashboard(data) {
+        const tableBody = document.getElementById('dashboard-table-body');
+        tableBody.innerHTML = '';
+        
+        if (!data || data.length === 0) {
+          tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No student data found for this unit.</td></tr>';
+          return;
+        }
+        
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          
+          const proficiencyText = getProficiencyText(entry.proficiencyLevel);
+          const proficiencyClass = getProficiencyClass(entry.proficiencyLevel);
+          const lastUpdated = entry.lastUpdated ? new Date(entry.lastUpdated).toLocaleDateString() : 'Never';
+          
+          row.innerHTML = `
+            <td>${entry.studentName}</td>
+            <td>${entry.learningTarget}</td>
+            <td>${entry.phase}</td>
+            <td class="${proficiencyClass}">${proficiencyText}</td>
+            <td>${lastUpdated}</td>
+          `;
+          
+          tableBody.appendChild(row);
+        });
+      }
+      
+      function getProficiencyText(level) {
+        switch(parseInt(level)) {
+          case 0: return 'Not Started';
+          case 1: return 'Beginning';
+          case 2: return 'Developing';
+          case 3: return 'Proficient';
+          case 4: return 'Mastery';
+          default: return 'Unknown';
+        }
+      }
+      
+      function getProficiencyClass(level) {
+        switch(parseInt(level)) {
+          case 0: return 'proficiency-beginning';
+          case 1: return 'proficiency-beginning';
+          case 2: return 'proficiency-developing';
+          case 3: return 'proficiency-proficient';
+          case 4: return 'proficiency-mastery';
+          default: return '';
+        }
+      }
+      
+      function showPortfolioEditTargets(unitName) {
+        document.getElementById('edit-targets-unit-title').textContent = unitName;
+        
+        // Show loading state
+        document.getElementById('loading-edit-targets').classList.remove('hidden');
+        document.getElementById('edit-targets-container').classList.add('hidden');
+        showScreen('portfolio-edit-targets-screen');
+        
+        // Load learning targets for editing
+        google.script.run
+          .withSuccessHandler(onEditTargetsLoaded)
+          .withFailureHandler(onEditTargetsError)
+          .getLearningTargetsFromSheet(unitName);
+      }
+      
+      function onEditTargetsLoaded(response) {
+        document.getElementById('loading-edit-targets').classList.add('hidden');
+        
+        if (!response.success) {
+          onLoadError({ message: response.error });
+          return;
+        }
+        
+        displayEditTargets(response.targets);
+        setupEditTargetsHandlers();
+        document.getElementById('edit-targets-container').classList.remove('hidden');
+      }
+      
+      function onEditTargetsError(error) {
+        document.getElementById('loading-edit-targets').classList.add('hidden');
+        onLoadError({ message: error.message || error.toString() });
+      }
+      
+      function displayEditTargets(targets) {
+        const container = document.getElementById('existing-targets-list');
+        container.innerHTML = '';
+        
+        if (targets.length === 0) {
+          container.innerHTML = '<p>No learning targets found for this unit.</p>';
+          return;
+        }
+        
+        targets.forEach((target, index) => {
+          const targetDiv = document.createElement('div');
+          targetDiv.className = 'target-edit-item';
+          targetDiv.innerHTML = `
+            <input type="text" class="target-edit-text" value="${target.target}" data-index="${index}">
+            <div class="target-phases">
+              <label><input type="checkbox" ${target.beginning ? 'checked' : ''} data-index="${index}" data-phase="beginning"> Beginning</label>
+              <label><input type="checkbox" ${target.middle ? 'checked' : ''} data-index="${index}" data-phase="middle"> Middle</label>
+              <label><input type="checkbox" ${target.end ? 'checked' : ''} data-index="${index}" data-phase="end"> End</label>
+              <label><input type="checkbox" ${target.single ? 'checked' : ''} data-index="${index}" data-phase="single"> Single Phase</label>
+            </div>
+            <div class="target-actions">
+              <button class="exemplar-nav-btn" onclick="deleteTarget(${index})">🗑️ Delete</button>
+            </div>
+          `;
+          container.appendChild(targetDiv);
+        });
+      }
+      
+      function setupEditTargetsHandlers() {
+        // Set up navigation buttons
+        document.getElementById('back-to-portfolio-choice-from-edit-btn').onclick = () => {
+          showScreen('learning-portfolio-screen');
+        };
+        
+        document.getElementById('back-to-portfolio-choice-btn').onclick = () => {
+          showScreen('learning-portfolio-screen');
+        };
+        
+        // Set up add new target button
+        document.getElementById('add-new-target-btn').onclick = () => {
+          addNewTarget();
+        };
+        
+        // Set up save changes button
+        document.getElementById('save-targets-changes-btn').onclick = () => {
+          saveTargetChanges();
+        };
+        
+        // Set up export button
+        document.getElementById('export-dashboard-btn').onclick = () => {
+          exportDashboardData();
+        };
+      }
+      
+      function addNewTarget() {
+        const targetText = document.getElementById('new-target-text').value.trim();
+        if (!targetText) {
+          alert('Please enter a learning target description.');
+          return;
+        }
+        
+        const phases = {
+          beginning: document.getElementById('new-target-beginning').checked,
+          middle: document.getElementById('new-target-middle').checked,
+          end: document.getElementById('new-target-end').checked,
+          single: document.getElementById('new-target-single').checked
+        };
+        
+        // At least one phase must be selected
+        if (!phases.beginning && !phases.middle && !phases.end && !phases.single) {
+          alert('Please select at least one phase for the learning target.');
+          return;
+        }
+        
+        // Add to backend
+        google.script.run
+          .withSuccessHandler(() => {
+            // Clear form and reload targets
+            document.getElementById('new-target-text').value = '';
+            document.getElementById('new-target-beginning').checked = true;
+            document.getElementById('new-target-middle').checked = true;
+            document.getElementById('new-target-end').checked = true;
+            document.getElementById('new-target-single').checked = false;
+            
+            // Reload the edit targets view
+            showPortfolioEditTargets(currentPortfolioUnit);
+          })
+          .withFailureHandler(onLoadError)
+          .addLearningTarget(currentPortfolioUnit, targetText, phases);
+      }
+      
+      function deleteTarget(index) {
+        if (confirm('Are you sure you want to delete this learning target?')) {
+          const targetText = document.querySelector(`[data-index="${index}"]`).value;
+          
+          google.script.run
+            .withSuccessHandler(() => {
+              // Reload the edit targets view
+              showPortfolioEditTargets(currentPortfolioUnit);
+            })
+            .withFailureHandler(onLoadError)
+            .deleteLearningTarget(currentPortfolioUnit, targetText);
+        }
+      }
+      
+      function saveTargetChanges() {
+        const changes = [];
+        const targetInputs = document.querySelectorAll('.target-edit-text');
+        
+        targetInputs.forEach((input, index) => {
+          const phases = {
+            beginning: document.querySelector(`[data-index="${index}"][data-phase="beginning"]`).checked,
+            middle: document.querySelector(`[data-index="${index}"][data-phase="middle"]`).checked,
+            end: document.querySelector(`[data-index="${index}"][data-phase="end"]`).checked,
+            single: document.querySelector(`[data-index="${index}"][data-phase="single"]`).checked
+          };
+          
+          changes.push({
+            index: index,
+            target: input.value.trim(),
+            phases: phases
+          });
+        });
+        
+        google.script.run
+          .withSuccessHandler(() => {
+            alert('Changes saved successfully!');
+            // Reload the edit targets view
+            showPortfolioEditTargets(currentPortfolioUnit);
+          })
+          .withFailureHandler(onLoadError)
+          .updateLearningTargets(currentPortfolioUnit, changes);
+      }
+      
+      function exportDashboardData() {
+        google.script.run
+          .withSuccessHandler((response) => {
+            if (response.success) {
+              // Create and download CSV
+              const csvContent = response.csvData;
+              const blob = new Blob([csvContent], { type: 'text/csv' });
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `portfolio_dashboard_${currentPortfolioUnit}_${new Date().toISOString().split('T')[0]}.csv`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+            } else {
+              onLoadError({ message: response.error });
+            }
+          })
+          .withFailureHandler(onLoadError)
+          .exportPortfolioDashboard(currentPortfolioUnit);
+      }
+      
       // Three-Phase Functions
       function updateProficiencyLevel(learningTarget, phase, level) {
         // Update local data
@@ -2659,6 +4912,824 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           selectElement.style.backgroundColor = '#f8f9fa';
         }, 1000);
       }
+
+      // --- STATE STANDARDS ALIGNMENT FUNCTIONALITY ---
+      
+      // Global variables for standards data
+      let standardsData = {
+        unitData: null,
+        allStandards: []
+      };
+      let selectedUnit = null;
+
+      function showStandardsAlignmentScreen() {
+        // TEMPORARY: Bypass teacher check for testing
+        // if (!isTeacher) {
+        //   alert('State Standards Alignment is only available to teachers.');
+        //   return;
+        // }
+        
+        // Change body class for background color
+        document.body.className = 'body-standards';
+        
+        // Load standards data and show screen
+        loadStandardsData();
+        showScreen('standards-alignment-screen');
+        
+        // Set up search and filter controls
+        setupStandardsControls();
+      }
+      
+      // Load standards data from backend
+      function loadStandardsData() {
+        showScreen('standards-loading');
+        
+        google.script.run
+          .withSuccessHandler((response) => {
+            hideScreen('standards-loading');
+            
+            if (response.success) {
+              standardsData.unitData = response.unitData;
+              standardsData.allStandards = response.masterStandards || [];
+              
+              // Update welcome message with teacher name
+              if (response.teacherName) {
+                document.getElementById('standards-welcome-message').textContent = 
+                  `${response.teacherName}'s English 9 Curriculum Standards Coverage`;
+              }
+              
+              // Hide loading indicator
+              document.getElementById('standards-loading').classList.add('hidden');
+            } else {
+              console.error('Failed to load standards data:', response.error);
+              alert('Failed to load standards data: ' + response.error);
+              showScreen('main-landing-screen');
+            }
+          })
+          .withFailureHandler((error) => {
+            hideScreen('standards-loading');
+            console.error('Error loading standards data:', error);
+            alert('Error loading standards data. Please try again.');
+            showScreen('main-landing-screen');
+          })
+          .getAllStandardsData();
+      }
+
+
+      // Select a unit and display its standards
+      function selectUnit(unitName) {
+        selectedUnit = unitName;
+        
+        // Update active button
+        document.querySelectorAll('.unit-selector-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        event.target.closest('.unit-selector-btn').classList.add('active');
+        
+        // Show standards coverage section
+        document.getElementById('standards-coverage-display').classList.remove('hidden');
+        document.getElementById('selected-unit-title').textContent = `${unitName} - Standards Coverage`;
+        
+        // Populate standards grid
+        populateStandardsGrid(unitName);
+      }
+
+      // Populate the standards grid for the selected unit
+      function populateStandardsGrid(unitName) {
+        const container = document.getElementById('standards-grid');
+        container.innerHTML = '';
+        
+        // Get assessment groups data for this unit
+        const assessmentGroups = standardsData.unitData[unitName]?.assessmentGroups || {};
+        
+        // Check if there are any standards
+        const totalStandards = (assessmentGroups.both?.length || 0) + 
+                              (assessmentGroups.formativeOnly?.length || 0) + 
+                              (assessmentGroups.summativeOnly?.length || 0);
+        
+        if (totalStandards === 0) {
+          container.innerHTML = '<div class="no-standards-message">No standards data found for this unit.</div>';
+          return;
+        }
+        
+        // Create sections for each assessment type (prioritized order)
+        if (assessmentGroups.both?.length > 0) {
+          createAssessmentTypeSection(container, 'Both Formative & Summative', assessmentGroups.both, 'both');
+        }
+        
+        if (assessmentGroups.summativeOnly?.length > 0) {
+          createAssessmentTypeSection(container, 'Summative Assessment Only', assessmentGroups.summativeOnly, 'summative');
+        }
+        
+        if (assessmentGroups.formativeOnly?.length > 0) {
+          createAssessmentTypeSection(container, 'Formative Assessment Only', assessmentGroups.formativeOnly, 'formative');
+        }
+      }
+      
+      // Create an assessment type section with standards
+      function createAssessmentTypeSection(container, title, standards, assessmentType) {
+        // Create assessment type container
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = `assessment-type-section ${assessmentType}-section`;
+        
+        // Create section header
+        const sectionHeader = document.createElement('div');
+        sectionHeader.className = 'assessment-type-header';
+        const totalStandards = standards.length;
+        
+        // Choose icon based on assessment type
+        let icon = '📝';
+        if (assessmentType === 'both') icon = '🎯';
+        else if (assessmentType === 'summative') icon = '📊';
+        else if (assessmentType === 'formative') icon = '📋';
+        
+        sectionHeader.innerHTML = `
+          <div class="assessment-type-title">
+            <span class="assessment-icon">${icon}</span>
+            <span class="assessment-name">${title}</span>
+            <span class="assessment-count">(${totalStandards} standard${totalStandards !== 1 ? 's' : ''})</span>
+          </div>
+        `;
+        sectionDiv.appendChild(sectionHeader);
+        
+        // Create standards grid
+        const standardsGrid = document.createElement('div');
+        standardsGrid.className = 'standards-grid';
+        
+        standards.forEach(standard => {
+          createStandardCard(standardsGrid, standard);
+        });
+        
+        sectionDiv.appendChild(standardsGrid);
+        container.appendChild(sectionDiv);
+      }
+      
+      // Create a standard card
+      function createStandardCard(container, standard) {
+        const standardItem = document.createElement('div');
+        standardItem.className = 'standard-item';
+        
+        // Create assessment badge
+        let assessmentBadge = '';
+        if (standard.formative && standard.summative) {
+          assessmentBadge = '<span class="assessment-badge both-badge">Both</span>';
+        } else if (standard.formative) {
+          assessmentBadge = '<span class="assessment-badge formative-badge">Formative</span>';
+        } else if (standard.summative) {
+          assessmentBadge = '<span class="assessment-badge summative-badge">Summative</span>';
+        }
+        
+        standardItem.innerHTML = `
+          <div class="standard-header">
+            <div class="standard-code">${standard.code}</div>
+            <div class="standard-status">✅</div>
+          </div>
+          <div class="standard-description">${standard.description}</div>
+          <div class="standard-meta">
+            ${assessmentBadge}
+            <span class="anchor-strand-tag">${standard.anchorStrand}</span>
+          </div>
+        `;
+        
+        container.appendChild(standardItem);
+      }
+      
+      
+      // Create a standards section with header and cards
+      function createStandardsSection(container, title, standards, sectionType, isCovered) {
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = `standards-section-group ${isCovered ? 'covered-section' : 'not-covered-section'}`;
+        
+        // Create section header
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'section-header';
+        headerDiv.innerHTML = `
+          <div class="section-title">
+            <span class="section-icon">${getSectionIcon(sectionType)}</span>
+            <span class="section-name">${title}</span>
+            <span class="section-count">(${standards.length})</span>
+          </div>
+        `;
+        
+        sectionDiv.appendChild(headerDiv);
+        
+        // Create standards grid for this section
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'section-standards-grid';
+        
+        standards.forEach(item => {
+          const standard = item.standard;
+          const unitStandard = item.unitStandard;
+          
+          const standardItem = document.createElement('div');
+          standardItem.className = `standard-item covered`;
+          
+          let assessmentBadges = getAssessmentBadges(unitStandard, sectionType);
+          
+          standardItem.innerHTML = `
+            <div class="standard-header">
+              <div class="standard-code">${standard.code}</div>
+              <div class="standard-status">✅</div>
+            </div>
+            <div class="standard-description">${standard.description}</div>
+            <div class="assessment-info">
+              ${assessmentBadges}
+            </div>
+          `;
+          
+          gridDiv.appendChild(standardItem);
+        });
+        
+        sectionDiv.appendChild(gridDiv);
+        container.appendChild(sectionDiv);
+      }
+      
+      // Create the not covered standards section
+      function createNotCoveredSection(container, standards) {
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'standards-section-group not-covered-section';
+        
+        // Create collapsible header
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'section-header collapsible-header';
+        headerDiv.innerHTML = `
+          <div class="section-title" onclick="toggleNotCoveredSection()">
+            <span class="section-icon">❌</span>
+            <span class="section-name">Standards Not Covered in This Unit</span>
+            <span class="section-count">(${standards.length})</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+        `;
+        
+        sectionDiv.appendChild(headerDiv);
+        
+        // Create standards grid for not covered standards (initially hidden)
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'section-standards-grid collapsed';
+        gridDiv.id = 'not-covered-grid';
+        
+        standards.forEach(standard => {
+          const standardItem = document.createElement('div');
+          standardItem.className = 'standard-item not-covered';
+          
+          standardItem.innerHTML = `
+            <div class="standard-header">
+              <div class="standard-code">${standard.code}</div>
+              <div class="standard-status">❌</div>
+            </div>
+            <div class="standard-description">${standard.description}</div>
+            <div class="assessment-info">
+              <span class="not-covered-text">Not addressed in this unit</span>
+            </div>
+          `;
+          
+          gridDiv.appendChild(standardItem);
+        });
+        
+        sectionDiv.appendChild(gridDiv);
+        container.appendChild(sectionDiv);
+      }
+      
+      // Get assessment badges based on section type
+      function getAssessmentBadges(unitStandard, sectionType) {
+        if (!unitStandard) return '';
+        
+        const hasFormative = unitStandard.formativeAssessment?.toLowerCase() === 'x';
+        const hasSummative = unitStandard.summativeAssessment?.toLowerCase() === 'x';
+        
+        switch (sectionType) {
+          case 'both':
+            return '<span class="assessment-badge both">📝📊 Both</span>';
+          case 'summative':
+            return '<span class="assessment-badge summative">📊 Summative</span>';
+          case 'formative':
+            return '<span class="assessment-badge formative">📝 Formative</span>';
+          case 'unspecified':
+            return '<span class="assessment-badge unspecified">📋 Covered</span>';
+          default:
+            return '';
+        }
+      }
+      
+      // Get section icon based on type
+      function getSectionIcon(sectionType) {
+        switch (sectionType) {
+          case 'both': return '📝📊';
+          case 'summative': return '📊';
+          case 'formative': return '📝';
+          case 'unspecified': return '📋';
+          default: return '✅';
+        }
+      }
+      
+      // Toggle the not covered standards section
+      function toggleNotCoveredSection() {
+        const grid = document.getElementById('not-covered-grid');
+        const toggleIcon = document.querySelector('.toggle-icon');
+        
+        if (grid.classList.contains('collapsed')) {
+          grid.classList.remove('collapsed');
+          toggleIcon.textContent = '▲';
+        } else {
+          grid.classList.add('collapsed');
+          toggleIcon.textContent = '▼';
+        }
+      }
+      
+      // Show different views within standards screen
+      function showStandardsView(viewType) {
+        // Update navigation buttons
+        document.querySelectorAll('.standards-nav-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.getElementById(`standards-${viewType}-btn`).classList.add('active');
+        
+        // Hide all sections
+        document.querySelectorAll('.standards-section').forEach(section => {
+          section.classList.add('hidden');
+        });
+        
+        // Show requested section and populate data
+        switch(viewType) {
+          case 'overview':
+            showOverviewDashboard();
+            break;
+          case 'by-unit':
+            showStandardsByUnit();
+            break;
+          case 'coverage':
+            showCoverageAnalysis();
+            break;
+          case 'reference':
+            showStandardsReference();
+            break;
+        }
+      }
+      
+      // Show overview dashboard
+      function showOverviewDashboard() {
+        document.getElementById('standards-overview-section').classList.remove('hidden');
+        
+        if (!standardsData.overview || !standardsData.analysis) {
+          return;
+        }
+        
+        const overview = standardsData.overview;
+        const analysis = standardsData.analysis;
+        
+        // Update main statistics
+        document.getElementById('total-standards-count').textContent = overview.totalStandards || 0;
+        document.getElementById('total-units-count').textContent = overview.totalUnits || 0;
+        document.getElementById('unique-standards-count').textContent = analysis.totalUniqueStandards || 0;
+        document.getElementById('duplicate-standards-count').textContent = analysis.duplicateCount || 0;
+        
+        // Populate unit summary cards
+        const unitSummaryGrid = document.getElementById('unit-summary-grid');
+        unitSummaryGrid.innerHTML = '';
+        
+        if (overview.unitSummaries) {
+          overview.unitSummaries.forEach(unit => {
+            const unitCard = document.createElement('div');
+            unitCard.className = 'unit-summary-card';
+            
+            const statusText = unit.sheetExists ? 
+              (unit.standardsCount > 0 ? `${unit.standardsCount} standards` : 'No standards data') :
+              'Sheet not found';
+            
+            unitCard.innerHTML = `
+              <div class="unit-summary-title">${unit.unitName}</div>
+              <div class="unit-summary-count">${unit.standardsCount}</div>
+              <div class="unit-summary-status">${statusText}</div>
+            `;
+            
+            unitSummaryGrid.appendChild(unitCard);
+          });
+        }
+        
+        // Populate categories breakdown
+        const categoriesGrid = document.getElementById('categories-grid');
+        categoriesGrid.innerHTML = '';
+        
+        if (overview.standardsCategories) {
+          Object.entries(overview.standardsCategories).forEach(([category, count]) => {
+            if (count > 0) {
+              const categoryCard = document.createElement('div');
+              categoryCard.className = 'category-stat-card';
+              
+              categoryCard.innerHTML = `
+                <div class="category-name">${category}</div>
+                <div class="category-count">${count}</div>
+              `;
+              
+              categoriesGrid.appendChild(categoryCard);
+            }
+          });
+        }
+      }
+      
+      // Show standards organized by unit
+      function showStandardsByUnit() {
+        document.getElementById('standards-by-unit-section').classList.remove('hidden');
+        
+        if (!standardsData.unitData) {
+          return;
+        }
+        
+        // Populate unit filter dropdown
+        const unitFilter = document.getElementById('unit-filter');
+        unitFilter.innerHTML = '<option value="">All Units</option>';
+        
+        Object.keys(standardsData.unitData).forEach(unitName => {
+          const option = document.createElement('option');
+          option.value = unitName;
+          option.textContent = unitName;
+          unitFilter.appendChild(option);
+        });
+        
+        // Populate unit standards grid
+        populateUnitStandardsGrid();
+        
+        // Set up search and filter functionality
+        document.getElementById('standards-search').oninput = populateUnitStandardsGrid;
+        document.getElementById('unit-filter').onchange = populateUnitStandardsGrid;
+      }
+      
+      function populateUnitStandardsGrid() {
+        const container = document.getElementById('unit-standards-grid');
+        container.innerHTML = '';
+        
+        const searchTerm = document.getElementById('standards-search').value.toLowerCase();
+        const selectedUnit = document.getElementById('unit-filter').value;
+        
+        Object.entries(standardsData.unitData).forEach(([unitName, unitData]) => {
+          // Apply unit filter
+          if (selectedUnit && unitName !== selectedUnit) {
+            return;
+          }
+          
+          // Filter standards by search term
+          let filteredStandards = unitData.standards;
+          if (searchTerm) {
+            filteredStandards = unitData.standards.filter(standard => 
+              JSON.stringify(standard).toLowerCase().includes(searchTerm)
+            );
+          }
+          
+          if (filteredStandards.length === 0 && searchTerm) {
+            return;
+          }
+          
+          const unitCard = document.createElement('div');
+          unitCard.className = 'unit-standards-card';
+          
+          let standardsHtml = '';
+          if (filteredStandards.length > 0) {
+            standardsHtml = filteredStandards.map(standard => {
+              const code = standard.standard_code || standard.code || standard.standard || 'No Code';
+              const description = standard.description || standard.standard_description || 'No Description';
+              
+              return `
+                <div class="standard-item">
+                  <div class="standard-code">${code}</div>
+                  <div class="standard-description">${description}</div>
+                </div>
+              `;
+            }).join('');
+          } else {
+            standardsHtml = '<div class="standard-item"><div class="standard-description">No standards data available</div></div>';
+          }
+          
+          unitCard.innerHTML = `
+            <div class="unit-standards-title">${unitName}</div>
+            <div class="standards-list">
+              ${standardsHtml}
+            </div>
+            <div style="text-align: center; margin-top: 15px; color: #6c757d; font-size: 0.9em;">
+              ${filteredStandards.length} standard${filteredStandards.length !== 1 ? 's' : ''}
+            </div>
+          `;
+          
+          // Add click handler for card selection
+          unitCard.addEventListener('click', function() {
+            // Remove selected class from all cards
+            document.querySelectorAll('.unit-standards-card').forEach(card => {
+              card.classList.remove('selected');
+            });
+            // Add selected class to clicked card
+            this.classList.add('selected');
+          });
+          
+          container.appendChild(unitCard);
+        });
+        
+        if (container.children.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6c757d;">
+              <h3>No Standards Found</h3>
+              <p>No standards match your current search criteria.</p>
+            </div>
+          `;
+        }
+      }
+      
+      // Show coverage analysis
+      function showCoverageAnalysis() {
+        document.getElementById('standards-coverage-section').classList.remove('hidden');
+        
+        if (!standardsData.analysis) {
+          return;
+        }
+        
+        const analysis = standardsData.analysis;
+        
+        // Update coverage summary
+        document.getElementById('coverage-unique-count').textContent = analysis.totalUniqueStandards || 0;
+        document.getElementById('coverage-duplicate-count').textContent = analysis.duplicateCount || 0;
+        
+        // Populate unit coverage grid
+        const unitCoverageGrid = document.getElementById('unit-coverage-grid');
+        unitCoverageGrid.innerHTML = '';
+        
+        if (analysis.coverageByUnit) {
+          Object.entries(analysis.coverageByUnit).forEach(([unitName, coverage]) => {
+            const coverageCard = document.createElement('div');
+            coverageCard.className = 'unit-coverage-card';
+            
+            const statusText = coverage.sheetExists ? 
+              `${coverage.totalStandards} total, ${coverage.uniqueStandards} unique` :
+              'Sheet not found';
+            
+            coverageCard.innerHTML = `
+              <div class="unit-coverage-title">${unitName}</div>
+              <div class="coverage-details">
+                <strong>Standards:</strong> ${statusText}<br>
+                <strong>Status:</strong> ${coverage.sheetExists ? '✅ Available' : '❌ Missing'}
+              </div>
+            `;
+            
+            unitCoverageGrid.appendChild(coverageCard);
+          });
+        }
+        
+        // Populate duplicate standards list
+        const duplicatesList = document.getElementById('duplicate-standards-list');
+        duplicatesList.innerHTML = '';
+        
+        if (analysis.duplicateStandards && Object.keys(analysis.duplicateStandards).length > 0) {
+          Object.entries(analysis.duplicateStandards).forEach(([standardCode, units]) => {
+            const duplicateItem = document.createElement('div');
+            duplicateItem.className = 'duplicate-standard-item';
+            
+            duplicateItem.innerHTML = `
+              <div class="duplicate-standard-code">${standardCode}</div>
+              <div class="duplicate-units-list">
+                <strong>Covered in:</strong> ${units.join(', ')}
+              </div>
+            `;
+            
+            duplicatesList.appendChild(duplicateItem);
+          });
+        } else {
+          duplicatesList.innerHTML = `
+            <div style="text-align: center; padding: 20px; color: #6c757d;">
+              <p>No duplicate standards found. Each standard is covered in only one unit.</p>
+            </div>
+          `;
+        }
+      }
+      
+      // Show standards reference
+      function showStandardsReference() {
+        document.getElementById('standards-reference-section').classList.remove('hidden');
+        
+        if (!standardsData.unitData || !standardsData.analysis) {
+          return;
+        }
+        
+        // Set up search and category filter
+        document.getElementById('reference-search').oninput = populateStandardsReference;
+        document.getElementById('category-filter').onchange = populateStandardsReference;
+        
+        populateStandardsReference();
+      }
+      
+      function populateStandardsReference() {
+        const container = document.getElementById('standards-reference-list');
+        container.innerHTML = '';
+        
+        const searchTerm = document.getElementById('reference-search').value.toLowerCase();
+        const selectedCategory = document.getElementById('category-filter').value;
+        
+        // Collect all standards with their unit mappings
+        const allStandards = [];
+        
+        Object.entries(standardsData.unitData).forEach(([unitName, unitData]) => {
+          unitData.standards.forEach(standard => {
+            const code = standard.standard_code || standard.code || standard.standard || 'No Code';
+            const description = standard.description || standard.standard_description || 'No Description';
+            const category = standard.category || standard.domain || 'Other';
+            
+            // Find existing standard or create new entry
+            let existingStandard = allStandards.find(s => s.code === code);
+            if (!existingStandard) {
+              existingStandard = {
+                code: code,
+                description: description,
+                category: category,
+                units: []
+              };
+              allStandards.push(existingStandard);
+            }
+            
+            if (!existingStandard.units.includes(unitName)) {
+              existingStandard.units.push(unitName);
+            }
+          });
+        });
+        
+        // Filter standards
+        let filteredStandards = allStandards;
+        
+        if (searchTerm) {
+          filteredStandards = allStandards.filter(standard => 
+            standard.code.toLowerCase().includes(searchTerm) ||
+            standard.description.toLowerCase().includes(searchTerm)
+          );
+        }
+        
+        if (selectedCategory) {
+          filteredStandards = filteredStandards.filter(standard => 
+            standard.category === selectedCategory
+          );
+        }
+        
+        // Sort alphabetically by code
+        filteredStandards.sort((a, b) => a.code.localeCompare(b.code));
+        
+        // Populate reference list
+        filteredStandards.forEach(standard => {
+          const referenceItem = document.createElement('div');
+          referenceItem.className = 'reference-standard-item';
+          
+          referenceItem.innerHTML = `
+            <div class="reference-standard-header">
+              <div class="reference-standard-code">${standard.code}</div>
+              <div class="reference-standard-category">${standard.category}</div>
+            </div>
+            <div class="reference-standard-description">${standard.description}</div>
+            <div class="reference-units-covered">
+              <strong>Covered in:</strong> ${standard.units.length > 0 ? standard.units.join(', ') : 'Not covered'}
+            </div>
+          `;
+          
+          container.appendChild(referenceItem);
+        });
+        
+        if (filteredStandards.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #6c757d;">
+              <h3>No Standards Found</h3>
+              <p>No standards match your current search criteria.</p>
+            </div>
+          `;
+        }
+      }
+      
+      // Set up back button for standards screen
+      function setupStandardsBackButton() {
+        const backButton = document.getElementById('back-to-main-from-standards-btn');
+        if (backButton) {
+          backButton.onclick = () => {
+            document.body.className = 'body-default';
+            showScreen('main-landing-screen');
+          };
+        }
+      }
+      
+      // Set up search and filter functionality for standards
+      function setupStandardsControls() {
+        const searchInput = document.getElementById('standards-search');
+        const clearSearchBtn = document.getElementById('clear-search');
+        const categoryFilter = document.getElementById('category-filter');
+        const expandAllBtn = document.getElementById('expand-all-btn');
+        const collapseAllBtn = document.getElementById('collapse-all-btn');
+        
+        if (searchInput) {
+          searchInput.addEventListener('input', filterStandardsCards);
+          searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              filterStandardsCards();
+            }
+          });
+        }
+        
+        if (clearSearchBtn) {
+          clearSearchBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            filterStandardsCards();
+            searchInput.focus();
+          });
+        }
+        
+        if (categoryFilter) {
+          categoryFilter.addEventListener('change', filterStandardsCards);
+        }
+        
+        if (expandAllBtn) {
+          expandAllBtn.addEventListener('click', function() {
+            document.querySelectorAll('.unit-standards-card .standards-list').forEach(list => {
+              list.style.maxHeight = 'none';
+              list.style.overflow = 'visible';
+            });
+          });
+        }
+        
+        if (collapseAllBtn) {
+          collapseAllBtn.addEventListener('click', function() {
+            document.querySelectorAll('.unit-standards-card .standards-list').forEach(list => {
+              list.style.maxHeight = '300px';
+              list.style.overflow = 'auto';
+            });
+          });
+        }
+      }
+      
+      // Filter standards cards based on search and category
+      function filterStandardsCards() {
+        const searchTerm = document.getElementById('standards-search').value.toLowerCase();
+        const selectedCategory = document.getElementById('category-filter').value.toLowerCase();
+        const cards = document.querySelectorAll('.unit-standards-card');
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+          const title = card.querySelector('.unit-standards-title').textContent.toLowerCase();
+          const standardItems = card.querySelectorAll('.standard-item');
+          let hasVisibleStandards = false;
+          
+          // Filter individual standards within each card
+          standardItems.forEach(item => {
+            const code = item.querySelector('.standard-code').textContent.toLowerCase();
+            const description = item.querySelector('.standard-description').textContent.toLowerCase();
+            
+            const matchesSearch = searchTerm === '' || 
+              title.includes(searchTerm) || 
+              code.includes(searchTerm) || 
+              description.includes(searchTerm);
+            
+            const matchesCategory = selectedCategory === '' || 
+              code.includes(selectedCategory) || 
+              description.includes(selectedCategory);
+            
+            if (matchesSearch && matchesCategory) {
+              item.style.display = 'block';
+              hasVisibleStandards = true;
+            } else {
+              item.style.display = 'none';
+            }
+          });
+          
+          // Show/hide the entire card based on whether it has visible standards
+          if (hasVisibleStandards) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Update no results message
+        const container = document.getElementById('standards-grid');
+        const existingMessage = container.querySelector('.no-results-message');
+        
+        if (visibleCount === 0 && (searchTerm || selectedCategory)) {
+          if (!existingMessage) {
+            const noResultsDiv = document.createElement('div');
+            noResultsDiv.className = 'no-results-message';
+            noResultsDiv.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px; color: #6c757d;';
+            noResultsDiv.innerHTML = `
+              <h3>No Standards Found</h3>
+              <p>No standards match your current search criteria.</p>
+              <button onclick="clearStandardsSearch()" class="control-btn">Clear Filters</button>
+            `;
+            container.appendChild(noResultsDiv);
+          }
+        } else if (existingMessage) {
+          existingMessage.remove();
+        }
+      }
+      
+      // Clear all search filters
+      function clearStandardsSearch() {
+        document.getElementById('standards-search').value = '';
+        document.getElementById('category-filter').value = '';
+        filterStandardsCards();
+      }
+      
+      // Initialize standards back button when document is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        setupStandardsBackButton();
+      });
     </script>
   </body>
 </html>
