@@ -653,7 +653,64 @@
       /* State Standards Alignment Styles */
       #standards-alignment-screen {
         text-align: center;
+        padding: 0 20px;
+        max-width: 1600px;
+        margin: 0 auto;
       }
+
+      /* Modern Header Design */
+      .standards-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      }
+
+      .standards-header h1 {
+        margin: 0 0 20px 0;
+        font-size: 2.5em;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+
+      .standards-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .summary-stat {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        transition: transform 0.2s ease;
+      }
+
+      .summary-stat:hover {
+        transform: translateY(-3px);
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        display: block;
+        font-size: 0.9em;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .summary-stat.covered .stat-number { color: #4caf50; }
+      .summary-stat.partial .stat-number { color: #ff9800; }
+      .summary-stat.not-covered .stat-number { color: #f44336; }
       
       .standards-nav {
         display: flex;
@@ -863,9 +920,357 @@
         align-items: center;
         margin-bottom: 25px;
         padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
         border: 1px solid #dee2e6;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+
+      /* Table Filter Controls */
+      .table-filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0 30px 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 160px;
+      }
+
+      .filter-group label {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .filter-select {
+        padding: 10px 15px;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        background: white;
+        color: #2c3e50;
+        font-size: 0.95em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      .filter-select:hover {
+        border-color: #667eea;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+      }
+
+      .filter-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .results-counter {
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9em;
+        white-space: nowrap;
+      }
+
+      /* Enhanced Table Styles */
+      .standards-table-view {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        margin-top: 20px;
+      }
+
+      .standards-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+
+      .standards-table th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 18px 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        white-space: nowrap;
+      }
+
+      .standards-table th.sortable {
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.2s ease;
+      }
+
+      .standards-table th.sortable:hover {
+        background: linear-gradient(135deg, #7b8df0 0%, #8657b8 100%);
+      }
+
+      .sort-indicator {
+        margin-left: 5px;
+        font-size: 0.8em;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+      }
+
+      .standards-table th.sorted-asc .sort-indicator::after {
+        content: " ↑";
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .standards-table th.sorted-desc .sort-indicator::after {
+        content: " ↓";
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .standards-table td {
+        padding: 15px;
+        border-bottom: 1px solid #f8f9fa;
+        vertical-align: top;
+        transition: background-color 0.2s ease;
+      }
+
+      .standards-table tr:hover td {
+        background-color: #f8f9fa;
+      }
+
+      .standards-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .standards-table tbody tr {
+        transition: all 0.2s ease;
+      }
+
+      .standards-table tbody tr.filtered-out {
+        display: none;
+      }
+
+      /* Status and Assessment Badges */
+      .status-badge, .assessment-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+
+      .status-badge.covered {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+      }
+
+      .status-badge.not-covered {
+        background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+      }
+
+      .status-badge.partial {
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+      }
+
+      .assessment-badge.formative {
+        background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+      }
+
+      .assessment-badge.summative {
+        background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
+      }
+
+      .assessment-badge.both {
+        background: linear-gradient(135deg, #ff5722 0%, #d84315 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
+      }
+
+      .assessment-badge.none {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+      }
+
+      /* Table Loading State */
+      .table-loading-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .table-loading-state p {
+        color: #6c757d;
+        font-size: 1.1em;
+        margin: 0;
+      }
+
+      /* Standard Code Styling */
+      .standard-code {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: #2c3e50;
+        font-size: 0.9em;
+      }
+
+      /* Standard Description */
+      .standard-description {
+        line-height: 1.4;
+        color: #495057;
+      }
+
+      /* List View Styles */
+      .standards-list-view {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      }
+
+      .list-item:last-child {
+        border-bottom: none;
+      }
+
+      /* Keyboard Focus Styles */
+      .keyboard-focused {
+        position: relative;
+      }
+
+      .keyboard-focused::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 15px;
+        z-index: -1;
+        opacity: 0.3;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .standards-header {
+          padding: 20px;
+        }
+        
+        .standards-header h1 {
+          font-size: 2em;
+        }
+        
+        .standards-summary {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+        
+        .unit-buttons-grid {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 10px;
+        }
+        
+        .standards-controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        
+        .table-filter-controls {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 15px;
+        }
+
+        .filter-group {
+          min-width: auto;
+        }
+        
+        .standards-table {
+          font-size: 0.85em;
+        }
+        
+        .standards-table th, 
+        .standards-table td {
+          padding: 10px 8px;
+        }
+        
+        .standards-table th {
+          font-size: 0.75em;
+        }
+        
+        /* Make table horizontally scrollable on mobile */
+        .standards-table-view {
+          overflow-x: auto;
+        }
+        
+        .status-badge, 
+        .assessment-badge {
+          font-size: 0.7em;
+          padding: 4px 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .standards-summary {
+          grid-template-columns: 1fr;
+        }
+        
+        .stat-number {
+          font-size: 2em;
+        }
+        
+        .unit-buttons-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
       
       .search-container {
@@ -965,17 +1370,41 @@
       
       .standard-item {
         background-color: #f8f9fa;
-        border-radius: 6px;
-        padding: 8px;
-        margin-bottom: 6px;
-        border-left: 3px solid #007bff;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        border-left: 4px solid #007bff;
+        transition: all 0.2s ease;
+        position: relative;
+        padding-left: 15px;
+      }
+      
+      .standard-item::before {
+        content: '\2022';
+        position: absolute;
+        left: 8px;
+        top: 12px;
+        color: #007bff;
+        font-weight: bold;
+      }
+      
+      .standard-item:hover {
+        background: #e9ecef;
+        transform: translateX(3px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
       
       .standard-code {
-        font-family: 'Nunito', sans-serif;
+        font-family: 'Courier New', monospace;
         font-weight: bold;
-        color: #007bff;
-        font-size: 0.9em;
+        color: #495057;
+        font-size: 0.95em;
+        background: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 5px;
+        border: 1px solid #dee2e6;
       }
       
       .standard-description {
@@ -1172,12 +1601,16 @@
       .unit-selector-container {
         margin: 30px 0;
         text-align: center;
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
       }
 
       .unit-selector-container h3 {
         font-family: 'Patrick Hand', cursive;
         font-size: 1.8em;
-        color: #ad1457;
+        color: #2c3e50;
         margin-bottom: 25px;
       }
 
@@ -1190,49 +1623,69 @@
       }
 
       .unit-selector-btn {
-        background: linear-gradient(135deg, #faf9f7 0%, #f5f4f2 100%);
-        border: 3px solid #8d6e63;
-        border-radius: 20px;
-        padding: 25px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 15px 12px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-family: 'Nunito', sans-serif;
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+        box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        color: white;
+        position: relative;
+        overflow: hidden;
       }
 
       .unit-selector-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
-        background: linear-gradient(135deg, #f0ede8 0%, #e8e4df 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #7b8df0 0%, #8657b8 100%);
       }
 
       .unit-selector-btn.active {
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
         color: white;
         transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+      }
+
+      .unit-selector-btn.loading {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .unit-selector-btn.loading::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        animation: loading-shimmer 1.5s infinite;
+      }
+
+      @keyframes loading-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
       }
 
       .unit-number {
-        font-size: 2.5em;
+        font-size: 1.8em;
         font-weight: bold;
-        color: #007bff;
-        margin-bottom: 5px;
-      }
-
-      .unit-selector-btn.active .unit-number {
         color: white;
+        margin-bottom: 3px;
+        font-family: 'Patrick Hand', cursive;
       }
 
       .unit-title {
-        font-size: 1.1em;
+        font-size: 0.9em;
         font-weight: 600;
-        color: #007bff;
-        line-height: 1.2;
-      }
-
-      .unit-selector-btn.active .unit-title {
         color: white;
+        line-height: 1.2;
+        opacity: 0.95;
       }
 
       .standards-coverage-section {
@@ -1556,24 +2009,41 @@
 
       .standards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 15px;
         margin-top: 20px;
       }
 
       .standard-item {
         background: white;
-        border-radius: 10px;
-        padding: 18px;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-        border: 2px solid #e1f5fe;
-        transition: all 0.2s ease;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e1e8ed;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
       }
 
       .standard-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
-        border-color: #81d4fa;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        border-color: #667eea;
+      }
+
+      .standard-item.covered {
+        border-left: 4px solid #4caf50;
+        background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+      }
+
+      .standard-item.not-covered {
+        border-left: 4px solid #f44336;
+        background: linear-gradient(135deg, #fff3e0 0%, #ffebee 100%);
+      }
+
+      .standard-item.partial {
+        border-left: 4px solid #ff9800;
+        background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%);
       }
 
       .standard-header {
@@ -2280,8 +2750,28 @@
 
       <!-- State Standards Alignment Screen -->
       <div id="standards-alignment-screen" class="hidden">
-        <h1>📊 State Standards Alignment</h1>
-        <h2 id="standards-welcome-message">English 9 Curriculum Standards Coverage</h2>
+        <!-- Standards Header with Summary Statistics -->
+        <div class="standards-header">
+          <h1>📊 State Standards Alignment</h1>
+          <div class="standards-summary">
+            <div class="summary-stat">
+              <span class="stat-number" id="total-standards">0</span>
+              <span class="stat-label">Total Standards</span>
+            </div>
+            <div class="summary-stat covered">
+              <span class="stat-number" id="covered-standards">0</span>
+              <span class="stat-label">Covered</span>
+            </div>
+            <div class="summary-stat partial">
+              <span class="stat-number" id="partial-standards">0</span>
+              <span class="stat-label">Partial</span>
+            </div>
+            <div class="summary-stat not-covered">
+              <span class="stat-number" id="not-covered-standards">0</span>
+              <span class="stat-label">Not Covered</span>
+            </div>
+          </div>
+        </div>
         
         <!-- Loading Indicator -->
         <div id="standards-loading" class="loading-indicator hidden">
@@ -2291,7 +2781,7 @@
 
         <!-- Unit Selector -->
         <div class="unit-selector-container">
-          <h3>Select a Unit to View Standards Coverage</h3>
+          <h3>📚 Select a Unit to View Standards Coverage</h3>
           <div class="unit-buttons-grid">
             <button class="unit-selector-btn" onclick="selectUnit('Unit 1: Coming of Age')">
               <div class="unit-number">1</div>
@@ -2339,15 +2829,17 @@
           <!-- Search and Filter Controls -->
           <div class="standards-controls">
             <div class="search-container">
-              <input type="text" id="standards-search" placeholder="Search standards by code or description..." style="
+              <input type="text" id="standards-search" placeholder="🔍 Search standards by code or description..." style="
                 width: 100%;
                 max-width: 400px;
-                padding: 10px 15px;
-                border: 2px solid #dee2e6;
+                padding: 12px 20px;
+                border: 2px solid #e1e8ed;
                 border-radius: 25px;
                 font-size: 1em;
                 outline: none;
-                transition: border-color 0.3s ease;
+                transition: all 0.3s ease;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
               ">
               <button id="clear-search" class="clear-search-btn" title="Clear search">✕</button>
             </div>
@@ -2386,8 +2878,59 @@
             </div>
           </div>
           
-          <div id="standards-grid" class="unit-standards-grid">
-            <!-- Standards will be populated by JavaScript -->
+          <!-- Table Filter Controls -->
+          <div class="table-filter-controls">
+            <div class="filter-group">
+              <label for="coverage-filter">Coverage Status:</label>
+              <select id="coverage-filter" class="filter-select">
+                <option value="">All Standards</option>
+                <option value="covered">Covered</option>
+                <option value="not-covered">Not Covered</option>
+                <option value="partial">Partial Coverage</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="assessment-filter">Assessment Type:</label>
+              <select id="assessment-filter" class="filter-select">
+                <option value="">All Types</option>
+                <option value="formative">Formative</option>
+                <option value="summative">Summative</option>
+                <option value="both">Both</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+            <div class="results-counter">
+              <span id="filtered-count">0</span> of <span id="total-count">0</span> standards shown
+            </div>
+          </div>
+          
+          <!-- Standards Table -->
+          <div id="standards-table-container" class="standards-table-view">
+            <table id="standards-table" class="standards-table">
+              <thead>
+                <tr>
+                  <th class="sortable" data-column="code">
+                    Standard Code
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="description">
+                    Description
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="coverage">
+                    Coverage Status
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="assessment">
+                    Assessment Type
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="standards-table-body">
+                <!-- Standards will be populated by JavaScript -->
+              </tbody>
+            </table>
           </div>
         </div>
         
@@ -4922,813 +5465,677 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       };
       let selectedUnit = null;
 
+
+
+
+      // Global standards data cache
+      let standardsDataCache = null;
+      let currentSelectedUnit = null;
+      let isLoadingStandards = false;
+      
+      // Unit-specific cache for processed table data
+      let unitTableCache = new Map();
+      let isTableStructureReady = false;
+
+      // Standards Alignment Main Functions
       function showStandardsAlignmentScreen() {
-        // TEMPORARY: Bypass teacher check for testing
-        // if (!isTeacher) {
-        //   alert('State Standards Alignment is only available to teachers.');
-        //   return;
-        // }
-        
-        // Change body class for background color
+        // Change body class for background styling
         document.body.className = 'body-standards';
         
-        // Load standards data and show screen
-        loadStandardsData();
+        // Show the standards screen in landing page mode
         showScreen('standards-alignment-screen');
         
-        // Set up search and filter controls
-        setupStandardsControls();
-      }
-      
-      // Load standards data from backend
-      function loadStandardsData() {
-        showScreen('standards-loading');
+        // Reset to landing page state
+        resetToLandingPageState();
         
-        google.script.run
-          .withSuccessHandler((response) => {
-            hideScreen('standards-loading');
-            
-            if (response.success) {
-              standardsData.unitData = response.unitData;
-              standardsData.allStandards = response.masterStandards || [];
-              
-              // Update welcome message with teacher name
-              if (response.teacherName) {
-                document.getElementById('standards-welcome-message').textContent = 
-                  `${response.teacherName}'s English 9 Curriculum Standards Coverage`;
-              }
-              
-              // Hide loading indicator
-              document.getElementById('standards-loading').classList.add('hidden');
-            } else {
-              console.error('Failed to load standards data:', response.error);
-              alert('Failed to load standards data: ' + response.error);
-              showScreen('main-landing-screen');
-            }
-          })
-          .withFailureHandler((error) => {
-            hideScreen('standards-loading');
-            console.error('Error loading standards data:', error);
-            alert('Error loading standards data. Please try again.');
-            showScreen('main-landing-screen');
-          })
-          .getAllStandardsData();
+        // Update summary stats with generic overview (optional - can show placeholder)
+        updateSummaryStatsGeneric();
       }
 
-
-      // Select a unit and display its standards
-      function selectUnit(unitName) {
-        selectedUnit = unitName;
+      // Reset page to show only unit cards (landing page state)
+      function resetToLandingPageState() {
+        // Hide the standards coverage section
+        const coverageDisplay = document.getElementById('standards-coverage-display');
+        if (coverageDisplay) {
+          coverageDisplay.classList.add('hidden');
+        }
         
-        // Update active button
+        // Hide loading indicators
+        const loadingElement = document.getElementById('standards-loading');
+        if (loadingElement) {
+          loadingElement.classList.add('hidden');
+        }
+        
+        // Clear any active unit selections
         document.querySelectorAll('.unit-selector-btn').forEach(btn => {
           btn.classList.remove('active');
         });
-        event.target.closest('.unit-selector-btn').classList.add('active');
         
-        // Show standards coverage section
-        document.getElementById('standards-coverage-display').classList.remove('hidden');
-        document.getElementById('selected-unit-title').textContent = `${unitName} - Standards Coverage`;
+        // Clear any error messages
+        const existingError = document.querySelector('.standards-error-message');
+        if (existingError) {
+          existingError.remove();
+        }
         
-        // Populate standards grid
-        populateStandardsGrid(unitName);
+        // Reset current selected unit
+        currentSelectedUnit = null;
       }
 
-      // Populate the standards grid for the selected unit
-      function populateStandardsGrid(unitName) {
-        const container = document.getElementById('standards-grid');
-        container.innerHTML = '';
-        
-        // Get assessment groups data for this unit
-        const assessmentGroups = standardsData.unitData[unitName]?.assessmentGroups || {};
-        
-        // Check if there are any standards
-        const totalStandards = (assessmentGroups.both?.length || 0) + 
-                              (assessmentGroups.formativeOnly?.length || 0) + 
-                              (assessmentGroups.summativeOnly?.length || 0);
-        
-        if (totalStandards === 0) {
-          container.innerHTML = '<div class="no-standards-message">No standards data found for this unit.</div>';
-          return;
-        }
-        
-        // Create sections for each assessment type (prioritized order)
-        if (assessmentGroups.both?.length > 0) {
-          createAssessmentTypeSection(container, 'Both Formative & Summative', assessmentGroups.both, 'both');
-        }
-        
-        if (assessmentGroups.summativeOnly?.length > 0) {
-          createAssessmentTypeSection(container, 'Summative Assessment Only', assessmentGroups.summativeOnly, 'summative');
-        }
-        
-        if (assessmentGroups.formativeOnly?.length > 0) {
-          createAssessmentTypeSection(container, 'Formative Assessment Only', assessmentGroups.formativeOnly, 'formative');
-        }
+      // Update summary stats with generic/overview information
+      function updateSummaryStatsGeneric() {
+        // Show placeholder stats for now, could be enhanced to show real overview stats
+        document.getElementById('total-standards').textContent = '—';
+        document.getElementById('covered-standards').textContent = '—';
+        document.getElementById('partial-standards').textContent = '—';
+        document.getElementById('not-covered-standards').textContent = '—';
       }
-      
-      // Create an assessment type section with standards
-      function createAssessmentTypeSection(container, title, standards, assessmentType) {
-        // Create assessment type container
-        const sectionDiv = document.createElement('div');
-        sectionDiv.className = `assessment-type-section ${assessmentType}-section`;
+
+      // Load real standards data from the backend
+      function loadStandardsDataFromBackend() {
+        if (isLoadingStandards) return;
         
-        // Create section header
-        const sectionHeader = document.createElement('div');
-        sectionHeader.className = 'assessment-type-header';
-        const totalStandards = standards.length;
+        isLoadingStandards = true;
+        showStandardsLoading(true);
         
-        // Choose icon based on assessment type
-        let icon = '📝';
-        if (assessmentType === 'both') icon = '🎯';
-        else if (assessmentType === 'summative') icon = '📊';
-        else if (assessmentType === 'formative') icon = '📋';
-        
-        sectionHeader.innerHTML = `
-          <div class="assessment-type-title">
-            <span class="assessment-icon">${icon}</span>
-            <span class="assessment-name">${title}</span>
-            <span class="assessment-count">(${totalStandards} standard${totalStandards !== 1 ? 's' : ''})</span>
-          </div>
-        `;
-        sectionDiv.appendChild(sectionHeader);
-        
-        // Create standards grid
-        const standardsGrid = document.createElement('div');
-        standardsGrid.className = 'standards-grid';
-        
-        standards.forEach(standard => {
-          createStandardCard(standardsGrid, standard);
-        });
-        
-        sectionDiv.appendChild(standardsGrid);
-        container.appendChild(sectionDiv);
+        google.script.run
+          .withSuccessHandler(onStandardsDataLoaded)
+          .withFailureHandler(onStandardsDataError)
+          .getAllStandardsData();
       }
-      
-      // Create a standard card
-      function createStandardCard(container, standard) {
-        const standardItem = document.createElement('div');
-        standardItem.className = 'standard-item';
+
+      function onStandardsDataLoaded(response) {
+        isLoadingStandards = false;
+        showStandardsLoading(false); // Fix: Always hide page-level loading
         
-        // Create assessment badge
-        let assessmentBadge = '';
-        if (standard.formative && standard.summative) {
-          assessmentBadge = '<span class="assessment-badge both-badge">Both</span>';
-        } else if (standard.formative) {
-          assessmentBadge = '<span class="assessment-badge formative-badge">Formative</span>';
-        } else if (standard.summative) {
-          assessmentBadge = '<span class="assessment-badge summative-badge">Summative</span>';
-        }
-        
-        standardItem.innerHTML = `
-          <div class="standard-header">
-            <div class="standard-code">${standard.code}</div>
-            <div class="standard-status">✅</div>
-          </div>
-          <div class="standard-description">${standard.description}</div>
-          <div class="standard-meta">
-            ${assessmentBadge}
-            <span class="anchor-strand-tag">${standard.anchorStrand}</span>
-          </div>
-        `;
-        
-        container.appendChild(standardItem);
-      }
-      
-      
-      // Create a standards section with header and cards
-      function createStandardsSection(container, title, standards, sectionType, isCovered) {
-        const sectionDiv = document.createElement('div');
-        sectionDiv.className = `standards-section-group ${isCovered ? 'covered-section' : 'not-covered-section'}`;
-        
-        // Create section header
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'section-header';
-        headerDiv.innerHTML = `
-          <div class="section-title">
-            <span class="section-icon">${getSectionIcon(sectionType)}</span>
-            <span class="section-name">${title}</span>
-            <span class="section-count">(${standards.length})</span>
-          </div>
-        `;
-        
-        sectionDiv.appendChild(headerDiv);
-        
-        // Create standards grid for this section
-        const gridDiv = document.createElement('div');
-        gridDiv.className = 'section-standards-grid';
-        
-        standards.forEach(item => {
-          const standard = item.standard;
-          const unitStandard = item.unitStandard;
+        if (response && response.success) {
+          standardsDataCache = response;
+          console.log('Standards data loaded:', standardsDataCache);
           
-          const standardItem = document.createElement('div');
-          standardItem.className = `standard-item covered`;
-          
-          let assessmentBadges = getAssessmentBadges(unitStandard, sectionType);
-          
-          standardItem.innerHTML = `
-            <div class="standard-header">
-              <div class="standard-code">${standard.code}</div>
-              <div class="standard-status">✅</div>
-            </div>
-            <div class="standard-description">${standard.description}</div>
-            <div class="assessment-info">
-              ${assessmentBadges}
-            </div>
-          `;
-          
-          gridDiv.appendChild(standardItem);
-        });
-        
-        sectionDiv.appendChild(gridDiv);
-        container.appendChild(sectionDiv);
-      }
-      
-      // Create the not covered standards section
-      function createNotCoveredSection(container, standards) {
-        const sectionDiv = document.createElement('div');
-        sectionDiv.className = 'standards-section-group not-covered-section';
-        
-        // Create collapsible header
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'section-header collapsible-header';
-        headerDiv.innerHTML = `
-          <div class="section-title" onclick="toggleNotCoveredSection()">
-            <span class="section-icon">❌</span>
-            <span class="section-name">Standards Not Covered in This Unit</span>
-            <span class="section-count">(${standards.length})</span>
-            <span class="toggle-icon">▼</span>
-          </div>
-        `;
-        
-        sectionDiv.appendChild(headerDiv);
-        
-        // Create standards grid for not covered standards (initially hidden)
-        const gridDiv = document.createElement('div');
-        gridDiv.className = 'section-standards-grid collapsed';
-        gridDiv.id = 'not-covered-grid';
-        
-        standards.forEach(standard => {
-          const standardItem = document.createElement('div');
-          standardItem.className = 'standard-item not-covered';
-          
-          standardItem.innerHTML = `
-            <div class="standard-header">
-              <div class="standard-code">${standard.code}</div>
-              <div class="standard-status">❌</div>
-            </div>
-            <div class="standard-description">${standard.description}</div>
-            <div class="assessment-info">
-              <span class="not-covered-text">Not addressed in this unit</span>
-            </div>
-          `;
-          
-          gridDiv.appendChild(standardItem);
-        });
-        
-        sectionDiv.appendChild(gridDiv);
-        container.appendChild(sectionDiv);
-      }
-      
-      // Get assessment badges based on section type
-      function getAssessmentBadges(unitStandard, sectionType) {
-        if (!unitStandard) return '';
-        
-        const hasFormative = unitStandard.formativeAssessment?.toLowerCase() === 'x';
-        const hasSummative = unitStandard.summativeAssessment?.toLowerCase() === 'x';
-        
-        switch (sectionType) {
-          case 'both':
-            return '<span class="assessment-badge both">📝📊 Both</span>';
-          case 'summative':
-            return '<span class="assessment-badge summative">📊 Summative</span>';
-          case 'formative':
-            return '<span class="assessment-badge formative">📝 Formative</span>';
-          case 'unspecified':
-            return '<span class="assessment-badge unspecified">📋 Covered</span>';
-          default:
-            return '';
-        }
-      }
-      
-      // Get section icon based on type
-      function getSectionIcon(sectionType) {
-        switch (sectionType) {
-          case 'both': return '📝📊';
-          case 'summative': return '📊';
-          case 'formative': return '📝';
-          case 'unspecified': return '📋';
-          default: return '✅';
-        }
-      }
-      
-      // Toggle the not covered standards section
-      function toggleNotCoveredSection() {
-        const grid = document.getElementById('not-covered-grid');
-        const toggleIcon = document.querySelector('.toggle-icon');
-        
-        if (grid.classList.contains('collapsed')) {
-          grid.classList.remove('collapsed');
-          toggleIcon.textContent = '▲';
+          // If a unit was selected, setup and show its standards
+          if (currentSelectedUnit) {
+            setupStandardsForUnit(currentSelectedUnit);
+          }
         } else {
-          grid.classList.add('collapsed');
-          toggleIcon.textContent = '▼';
+          onStandardsDataError(response ? response.error : 'Unknown error loading standards data');
         }
       }
-      
-      // Show different views within standards screen
-      function showStandardsView(viewType) {
-        // Update navigation buttons
-        document.querySelectorAll('.standards-nav-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
-        document.getElementById(`standards-${viewType}-btn`).classList.add('active');
+
+      function onStandardsDataError(error) {
+        isLoadingStandards = false;
+        showStandardsLoading(false); // Fix: Always hide page-level loading
         
-        // Hide all sections
-        document.querySelectorAll('.standards-section').forEach(section => {
-          section.classList.add('hidden');
+        console.error('Error loading standards data:', error);
+        
+        // Remove loading state from all buttons
+        document.querySelectorAll('.unit-selector-btn').forEach(btn => {
+          btn.classList.remove('loading', 'active');
         });
         
-        // Show requested section and populate data
-        switch(viewType) {
-          case 'overview':
-            showOverviewDashboard();
-            break;
-          case 'by-unit':
-            showStandardsByUnit();
-            break;
-          case 'coverage':
-            showCoverageAnalysis();
-            break;
-          case 'reference':
-            showStandardsReference();
-            break;
-        }
-      }
-      
-      // Show overview dashboard
-      function showOverviewDashboard() {
-        document.getElementById('standards-overview-section').classList.remove('hidden');
-        
-        if (!standardsData.overview || !standardsData.analysis) {
-          return;
+        // Clear any existing error messages first
+        const existingError = document.querySelector('.standards-error-message');
+        if (existingError) {
+          existingError.remove();
         }
         
-        const overview = standardsData.overview;
-        const analysis = standardsData.analysis;
-        
-        // Update main statistics
-        document.getElementById('total-standards-count').textContent = overview.totalStandards || 0;
-        document.getElementById('total-units-count').textContent = overview.totalUnits || 0;
-        document.getElementById('unique-standards-count').textContent = analysis.totalUniqueStandards || 0;
-        document.getElementById('duplicate-standards-count').textContent = analysis.duplicateCount || 0;
-        
-        // Populate unit summary cards
-        const unitSummaryGrid = document.getElementById('unit-summary-grid');
-        unitSummaryGrid.innerHTML = '';
-        
-        if (overview.unitSummaries) {
-          overview.unitSummaries.forEach(unit => {
-            const unitCard = document.createElement('div');
-            unitCard.className = 'unit-summary-card';
-            
-            const statusText = unit.sheetExists ? 
-              (unit.standardsCount > 0 ? `${unit.standardsCount} standards` : 'No standards data') :
-              'Sheet not found';
-            
-            unitCard.innerHTML = `
-              <div class="unit-summary-title">${unit.unitName}</div>
-              <div class="unit-summary-count">${unit.standardsCount}</div>
-              <div class="unit-summary-status">${statusText}</div>
-            `;
-            
-            unitSummaryGrid.appendChild(unitCard);
-          });
-        }
-        
-        // Populate categories breakdown
-        const categoriesGrid = document.getElementById('categories-grid');
-        categoriesGrid.innerHTML = '';
-        
-        if (overview.standardsCategories) {
-          Object.entries(overview.standardsCategories).forEach(([category, count]) => {
-            if (count > 0) {
-              const categoryCard = document.createElement('div');
-              categoryCard.className = 'category-stat-card';
-              
-              categoryCard.innerHTML = `
-                <div class="category-name">${category}</div>
-                <div class="category-count">${count}</div>
-              `;
-              
-              categoriesGrid.appendChild(categoryCard);
-            }
-          });
-        }
-      }
-      
-      // Show standards organized by unit
-      function showStandardsByUnit() {
-        document.getElementById('standards-by-unit-section').classList.remove('hidden');
-        
-        if (!standardsData.unitData) {
-          return;
-        }
-        
-        // Populate unit filter dropdown
-        const unitFilter = document.getElementById('unit-filter');
-        unitFilter.innerHTML = '<option value="">All Units</option>';
-        
-        Object.keys(standardsData.unitData).forEach(unitName => {
-          const option = document.createElement('option');
-          option.value = unitName;
-          option.textContent = unitName;
-          unitFilter.appendChild(option);
-        });
-        
-        // Populate unit standards grid
-        populateUnitStandardsGrid();
-        
-        // Set up search and filter functionality
-        document.getElementById('standards-search').oninput = populateUnitStandardsGrid;
-        document.getElementById('unit-filter').onchange = populateUnitStandardsGrid;
-      }
-      
-      function populateUnitStandardsGrid() {
-        const container = document.getElementById('unit-standards-grid');
-        container.innerHTML = '';
-        
-        const searchTerm = document.getElementById('standards-search').value.toLowerCase();
-        const selectedUnit = document.getElementById('unit-filter').value;
-        
-        Object.entries(standardsData.unitData).forEach(([unitName, unitData]) => {
-          // Apply unit filter
-          if (selectedUnit && unitName !== selectedUnit) {
-            return;
-          }
-          
-          // Filter standards by search term
-          let filteredStandards = unitData.standards;
-          if (searchTerm) {
-            filteredStandards = unitData.standards.filter(standard => 
-              JSON.stringify(standard).toLowerCase().includes(searchTerm)
-            );
-          }
-          
-          if (filteredStandards.length === 0 && searchTerm) {
-            return;
-          }
-          
-          const unitCard = document.createElement('div');
-          unitCard.className = 'unit-standards-card';
-          
-          let standardsHtml = '';
-          if (filteredStandards.length > 0) {
-            standardsHtml = filteredStandards.map(standard => {
-              const code = standard.standard_code || standard.code || standard.standard || 'No Code';
-              const description = standard.description || standard.standard_description || 'No Description';
-              
-              return `
-                <div class="standard-item">
-                  <div class="standard-code">${code}</div>
-                  <div class="standard-description">${description}</div>
-                </div>
-              `;
-            }).join('');
-          } else {
-            standardsHtml = '<div class="standard-item"><div class="standard-description">No standards data available</div></div>';
-          }
-          
-          unitCard.innerHTML = `
-            <div class="unit-standards-title">${unitName}</div>
-            <div class="standards-list">
-              ${standardsHtml}
-            </div>
-            <div style="text-align: center; margin-top: 15px; color: #6c757d; font-size: 0.9em;">
-              ${filteredStandards.length} standard${filteredStandards.length !== 1 ? 's' : ''}
+        // If a unit was selected, show error with better recovery options
+        if (currentSelectedUnit) {
+          // Show enhanced error message
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'standards-error-message';
+          errorMsg.style.cssText = `
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+          `;
+          errorMsg.innerHTML = `
+            <h4 style="margin-top: 0;">⚠️ Could not load standards data from spreadsheet</h4>
+            <p>Unable to load real data for ${currentSelectedUnit}.</p>
+            <details style="margin: 15px 0; font-size: 0.9em;">
+              <summary style="cursor: pointer;">View error details</summary>
+              <pre style="margin-top: 10px; text-align: left; background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 0.8em;">${error}</pre>
+            </details>
+            <div style="margin-top: 15px;">
+              <button onclick="retryLoadStandardsData()" style="
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-right: 10px;
+              ">
+                🔄 Retry
+              </button>
+              <button onclick="resetToLandingPageState()" style="
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+              ">
+                ↩️ Back to Units
+              </button>
             </div>
           `;
           
-          // Add click handler for card selection
-          unitCard.addEventListener('click', function() {
-            // Remove selected class from all cards
-            document.querySelectorAll('.unit-standards-card').forEach(card => {
-              card.classList.remove('selected');
+          const container = document.getElementById('standards-coverage-display');
+          if (container) {
+            container.insertBefore(errorMsg, container.firstChild);
+          }
+          
+          // Show placeholder message instead of trying to setup without data
+          const tableContainer = document.getElementById('standards-table-container');
+          if (tableContainer) {
+            tableContainer.innerHTML = `
+              <div style="text-align: center; padding: 40px; color: #6c757d;">
+                <p>Standards data for ${currentSelectedUnit} is temporarily unavailable.</p>
+                <p>Please try refreshing or contact your administrator.</p>
+              </div>
+            `;
+          }
+        }
+        
+        // Clear cache and reset states on error
+        standardsDataCache = null;
+        unitTableCache.clear();
+        isTableStructureReady = false;
+      }
+      
+      // Enhanced retry function with better error handling
+      function retryLoadStandardsData() {
+        // Clear any existing error state
+        const errorMessage = document.querySelector('.standards-error-message');
+        if (errorMessage) {
+          errorMessage.remove();
+        }
+        
+        // Reset all states
+        standardsDataCache = null;
+        unitTableCache.clear();
+        isTableStructureReady = false;
+        
+        // If a unit was previously selected, try to reload it
+        const unitToReload = currentSelectedUnit;
+        currentSelectedUnit = null;
+        
+        if (unitToReload) {
+          // Find the button for this unit and trigger selection
+          const buttons = document.querySelectorAll('.unit-selector-btn');
+          for (let button of buttons) {
+            const buttonText = button.textContent.trim();
+            const dataUnit = button.getAttribute('data-unit');
+            if (buttonText.includes(unitToReload) || dataUnit === unitToReload) {
+              // Simulate click on the button
+              const event = new Event('click', { bubbles: true });
+              Object.defineProperty(event, 'target', { value: button });
+              button.dispatchEvent(event);
+              return;
+            }
+          }
+        }
+        
+        // Otherwise just load the data
+        loadStandardsDataFromBackend();
+      }
+
+      function showStandardsLoading(show) {
+        const loadingElement = document.getElementById('standards-loading');
+        const coverageDisplay = document.getElementById('standards-coverage-display');
+        
+        if (show) {
+          if (loadingElement) loadingElement.classList.remove('hidden');
+          if (coverageDisplay) coverageDisplay.classList.add('hidden');
+        } else {
+          if (loadingElement) loadingElement.classList.add('hidden');
+          if (coverageDisplay) coverageDisplay.classList.remove('hidden');
+        }
+      }
+
+      // Enhanced selectUnit function with lazy loading
+      function selectUnit(unitName) {
+        // Debounce - prevent multiple rapid clicks
+        if (isLoadingStandards) return;
+        
+        // If same unit is already selected, do nothing
+        if (currentSelectedUnit === unitName) return;
+        
+        currentSelectedUnit = unitName;
+        
+        // Update active unit button with visual feedback
+        document.querySelectorAll('.unit-selector-btn').forEach(btn => {
+          btn.classList.remove('active', 'loading');
+        });
+        const selectedButton = event.target.closest('.unit-selector-btn');
+        selectedButton.classList.add('active');
+        
+        // Check if we have unit-specific cached data
+        if (unitTableCache.has(unitName)) {
+          // Instantly show cached unit data
+          setupStandardsForUnit(unitName);
+          return;
+        }
+        
+        // Show unit-specific loading state
+        showUnitLoadingState(selectedButton, unitName);
+        
+        // Load data if not cached, otherwise setup and populate immediately
+        if (!standardsDataCache) {
+          loadStandardsDataFromBackend();
+        } else {
+          // Process and cache this unit's data, then show it
+          processAndCacheUnitData(unitName);
+          setupStandardsForUnit(unitName);
+        }
+      }
+
+      // Process and cache unit-specific table data with error handling
+      function processAndCacheUnitData(unitName) {
+        try {
+          if (!standardsDataCache || !standardsDataCache.unitData) {
+            console.warn(`No standards data cache available for unit: ${unitName}`);
+            return;
+          }
+          
+          const unitData = standardsDataCache.unitData[unitName];
+          if (!unitData) {
+            console.warn(`No unit data found for: ${unitName}`);
+            return;
+          }
+          
+          // Initialize assessment groups safely
+          const assessmentGroups = unitData.assessmentGroups || {};
+          
+          // Process standards into table rows data
+          const tableRowsData = [];
+          
+          // Process each assessment group safely
+          ['both', 'formativeOnly', 'summativeOnly', 'notCovered'].forEach(groupType => {
+            const group = assessmentGroups[groupType];
+            if (!group || !Array.isArray(group)) return;
+            
+            group.forEach((item, index) => {
+              try {
+                tableRowsData.push({
+                  code: item.code || item.benchmarkCode || `Standard-${groupType}-${index}`,
+                  description: item.description || item.benchmarkDesc || 'No description available',
+                  coverage: groupType === 'notCovered' ? 'Not Covered' : 'Covered',
+                  assessment: getAssessmentTypeText(groupType),
+                  groupType: groupType
+                });
+              } catch (itemError) {
+                console.warn(`Error processing item ${index} in group ${groupType}:`, itemError);
+                // Skip this item and continue
+              }
             });
-            // Add selected class to clicked card
-            this.classList.add('selected');
           });
           
-          container.appendChild(unitCard);
-        });
-        
-        if (container.children.length === 0) {
-          container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6c757d;">
-              <h3>No Standards Found</h3>
-              <p>No standards match your current search criteria.</p>
-            </div>
-          `;
-        }
-      }
-      
-      // Show coverage analysis
-      function showCoverageAnalysis() {
-        document.getElementById('standards-coverage-section').classList.remove('hidden');
-        
-        if (!standardsData.analysis) {
-          return;
-        }
-        
-        const analysis = standardsData.analysis;
-        
-        // Update coverage summary
-        document.getElementById('coverage-unique-count').textContent = analysis.totalUniqueStandards || 0;
-        document.getElementById('coverage-duplicate-count').textContent = analysis.duplicateCount || 0;
-        
-        // Populate unit coverage grid
-        const unitCoverageGrid = document.getElementById('unit-coverage-grid');
-        unitCoverageGrid.innerHTML = '';
-        
-        if (analysis.coverageByUnit) {
-          Object.entries(analysis.coverageByUnit).forEach(([unitName, coverage]) => {
-            const coverageCard = document.createElement('div');
-            coverageCard.className = 'unit-coverage-card';
-            
-            const statusText = coverage.sheetExists ? 
-              `${coverage.totalStandards} total, ${coverage.uniqueStandards} unique` :
-              'Sheet not found';
-            
-            coverageCard.innerHTML = `
-              <div class="unit-coverage-title">${unitName}</div>
-              <div class="coverage-details">
-                <strong>Standards:</strong> ${statusText}<br>
-                <strong>Status:</strong> ${coverage.sheetExists ? '✅ Available' : '❌ Missing'}
-              </div>
-            `;
-            
-            unitCoverageGrid.appendChild(coverageCard);
-          });
-        }
-        
-        // Populate duplicate standards list
-        const duplicatesList = document.getElementById('duplicate-standards-list');
-        duplicatesList.innerHTML = '';
-        
-        if (analysis.duplicateStandards && Object.keys(analysis.duplicateStandards).length > 0) {
-          Object.entries(analysis.duplicateStandards).forEach(([standardCode, units]) => {
-            const duplicateItem = document.createElement('div');
-            duplicateItem.className = 'duplicate-standard-item';
-            
-            duplicateItem.innerHTML = `
-              <div class="duplicate-standard-code">${standardCode}</div>
-              <div class="duplicate-units-list">
-                <strong>Covered in:</strong> ${units.join(', ')}
-              </div>
-            `;
-            
-            duplicatesList.appendChild(duplicateItem);
-          });
-        } else {
-          duplicatesList.innerHTML = `
-            <div style="text-align: center; padding: 20px; color: #6c757d;">
-              <p>No duplicate standards found. Each standard is covered in only one unit.</p>
-            </div>
-          `;
-        }
-      }
-      
-      // Show standards reference
-      function showStandardsReference() {
-        document.getElementById('standards-reference-section').classList.remove('hidden');
-        
-        if (!standardsData.unitData || !standardsData.analysis) {
-          return;
-        }
-        
-        // Set up search and category filter
-        document.getElementById('reference-search').oninput = populateStandardsReference;
-        document.getElementById('category-filter').onchange = populateStandardsReference;
-        
-        populateStandardsReference();
-      }
-      
-      function populateStandardsReference() {
-        const container = document.getElementById('standards-reference-list');
-        container.innerHTML = '';
-        
-        const searchTerm = document.getElementById('reference-search').value.toLowerCase();
-        const selectedCategory = document.getElementById('category-filter').value;
-        
-        // Collect all standards with their unit mappings
-        const allStandards = [];
-        
-        Object.entries(standardsData.unitData).forEach(([unitName, unitData]) => {
-          unitData.standards.forEach(standard => {
-            const code = standard.standard_code || standard.code || standard.standard || 'No Code';
-            const description = standard.description || standard.standard_description || 'No Description';
-            const category = standard.category || standard.domain || 'Other';
-            
-            // Find existing standard or create new entry
-            let existingStandard = allStandards.find(s => s.code === code);
-            if (!existingStandard) {
-              existingStandard = {
-                code: code,
-                description: description,
-                category: category,
-                units: []
-              };
-              allStandards.push(existingStandard);
-            }
-            
-            if (!existingStandard.units.includes(unitName)) {
-              existingStandard.units.push(unitName);
-            }
-          });
-        });
-        
-        // Filter standards
-        let filteredStandards = allStandards;
-        
-        if (searchTerm) {
-          filteredStandards = allStandards.filter(standard => 
-            standard.code.toLowerCase().includes(searchTerm) ||
-            standard.description.toLowerCase().includes(searchTerm)
-          );
-        }
-        
-        if (selectedCategory) {
-          filteredStandards = filteredStandards.filter(standard => 
-            standard.category === selectedCategory
-          );
-        }
-        
-        // Sort alphabetically by code
-        filteredStandards.sort((a, b) => a.code.localeCompare(b.code));
-        
-        // Populate reference list
-        filteredStandards.forEach(standard => {
-          const referenceItem = document.createElement('div');
-          referenceItem.className = 'reference-standard-item';
-          
-          referenceItem.innerHTML = `
-            <div class="reference-standard-header">
-              <div class="reference-standard-code">${standard.code}</div>
-              <div class="reference-standard-category">${standard.category}</div>
-            </div>
-            <div class="reference-standard-description">${standard.description}</div>
-            <div class="reference-units-covered">
-              <strong>Covered in:</strong> ${standard.units.length > 0 ? standard.units.join(', ') : 'Not covered'}
-            </div>
-          `;
-          
-          container.appendChild(referenceItem);
-        });
-        
-        if (filteredStandards.length === 0) {
-          container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: #6c757d;">
-              <h3>No Standards Found</h3>
-              <p>No standards match your current search criteria.</p>
-            </div>
-          `;
-        }
-      }
-      
-      // Set up back button for standards screen
-      function setupStandardsBackButton() {
-        const backButton = document.getElementById('back-to-main-from-standards-btn');
-        if (backButton) {
-          backButton.onclick = () => {
-            document.body.className = 'body-default';
-            showScreen('main-landing-screen');
+          // Cache the processed data
+          const cacheData = {
+            tableRows: tableRowsData,
+            totalCount: unitData.totalCount || tableRowsData.length,
+            coveredCount: (assessmentGroups.both?.length || 0) + 
+                         (assessmentGroups.formativeOnly?.length || 0) + 
+                         (assessmentGroups.summativeOnly?.length || 0),
+            notCoveredCount: assessmentGroups.notCovered?.length || 0,
+            processedAt: new Date().toISOString()
           };
+          
+          unitTableCache.set(unitName, cacheData);
+          console.log(`Successfully cached ${tableRowsData.length} standards for ${unitName}`);
+          
+        } catch (error) {
+          console.error(`Error processing unit data for ${unitName}:`, error);
+          // Clear any partial cache for this unit
+          unitTableCache.delete(unitName);
         }
       }
       
-      // Set up search and filter functionality for standards
-      function setupStandardsControls() {
-        const searchInput = document.getElementById('standards-search');
-        const clearSearchBtn = document.getElementById('clear-search');
-        const categoryFilter = document.getElementById('category-filter');
-        const expandAllBtn = document.getElementById('expand-all-btn');
-        const collapseAllBtn = document.getElementById('collapse-all-btn');
-        
-        if (searchInput) {
-          searchInput.addEventListener('input', filterStandardsCards);
-          searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              filterStandardsCards();
-            }
-          });
-        }
-        
-        if (clearSearchBtn) {
-          clearSearchBtn.addEventListener('click', function() {
-            searchInput.value = '';
-            filterStandardsCards();
-            searchInput.focus();
-          });
-        }
-        
-        if (categoryFilter) {
-          categoryFilter.addEventListener('change', filterStandardsCards);
-        }
-        
-        if (expandAllBtn) {
-          expandAllBtn.addEventListener('click', function() {
-            document.querySelectorAll('.unit-standards-card .standards-list').forEach(list => {
-              list.style.maxHeight = 'none';
-              list.style.overflow = 'visible';
-            });
-          });
-        }
-        
-        if (collapseAllBtn) {
-          collapseAllBtn.addEventListener('click', function() {
-            document.querySelectorAll('.unit-standards-card .standards-list').forEach(list => {
-              list.style.maxHeight = '300px';
-              list.style.overflow = 'auto';
-            });
-          });
+      // Get assessment type text for display
+      function getAssessmentTypeText(groupType) {
+        switch (groupType) {
+          case 'both': return 'Both';
+          case 'formativeOnly': return 'Formative';
+          case 'summativeOnly': return 'Summative';
+          case 'notCovered': return 'None';
+          default: return 'Unknown';
         }
       }
-      
-      // Filter standards cards based on search and category
-      function filterStandardsCards() {
-        const searchTerm = document.getElementById('standards-search').value.toLowerCase();
-        const selectedCategory = document.getElementById('category-filter').value.toLowerCase();
-        const cards = document.querySelectorAll('.unit-standards-card');
-        let visibleCount = 0;
+
+      // Show loading state for specific unit
+      function showUnitLoadingState(button, unitName) {
+        // Add loading class to button
+        button.classList.add('loading');
         
-        cards.forEach(card => {
-          const title = card.querySelector('.unit-standards-title').textContent.toLowerCase();
-          const standardItems = card.querySelectorAll('.standard-item');
-          let hasVisibleStandards = false;
-          
-          // Filter individual standards within each card
-          standardItems.forEach(item => {
-            const code = item.querySelector('.standard-code').textContent.toLowerCase();
-            const description = item.querySelector('.standard-description').textContent.toLowerCase();
-            
-            const matchesSearch = searchTerm === '' || 
-              title.includes(searchTerm) || 
-              code.includes(searchTerm) || 
-              description.includes(searchTerm);
-            
-            const matchesCategory = selectedCategory === '' || 
-              code.includes(selectedCategory) || 
-              description.includes(selectedCategory);
-            
-            if (matchesSearch && matchesCategory) {
-              item.style.display = 'block';
-              hasVisibleStandards = true;
-            } else {
-              item.style.display = 'none';
-            }
-          });
-          
-          // Show/hide the entire card based on whether it has visible standards
-          if (hasVisibleStandards) {
-            card.style.display = 'block';
-            visibleCount++;
-          } else {
-            card.style.display = 'none';
-          }
+        // Show standards coverage section with loading message
+        const coverageDisplay = document.getElementById('standards-coverage-display');
+        coverageDisplay.classList.remove('hidden');
+        
+        // Update title
+        document.getElementById('selected-unit-title').textContent = `Loading ${unitName} Standards...`;
+        
+        // Clear any previous error messages
+        const existingError = document.querySelector('.standards-error-message');
+        if (existingError) {
+          existingError.remove();
+        }
+        
+        // Show table area with loading placeholder
+        const tableContainer = document.getElementById('standards-table-container');
+        if (tableContainer) {
+          tableContainer.innerHTML = `
+            <div class="table-loading-state">
+              <div class="loading-spinner"></div>
+              <p>Loading standards for ${unitName}...</p>
+            </div>
+          `;
+        }
+      }
+
+      // Setup standards display for specific unit after data is loaded
+      function setupStandardsForUnit(unitName) {
+        // Remove loading state from button
+        document.querySelectorAll('.unit-selector-btn').forEach(btn => {
+          btn.classList.remove('loading');
         });
         
-        // Update no results message
-        const container = document.getElementById('standards-grid');
-        const existingMessage = container.querySelector('.no-results-message');
+        // Update title
+        document.getElementById('selected-unit-title').textContent = `${unitName} - Standards Coverage`;
         
-        if (visibleCount === 0 && (searchTerm || selectedCategory)) {
-          if (!existingMessage) {
-            const noResultsDiv = document.createElement('div');
-            noResultsDiv.className = 'no-results-message';
-            noResultsDiv.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px; color: #6c757d;';
-            noResultsDiv.innerHTML = `
-              <h3>No Standards Found</h3>
-              <p>No standards match your current search criteria.</p>
-              <button onclick="clearStandardsSearch()" class="control-btn">Clear Filters</button>
-            `;
-            container.appendChild(noResultsDiv);
-          }
-        } else if (existingMessage) {
-          existingMessage.remove();
+        // Ensure table structure exists (only create once)
+        const tableContainer = document.getElementById('standards-table-container');
+        if (tableContainer && !isTableStructureReady) {
+          tableContainer.innerHTML = `
+            <table id="standards-table" class="standards-table">
+              <thead>
+                <tr>
+                  <th class="sortable" data-column="code">
+                    Standard Code
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="description">
+                    Description
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="coverage">
+                    Coverage Status
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                  <th class="sortable" data-column="assessment">
+                    Assessment Type
+                    <span class="sort-indicator">↕️</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="standards-table-body">
+                <!-- Standards will be populated by JavaScript -->
+              </tbody>
+            </table>
+          `;
+          
+          // Setup controls and filters (only once)
+          setupStandardsControls();
+          setupTableFilters();
+          isTableStructureReady = true;
+        }
+        
+        // If we don't have unit data cached yet, process it
+        if (!unitTableCache.has(unitName) && standardsDataCache) {
+          processAndCacheUnitData(unitName);
+        }
+        
+        // Populate the table with cached unit data
+        populateTableViewFromCache(unitName);
+        
+        // Update summary stats for this unit
+        updateSummaryStatsForUnit(unitName);
+      }
+
+      // Update summary stats for specific unit
+      function updateSummaryStatsForUnit(unitName) {
+        if (standardsDataCache && standardsDataCache.unitData && standardsDataCache.unitData[unitName]) {
+          const unitData = standardsDataCache.unitData[unitName];
+          const total = unitData.totalStandards || 0;
+          const covered = unitData.standardsCount || 0;
+          const notCovered = unitData.notCoveredCount || 0;
+          
+          document.getElementById('total-standards').textContent = total;
+          document.getElementById('covered-standards').textContent = covered;
+          document.getElementById('not-covered-standards').textContent = notCovered;
+          document.getElementById('partial-standards').textContent = '0'; // Could be enhanced
         }
       }
-      
-      // Clear all search filters
-      function clearStandardsSearch() {
-        document.getElementById('standards-search').value = '';
-        document.getElementById('category-filter').value = '';
-        filterStandardsCards();
+
+      // Optimized function to populate table using cached data
+      function populateTableViewFromCache(unitName) {
+        const container = document.getElementById('standards-table-body');
+        if (!container) return;
+        
+        // Get cached unit data
+        const cachedData = unitTableCache.get(unitName);
+        if (!cachedData) {
+          // Fall back to placeholder if no cached data
+          container.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No standards data available for this unit.</td></tr>';
+          return;
+        }
+        
+        // Clear existing content
+        container.innerHTML = '';
+        
+        // Populate from cached processed data
+        cachedData.tableRows.forEach((rowData, index) => {
+          const row = document.createElement('tr');
+          row.className = 'standard-row';
+          row.setAttribute('data-coverage', rowData.coverage);
+          row.setAttribute('data-assessment', rowData.assessment);
+          row.setAttribute('data-index', index);
+          
+          // Determine status badge
+          let statusText, statusClass;
+          if (rowData.coverage === 'Covered') {
+            statusText = 'Covered';
+            statusClass = 'covered';
+          } else {
+            statusText = 'Not Covered';
+            statusClass = 'not-covered';
+          }
+          
+          // Determine assessment badge with emojis
+          let assessmentText, assessmentClass;
+          switch(rowData.assessment) {
+            case 'Formative':
+              assessmentText = '📝 Formative';
+              assessmentClass = 'formative';
+              break;
+            case 'Summative':
+              assessmentText = '📊 Summative';
+              assessmentClass = 'summative';
+              break;
+            case 'Both':
+              assessmentText = '📝📊 Both';
+              assessmentClass = 'both';
+              break;
+            default:
+              assessmentText = '❌ None';
+              assessmentClass = 'none';
+          }
+          
+          row.innerHTML = `
+            <td>
+              <span class="standard-code">${rowData.code}</span>
+            </td>
+            <td>
+              <span class="standard-description">${rowData.description}</span>
+            </td>
+            <td>
+              <span class="status-badge ${statusClass}">${statusText}</span>
+            </td>
+            <td>
+              <span class="assessment-badge ${assessmentClass}">${assessmentText}</span>
+            </td>
+          `;
+          
+          container.appendChild(row);
+        });
+        
+        // Update counters
+        updateFilterCounters();
       }
+
       
-      // Initialize standards back button when document is ready
+      // Expandable/Collapsible Sections
+      function makeStandardItemExpandable(standardItem, standard) {
+        const header = standardItem.querySelector('.standard-header') || standardItem;
+        const details = document.createElement('div');
+        details.className = 'standard-details';
+        details.style.cssText = `
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+          padding: 0 16px;
+          background: rgba(0,0,0,0.02);
+          border-top: 1px solid rgba(0,0,0,0.05);
+          margin-top: 10px;
+        `;
+        
+        details.innerHTML = `
+          <div style="padding: 15px 0;">
+            <div style="margin-bottom: 10px;">
+              <strong>Assessment Type:</strong> ${standard.assessmentType || 'Not specified'}
+            </div>
+            <div style="margin-bottom: 10px;">
+              <strong>Depth of Knowledge:</strong> ${standard.dok || 'Not specified'}
+            </div>
+            <div style="margin-bottom: 10px;">
+              <strong>Related Standards:</strong> ${standard.relatedStandards || 'None listed'}
+            </div>
+            <div>
+              <strong>Teaching Resources:</strong> ${standard.resources || 'See unit materials'}
+            </div>
+          </div>
+        `;
+        
+        standardItem.appendChild(details);
+        
+        // Add expand/collapse icon
+        const expandIcon = document.createElement('span');
+        expandIcon.className = 'expand-icon';
+        expandIcon.innerHTML = '▼';
+        expandIcon.style.cssText = `
+          float: right;
+          transition: transform 0.3s ease;
+          cursor: pointer;
+          color: #667eea;
+          font-size: 0.8em;
+          margin-left: 10px;
+        `;
+        
+        header.appendChild(expandIcon);
+        
+        // Add click handler
+        standardItem.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = details.style.maxHeight !== '0px' && details.style.maxHeight !== '';
+          
+          if (isExpanded) {
+            details.style.maxHeight = '0';
+            expandIcon.style.transform = 'rotate(0deg)';
+            standardItem.classList.remove('expanded');
+          } else {
+            details.style.maxHeight = details.scrollHeight + 'px';
+            expandIcon.style.transform = 'rotate(180deg)';
+            standardItem.classList.add('expanded');
+          }
+        });
+      }
+
+      // Global keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        // Only handle keyboard navigation when standards screen is visible
+        if (!document.getElementById('standards-alignment-screen').classList.contains('hidden')) {
+          switch(e.key) {
+            case 'f':
+            case 'F':
+              if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                const searchInput = document.getElementById('standards-search');
+                if (searchInput) {
+                  searchInput.focus();
+                  searchInput.select();
+                }
+              }
+              break;
+            case 'ArrowUp':
+            case 'ArrowDown':
+              if (!e.target.matches('input, select')) {
+                e.preventDefault();
+                navigateStandards(e.key === 'ArrowUp' ? -1 : 1);
+              }
+              break;
+            case 'Escape':
+              // Clear all filters
+              if (e.target.matches('input, select')) {
+                const searchInput = document.getElementById('standards-search');
+                const coverageFilter = document.getElementById('coverage-filter');
+                const assessmentFilter = document.getElementById('assessment-filter');
+                
+                if (searchInput) searchInput.value = '';
+                if (coverageFilter) coverageFilter.value = '';
+                if (assessmentFilter) assessmentFilter.value = '';
+                
+                filterStandardsTable();
+                e.target.blur();
+              }
+              break;
+          }
+        }
+      });
+
+      function navigateStandards(direction) {
+        const visibleRows = Array.from(document.querySelectorAll('#standards-table-body tr:not(.filtered-out)'));
+        const currentIndex = visibleRows.findIndex(row => row.classList.contains('keyboard-focused'));
+        
+        if (visibleRows.length === 0) return;
+        
+        // Remove current focus
+        visibleRows.forEach(row => row.classList.remove('keyboard-focused'));
+        
+        let newIndex;
+        if (currentIndex === -1) {
+          newIndex = direction > 0 ? 0 : visibleRows.length - 1;
+        } else {
+          newIndex = currentIndex + direction;
+          if (newIndex < 0) newIndex = visibleRows.length - 1;
+          if (newIndex >= visibleRows.length) newIndex = 0;
+        }
+        
+        const newRow = visibleRows[newIndex];
+        newRow.classList.add('keyboard-focused');
+        newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Add visual focus indicator
+        newRow.style.backgroundColor = '#e3f2fd';
+        newRow.style.transform = 'scale(1.02)';
+        newRow.style.boxShadow = '0 0 0 2px rgba(102, 126, 234, 0.5)';
+        
+        setTimeout(() => {
+          if (newRow.classList.contains('keyboard-focused')) {
+            newRow.style.backgroundColor = '';
+            newRow.style.transform = '';
+            newRow.style.boxShadow = '';
+          }
+        }, 2000);
+      }
+
+      // Initialize standards functionality when document is ready
       document.addEventListener('DOMContentLoaded', function() {
         setupStandardsBackButton();
+        setupStandardsControls();
+        setupTableFilters();
       });
     </script>
   </body>

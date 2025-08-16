@@ -1,0 +1,216 @@
+╭───────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                         │
+│                                                   │
+│   /help for help, /status for your current setup  │
+│                                                   │
+│   cwd: /workspaces/English-9-Grammar-Practice     │
+╰───────────────────────────────────────────────────╯
+
+> /clear 
+  ⎿  (no content)
+
+> The MCA practice should include the passage for each question which can be found in column C. Also, make the MCA page load faster without losing any 
+  functionality.
+
+● I'll help you improve the MCA practice by adding passages for each question and optimizing page load speed. Let me first examine the current codebase to
+  understand the structure.
+
+● Read(Index.html)
+  ⎿  Error: File content (63777 tokens) exceeds maximum allowed tokens (25000). Please use offset and limit parameters to read specific portions of the 
+     file, or use the GrepTool to search for specific content.
+
+● Let me search for MCA-related content to understand the current structure:
+
+● Search(pattern: "MCA", output_mode: "content")
+  ⎿  Found 114 lines (ctrl+r to expand)
+
+● Now let me examine the structure of the MCA questions to understand how column C (passages) should be integrated:
+
+● Search(pattern: "getMCAQuestionsForUnit", output_mode: "content")
+  ⎿  Found 43 lines (ctrl+r to expand)
+
+● Let me continue examining the MCA question mapping to see how passages are currently handled:
+
+● Search(pattern: "\.map.*passage|passageIndex|passage.*question", output_mode: "content")
+  ⎿  Found 49 lines (ctrl+r to expand)
+
+● Now let me check the current HTML structure to understand how the page is organized and identify performance bottlenecks:
+
+● Read(Index.html)
+  ⎿  Read 50 lines (ctrl+r to expand)
+
+● Let me check the file size and structure to understand performance issues:
+
+● Bash(wc -l /workspaces/English-9-Grammar-Practice/Index.html)
+  ⎿  5734 /workspaces/English-9-Grammar-Practice/Index.html
+
+● Bash(du -h /workspaces/English-9-Grammar-Practice/Index.html)
+  ⎿  224K	/workspaces/English-9-Grammar-Practice/Index.htm
+
+● Let me check how the displayQuestion function currently works to understand if passages are being displayed:
+
+● Search(pattern: "function displayQuestion", output_mode: "content")
+  ⎿  Found 31 lines (ctrl+r to expand)
+
+● Now let me check what optimization opportunities exist in the HTML structure:
+
+● Search(pattern: "<script|<style|<link", output_mode: "count")
+  ⎿  Found 5 matches across 1 file (ctrl+r to expand)
+
+● Let me check what large sections exist in the file that might be causing slow loading:
+
+● Bash(grep -n "function\|<script\|<style" /workspaces/English-9-Grammar-Practice/Index.html | head -20)
+  ⎿  9:    <style>                        
+     2405:    <script>
+     2429:      function initializeApp() {
+     … +17 lines (ctrl+r to expand)
+
+● Read(Index.html)
+  ⎿  Read 16 lines (ctrl+r to expand)
+
+● Based on my analysis, I can see that:
+
+  1. MCA Passage Display: The system already supports displaying passages from column C - the getMCAQuestionsForUnit function in Code.js reads the Passage
+  column and includes it in the question data, and the displayQuestion function in Index.html already has logic to display passages when they exist.
+  2. Performance Issues: The Index.html file is quite large (224KB, 5,734 lines) with all CSS, HTML, and JavaScript in a single file, which can slow down
+  initial page load.
+                                                                                                                                                           
+●User approved Claude's plan:
+  ⎿ Plan: Optimize MCA Practice Page Performance
+
+    Current State Analysis
+
+    - ✅ MCA practice already supports passages from column C of the spreadsheet
+    - ❌ 224KB single HTML file causes slow loading
+    - ❌ All CSS and JavaScript embedded inline
+
+    Proposed Changes
+
+    1. Extract External Files for Performance
+
+    - Move CSS styles to separate styles.css file
+    - Move JavaScript functions to separate script.js file  
+    - Keep only critical inline styles for above-the-fold content
+    - Add proper resource hints (preload, prefetch) for better loading
+
+    2. Optimize JavaScript Loading
+
+    - Add defer attribute to script tag for non-blocking load
+    - Implement lazy loading for non-critical functions
+    - Minify JavaScript code sections where possible
+
+    3. Verify MCA Passage Functionality
+
+    - Test that passages from column C are displaying properly
+    - Ensure passage styling is preserved in external CSS
+    - Confirm all MCA functionality remains intact
+
+    4. Performance Optimizations
+
+    - Add compression headers recommendations
+    - Optimize font loading with font-display: swap
+    - Add proper caching strategies for static assets
+
+    Expected Outcome
+
+    - Significantly faster initial page load
+    - Better browser caching of static assets
+    - Maintained functionality for MCA passages
+    - Cleaner, more maintainable code structure
+
+    Note: The passage functionality appears to already be implemented correctly - the issue may be that the spreadsheet data doesn't have passages in 
+    column C, or they're not being populated properly.
+
+● I'll start implementing the plan to optimize the MCA practice page performance. Let me first create a todo list and then begin with the optimizations.
+
+● Update Todos
+  ⎿  ☐ Extract CSS styles to separate styles.css file                          
+     ☐ Extract JavaScript functions to separate script.js file
+     ☐ Update Index.html to use external files with proper loading optimization
+     ☐ Add performance optimizations (font-display, resource hints, etc.)
+     ☐ Test MCA passage functionality to ensure it works correctly
+     ☐ Verify all functionality remains intact after optimization
+
+● Now let me start by extracting the CSS styles to a separate file. First, I'll read the CSS section from the HTML file:
+
+● Update Todos
+  ⎿  ☐ Extract CSS styles to separate styles.css file                          
+     ☐ Extract JavaScript functions to separate script.js file
+     ☐ Update Index.html to use external files with proper loading optimization
+     ☐ Add performance optimizations (font-display, resource hints, etc.)
+     ☐ Test MCA passage functionality to ensure it works correctly
+     ☐ Verify all functionality remains intact after optimization
+
+● Read(Index.html)
+  ⎿  Error: File content (28844 tokens) exceeds maximum allowed tokens (25000). Please use offset and limit parameters to read specific portions of the 
+     file, or use the GrepTool to search for specific content.
+
+● Let me find where the CSS section ends:
+
+● Search(pattern: "</style>", output_mode: "content")
+  ⎿  Found 1 line (ctrl+r to expand)
+
+● Now let me read the CSS section:
+
+● Read(Index.html)
+  ⎿  Read 1660 lines (ctrl+r to expand)
+
+● Now let me create the external CSS file:
+
+● Write(styles.css)
+  ⎿  Wrote 591 lines to styles.css                                                                                
+     /* English 9 Grammar Practice - Main Styles */
+     /* Font loading optimization */
+     @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&display=swap');
+     /* Base Styles */
+     body {
+       font-family: 'Nunito', sans-serif;
+       background-color: #faf9f7;
+       color: #34495e;
+     … +581 lines (ctrl+r to expand)
+
+● Update Todos
+  ⎿  ☒ Extract CSS styles to separate styles.css file                          
+     ☐ Extract JavaScript functions to separate script.js file
+     ☐ Update Index.html to use external files with proper loading optimization
+     ☐ Add performance optimizations (font-display, resource hints, etc.)
+     ☐ Test MCA passage functionality to ensure it works correctly
+     ☐ Verify all functionality remains intact after optimization
+
+● Now let me extract the JavaScript section. First, let me find where it starts and ends:
+
+● Search(pattern: "<script>", output_mode: "content")
+  ⎿  Found 1 line (ctrl+r to expand)
+
+● Search(pattern: "</script>", output_mode: "content")
+  ⎿  Found 1 line (ctrl+r to expand)
+
+● Now let me read the JavaScript section:
+
+● Read(Index.html)
+  ⎿  Error: File content (34859 tokens) exceeds maximum allowed tokens (25000). Please use offset and limit parameters to read specific portions of the 
+     file, or use the GrepTool to search for specific content.
+
+● Let me extract the JavaScript in smaller chunks. First, let me create the beginning of the JavaScript file:
+
+● Read(Index.html)
+  ⎿  Read 800 lines (ctrl+r to expand)
+
+● Due to the size of the JavaScript file, I'll continue creating the external script file. Let me write what I have and continue:
+
+● Write(script.js)
+  ⎿  Wrote 580 lines to script.js                                                                   
+     // English 9 Grammar Practice - Main JavaScript
+     // Global variables
+     let allQuestions = [], currentQuestionIndex = 0, score = 0, userAnswers = [], currentUnit = '';
+     let userInfo = {};
+     let isTeacher = false;
+     let isTeacherViewer = false; // Track if user is a teacher viewer
+     let isTeacherViewingAsStudent = false; // Track if teacher is in student view mode
+     let availableUnits = []; // This will be populated based on user type and teacher settings
+     let teacherUnitSettings = {}; // Store teacher's unit enable/disable settings
+     … +570 lines (ctrl+r to expand)
+  ⎿  Claude usage limit reached. Your limit will reset at 5pm (UTC).
+
+      • /upgrade to increase your usage limit.
+

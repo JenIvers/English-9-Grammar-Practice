@@ -2551,12 +2551,14 @@ function getAllStandardsData() {
             const formativeIndex = 5;     // Column F (Formative assessment)
             const summativeIndex = 6;     // Column G (Summative assessment)
             
-            // Organize by assessment type instead of anchor strands
+            // Organize by assessment type including non-covered standards
             const assessmentGroups = {
               formativeOnly: [],
               summativeOnly: [],
-              both: []
+              both: [],
+              notCovered: []
             };
+            let totalStandards = 0;
             let totalCoveredStandards = 0;
             
             rows.forEach(row => {
@@ -2574,34 +2576,39 @@ function getAllStandardsData() {
                 const hasFormative = formativeValue.toLowerCase() === 'x';
                 const hasSummative = summativeValue.toLowerCase() === 'x';
                 
-                // Only include benchmark if it has "x" in formative OR summative column
-                if (hasFormative || hasSummative) {
-                  const standard = {
-                    code: benchmarkCode,
-                    description: benchmarkDesc,
-                    formative: hasFormative,
-                    summative: hasSummative,
-                    anchorStrand: anchorStrand
-                  };
-                  
-                  // Group by assessment type
-                  if (hasFormative && hasSummative) {
-                    assessmentGroups.both.push(standard);
-                  } else if (hasFormative) {
-                    assessmentGroups.formativeOnly.push(standard);
-                  } else if (hasSummative) {
-                    assessmentGroups.summativeOnly.push(standard);
-                  }
-                  
+                const standard = {
+                  benchmarkCode: benchmarkCode,
+                  benchmarkDesc: benchmarkDesc,
+                  formative: hasFormative,
+                  summative: hasSummative,
+                  anchorStrand: anchorStrand
+                };
+                
+                // Include ALL standards, group by assessment type
+                if (hasFormative && hasSummative) {
+                  assessmentGroups.both.push(standard);
                   totalCoveredStandards++;
+                } else if (hasFormative) {
+                  assessmentGroups.formativeOnly.push(standard);
+                  totalCoveredStandards++;
+                } else if (hasSummative) {
+                  assessmentGroups.summativeOnly.push(standard);
+                  totalCoveredStandards++;
+                } else {
+                  // Standards without any X marks go into notCovered group
+                  assessmentGroups.notCovered.push(standard);
                 }
+                
+                totalStandards++;
               }
             });
             
             unitData[unitInfo.name] = {
               assessmentGroups: assessmentGroups,
               sheetExists: true,
-              standardsCount: totalCoveredStandards
+              standardsCount: totalCoveredStandards,
+              totalStandards: totalStandards,
+              notCoveredCount: assessmentGroups.notCovered.length
             };
           } else {
             unitData[unitInfo.name] = {
