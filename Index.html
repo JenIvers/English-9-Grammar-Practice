@@ -2826,7 +2826,7 @@
               <div class="unit-number">5</div>
               <div class="unit-title">Romeo and Juliet</div>
             </button>
-            <button class="unit-selector-btn" onclick="selectUnit('Unit 5 (Enriched) Macbeth')">
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 5 (Enriched): Macbeth')">
               <div class="unit-number">5E</div>
               <div class="unit-title">Macbeth (Enriched)</div>
             </button>
@@ -2834,7 +2834,7 @@
               <div class="unit-number">6</div>
               <div class="unit-title">Nonfiction</div>
             </button>
-            <button class="unit-selector-btn" onclick="selectUnit('Unit 6 (Enriched) Frankenstein')">
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 6 (Enriched): Frankenstein')">
               <div class="unit-number">6E</div>
               <div class="unit-title">Frankenstein (Enriched)</div>
             </button>
@@ -3011,13 +3011,13 @@
         // Set available units based on user type
         if (isTeacher) {
           // Teachers see all units
-          availableUnits = ["Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched) Macbeth", "Unit 6: Nonfiction", "Unit 6 (Enriched) Frankenstein", "Unit 7: Resilience", "Unit 8: Annotated Bibliography & Documentary"];
+          availableUnits = ["Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched): Macbeth", "Unit 6: Nonfiction", "Unit 6 (Enriched): Frankenstein", "Unit 7: Resilience", "Unit 8: Annotated Bibliography & Documentary"];
         } else if (response.isRegistered && response.enabledUnits) {
           // Registered students see only their teacher's enabled units
           availableUnits = response.enabledUnits;
         } else {
           // Unregistered students see all units
-          availableUnits = ["Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched) Macbeth", "Unit 6: Nonfiction", "Unit 6 (Enriched) Frankenstein", "Unit 7: Resilience", "Unit 8: Annotated Bibliography & Documentary"];
+          availableUnits = ["Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched): Macbeth", "Unit 6: Nonfiction", "Unit 6 (Enriched): Frankenstein", "Unit 7: Resilience", "Unit 8: Annotated Bibliography & Documentary"];
         }
         
         // Update welcome messages based on user type

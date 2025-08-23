@@ -121,8 +121,8 @@ const PROFICIENCY_PHASES = {
 // --- Define all available units (single source of truth) ---
 const ALL_UNITS = [
   "Unit 1: Coming of Age", "Unit 2: Personal Narrative", "Unit 3: Novel Study", 
-  "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched) Macbeth", 
-  "Unit 6: Nonfiction", "Unit 6 (Enriched) Frankenstein", "Unit 7: Resilience", 
+  "Unit 4: Short Story", "Unit 5: Romeo and Juliet", "Unit 5 (Enriched): Macbeth", 
+  "Unit 6: Nonfiction", "Unit 6 (Enriched): Frankenstein", "Unit 7: Resilience", 
   "Unit 8: Annotated Bibliography & Documentary"
 ];
 
@@ -2313,9 +2313,9 @@ const ALL_STANDARDS_SHEETS = [
   { name: "Unit 3: Novel Study", sheet: UNIT3_STANDARDS_SHEET },
   { name: "Unit 4: Short Story", sheet: UNIT4_STANDARDS_SHEET },
   { name: "Unit 5: Romeo and Juliet", sheet: UNIT5_STANDARDS_SHEET },
-  { name: "Unit 5 (Enriched) Macbeth", sheet: UNIT5_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 5 (Enriched): Macbeth", sheet: UNIT5_ENRICHED_STANDARDS_SHEET },
   { name: "Unit 6: Nonfiction", sheet: UNIT6_STANDARDS_SHEET },
-  { name: "Unit 6 (Enriched) Frankenstein", sheet: UNIT6_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 6 (Enriched): Frankenstein", sheet: UNIT6_ENRICHED_STANDARDS_SHEET },
   { name: "Unit 7: Resilience", sheet: UNIT7_STANDARDS_SHEET },
   { name: "Unit 8: Annotated Bibliography & Documentary", sheet: UNIT8_STANDARDS_SHEET }
 ];
