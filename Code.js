@@ -28,13 +28,14 @@ const INDEPENDENT_READING_SHEET = "Independent Reading";
 // State Standards sheet names for each unit
 const UNIT1_STANDARDS_SHEET = "Unit 1 Coming of Age State Standards";
 const UNIT2_STANDARDS_SHEET = "Unit 2 Personal Narrative State Standards";
-const UNIT3_STANDARDS_SHEET = "Unit 3 Novel study state Standards";
+const UNIT3_STANDARDS_SHEET = "Unit 3 Novel Study State Standards";
 const UNIT4_STANDARDS_SHEET = "Unit 4 Short Story State Standards";
 const UNIT5_STANDARDS_SHEET = "Unit 5 Romeo and Juliet State Standards";
-const UNIT5_ENRICHED_STANDARDS_SHEET = "Unit 5 (Enriched) Macbeth State standards";
-const UNIT6_STANDARDS_SHEET = "Unit 6 Nonfiction state standards";
-const UNIT6_ENRICHED_STANDARDS_SHEET = "Unit 6 (enriched) frankenstein state standards";
-const UNIT7_STANDARDS_SHEET = "Unit 7 resilience state standards";
+const UNIT5_ENRICHED_STANDARDS_SHEET = "Unit 5 (Enriched) Macbeth State Standards";
+const UNIT6_STANDARDS_SHEET = "Unit 6 Nonfiction State Standards";
+const UNIT6_ENRICHED_STANDARDS_SHEET = "Unit 6 (Enriched) Frankenstein State Standards";
+const UNIT7_STANDARDS_SHEET = "Unit 7 Resilience State Standards";
+const UNIT8_STANDARDS_SHEET = "Unit 8 Annotated Bibliography & Documentary State Standards";
 
 // --- CRITICAL: YOUR EMAIL HAS BEEN ADDED HERE ---
 const TEACHER_CONFIG = {
@@ -644,43 +645,100 @@ function getMCAUnitDetailsForTeacher(unitName) {
     return { success: false, error: e.toString() }; 
   } 
 }
-function getQuestionsForUnit(unitName) { try { const ss = SpreadsheetApp.openById(SPREADSHEET_ID); const sheet = getSheetSafely(ss, QUESTIONS_SHEET); const data = sheet.getDataRange().getValues(); const headers = data.shift(); const unitIndex = headers.indexOf('Unit'); const questionIndex = headers.indexOf('Question'); const answerIndex = headers.indexOf('Answer'); const incorrect1Index = headers.indexOf('Incorrect 1'); const incorrect2Index = headers.indexOf('Incorrect 2'); const incorrect3Index = headers.indexOf('Incorrect 3'); if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) { throw new Error("A required column (Unit, Question, or Answer) is missing from the questions sheet."); } const questions = data .filter(row => row[unitIndex] === unitName && row[questionIndex]) .map(row => { const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean); return { question: row[questionIndex], answer: row[answerIndex], options: options }; }); return questions; } catch (e) { return { error: true, message: e.toString() }; } }
+function getQuestionsForUnit(unitName) {
+  try {
+    console.log(`[getQuestionsForUnit] Looking for questions for unit: "${unitName}"`);
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = getSheetSafely(ss, QUESTIONS_SHEET);
+    const data = sheet.getDataRange().getValues();
+    
+    console.log(`[getQuestionsForUnit] Found ${data.length} rows in sheet`);
+    
+    const headers = data.shift();
+    console.log(`[getQuestionsForUnit] Headers: ${JSON.stringify(headers)}`);
+    
+    const unitIndex = headers.indexOf('Unit');
+    const questionIndex = headers.indexOf('Question');
+    const answerIndex = headers.indexOf('Answer');
+    const incorrect1Index = headers.indexOf('Incorrect 1');
+    const incorrect2Index = headers.indexOf('Incorrect 2');
+    const incorrect3Index = headers.indexOf('Incorrect 3');
+    
+    if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) {
+      throw new Error("A required column (Unit, Question, or Answer) is missing from the questions sheet.");
+    }
+    
+    // Log all unique unit names found
+    const uniqueUnits = [...new Set(data.map(row => row[unitIndex]).filter(Boolean))];
+    console.log(`[getQuestionsForUnit] Available units in sheet: ${JSON.stringify(uniqueUnits)}`);
+    
+    const questions = data
+      .filter(row => row[unitIndex] === unitName && row[questionIndex])
+      .map(row => {
+        const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean);
+        return {
+          question: row[questionIndex],
+          answer: row[answerIndex],
+          options: options
+        };
+      });
+    
+    console.log(`[getQuestionsForUnit] Found ${questions.length} questions for unit "${unitName}"`);
+    return questions;
+  } catch (e) {
+    console.error(`[getQuestionsForUnit] Error: ${e.toString()}`);
+    return { error: true, message: e.toString() };
+  }
+}
 
-function getMCAQuestionsForUnit(unitName) { 
-  try { 
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID); 
-    const sheet = getSheetSafely(ss, MCA_QUESTIONS_SHEET); 
-    const data = sheet.getDataRange().getValues(); 
-    const headers = data.shift(); 
+function getMCAQuestionsForUnit(unitName) {
+  try {
+    console.log(`[getMCAQuestionsForUnit] Looking for MCA questions for unit: "${unitName}"`);
     
-    const unitIndex = headers.indexOf('Unit'); 
-    const questionIndex = headers.indexOf('Question'); 
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = getSheetSafely(ss, MCA_QUESTIONS_SHEET);
+    const data = sheet.getDataRange().getValues();
+    
+    console.log(`[getMCAQuestionsForUnit] Found ${data.length} rows in MCA sheet`);
+    
+    const headers = data.shift();
+    console.log(`[getMCAQuestionsForUnit] Headers: ${JSON.stringify(headers)}`);
+    
+    const unitIndex = headers.indexOf('Unit');
+    const questionIndex = headers.indexOf('Question');
     const passageIndex = headers.indexOf('Passage'); // Column C - Passage
-    const answerIndex = headers.indexOf('Answer'); 
-    const incorrect1Index = headers.indexOf('Incorrect 1'); 
-    const incorrect2Index = headers.indexOf('Incorrect 2'); 
-    const incorrect3Index = headers.indexOf('Incorrect 3'); 
+    const answerIndex = headers.indexOf('Answer');
+    const incorrect1Index = headers.indexOf('Incorrect 1');
+    const incorrect2Index = headers.indexOf('Incorrect 2');
+    const incorrect3Index = headers.indexOf('Incorrect 3');
     
-    if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) { 
-      throw new Error("A required column (Unit, Question, or Answer) is missing from the MCA questions sheet."); 
-    } 
+    if (unitIndex === -1 || questionIndex === -1 || answerIndex === -1) {
+      throw new Error("A required column (Unit, Question, or Answer) is missing from the MCA questions sheet.");
+    }
     
-    const questions = data 
-      .filter(row => row[unitIndex] === unitName && row[questionIndex]) 
-      .map(row => { 
-        const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean); 
-        return { 
-          question: row[questionIndex], 
+    // Log all unique unit names found
+    const uniqueUnits = [...new Set(data.map(row => row[unitIndex]).filter(Boolean))];
+    console.log(`[getMCAQuestionsForUnit] Available units in MCA sheet: ${JSON.stringify(uniqueUnits)}`);
+    
+    const questions = data
+      .filter(row => row[unitIndex] === unitName && row[questionIndex])
+      .map(row => {
+        const options = [row[answerIndex], row[incorrect1Index], row[incorrect2Index], row[incorrect3Index]].filter(Boolean);
+        return {
+          question: row[questionIndex],
           passage: passageIndex !== -1 ? (row[passageIndex] || '') : '', // Include passage from column C
-          answer: row[answerIndex], 
-          options: options 
-        }; 
-      }); 
+          answer: row[answerIndex],
+          options: options
+        };
+      });
     
-    return questions; 
-  } catch (e) { 
-    return { error: true, message: e.toString() }; 
-  } 
+    console.log(`[getMCAQuestionsForUnit] Found ${questions.length} MCA questions for unit "${unitName}"`);
+    return questions;
+  } catch (e) {
+    console.error(`[getMCAQuestionsForUnit] Error: ${e.toString()}`);
+    return { error: true, message: e.toString() };
+  }
 }
 
 // PUBLIC API: Get teacher's unit settings (for teacher interface)
@@ -2255,10 +2313,11 @@ const ALL_STANDARDS_SHEETS = [
   { name: "Unit 3: Novel Study", sheet: UNIT3_STANDARDS_SHEET },
   { name: "Unit 4: Short Story", sheet: UNIT4_STANDARDS_SHEET },
   { name: "Unit 5: Romeo and Juliet", sheet: UNIT5_STANDARDS_SHEET },
-  { name: "Unit 5 (Enriched): Macbeth", sheet: UNIT5_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 5 (Enriched) Macbeth", sheet: UNIT5_ENRICHED_STANDARDS_SHEET },
   { name: "Unit 6: Nonfiction", sheet: UNIT6_STANDARDS_SHEET },
-  { name: "Unit 6 (Enriched): Frankenstein", sheet: UNIT6_ENRICHED_STANDARDS_SHEET },
-  { name: "Unit 7: Resilience", sheet: UNIT7_STANDARDS_SHEET }
+  { name: "Unit 6 (Enriched) Frankenstein", sheet: UNIT6_ENRICHED_STANDARDS_SHEET },
+  { name: "Unit 7: Resilience", sheet: UNIT7_STANDARDS_SHEET },
+  { name: "Unit 8: Annotated Bibliography & Documentary", sheet: UNIT8_STANDARDS_SHEET }
 ];
 
 // PUBLIC API: Get comprehensive state standards overview (teacher only)
@@ -2523,26 +2582,44 @@ function getStandardsCoverageAnalysis() {
 // PUBLIC API: Get all standards data in one comprehensive call (teacher only)
 function getAllStandardsData() {
   try {
+    console.log('[getAllStandardsData] === STARTING STANDARDS DATA LOADING ===');
     const userEmail = Session.getActiveUser().getEmail();
+    console.log(`[getAllStandardsData] User email: ${userEmail}`);
     const teacherInfo = TEACHER_CONFIG[userEmail];
+    console.log(`[getAllStandardsData] Teacher info found: ${!!teacherInfo}`);
+    if (teacherInfo) {
+      console.log(`[getAllStandardsData] Teacher name: ${teacherInfo.name}`);
+    }
     
     // TEMPORARY: Allow access for testing even if not a configured teacher
     // if (!teacherInfo) {
     //   throw new Error("Access Denied. This function is only available to teachers.");
     // }
     
+    console.log(`[getAllStandardsData] Attempting to open spreadsheet ID: ${SPREADSHEET_ID}`);
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    console.log('[getAllStandardsData] Spreadsheet opened successfully');
+    console.log(`[getAllStandardsData] Processing ${ALL_STANDARDS_SHEETS.length} units`);
     const unitData = {};
     
     // Process each unit's standards sheet with master standards list
     ALL_STANDARDS_SHEETS.forEach(unitInfo => {
       try {
+        console.log(`[getAllStandardsData] Processing unit: ${unitInfo.name}, sheet: ${unitInfo.sheet}`);
         const sheet = ss.getSheetByName(unitInfo.sheet);
         if (sheet) {
+          console.log(`[getAllStandardsData] Found sheet for ${unitInfo.name}`);
           const data = sheet.getDataRange().getValues();
+          console.log(`[getAllStandardsData] Sheet ${unitInfo.name} has ${data.length} rows (including headers)`);
           if (data.length > 1) {
             const headers = data[0].map(h => h.toString().toLowerCase());
             const rows = data.slice(1);
+            
+            // Validate sheet structure
+            console.log(`[getAllStandardsData] Headers for ${unitInfo.name}: [${headers.join(', ')}]`);
+            if (headers.length < 7) {
+              console.log(`[getAllStandardsData] WARNING: Sheet ${unitInfo.name} has only ${headers.length} columns, expected at least 7`);
+            }
             
             // Correct column mapping based on actual spreadsheet structure
             const anchorIndex = 2;       // Column C (Anchor strand)
@@ -2550,6 +2627,17 @@ function getAllStandardsData() {
             const benchmarkDescIndex = 4; // Column E (Benchmark description)
             const formativeIndex = 5;     // Column F (Formative assessment)
             const summativeIndex = 6;     // Column G (Summative assessment)
+            
+            // Validate expected columns exist
+            if (data[0].length <= benchmarkCodeIndex) {
+              console.log(`[getAllStandardsData] ERROR: Sheet ${unitInfo.name} missing benchmark code column (expected column D/index 3)`);
+            }
+            if (data[0].length <= formativeIndex) {
+              console.log(`[getAllStandardsData] ERROR: Sheet ${unitInfo.name} missing formative assessment column (expected column F/index 5)`);
+            }
+            if (data[0].length <= summativeIndex) {
+              console.log(`[getAllStandardsData] ERROR: Sheet ${unitInfo.name} missing summative assessment column (expected column G/index 6)`);
+            }
             
             // Organize by assessment type including non-covered standards
             const assessmentGroups = {
@@ -2561,6 +2649,7 @@ function getAllStandardsData() {
             let totalStandards = 0;
             let totalCoveredStandards = 0;
             
+            console.log(`[getAllStandardsData] Processing ${rows.length} data rows for ${unitInfo.name}`);
             rows.forEach(row => {
               if (row[benchmarkCodeIndex] && row[benchmarkCodeIndex].toString().trim()) {
                 const anchorStrand = row[anchorIndex] ? row[anchorIndex].toString().trim() : 'Other';
@@ -2575,6 +2664,11 @@ function getAllStandardsData() {
                 
                 const hasFormative = formativeValue.toLowerCase() === 'x';
                 const hasSummative = summativeValue.toLowerCase() === 'x';
+                
+                // Log coverage for debugging
+                if (hasFormative || hasSummative) {
+                  console.log(`[getAllStandardsData] Standard ${benchmarkCode} has coverage - Formative: ${hasFormative}, Summative: ${hasSummative}`);
+                }
                 
                 const standard = {
                   benchmarkCode: benchmarkCode,
@@ -2603,6 +2697,8 @@ function getAllStandardsData() {
               }
             });
             
+            console.log(`[getAllStandardsData] Unit ${unitInfo.name} summary: ${totalStandards} total standards, ${totalCoveredStandards} covered, ${assessmentGroups.notCovered.length} not covered`);
+            
             unitData[unitInfo.name] = {
               assessmentGroups: assessmentGroups,
               sheetExists: true,
@@ -2611,6 +2707,7 @@ function getAllStandardsData() {
               notCoveredCount: assessmentGroups.notCovered.length
             };
           } else {
+            console.log(`[getAllStandardsData] Sheet ${unitInfo.name} exists but has no data rows`);
             unitData[unitInfo.name] = {
               assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
               sheetExists: true,
@@ -2618,6 +2715,7 @@ function getAllStandardsData() {
             };
           }
         } else {
+          console.log(`[getAllStandardsData] Sheet not found: ${unitInfo.sheet}`);
           unitData[unitInfo.name] = {
             assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
             sheetExists: false,
@@ -2626,6 +2724,7 @@ function getAllStandardsData() {
           };
         }
       } catch (unitError) {
+        console.log(`[getAllStandardsData] Error processing unit ${unitInfo.name}: ${unitError.toString()}`);
         unitData[unitInfo.name] = {
           assessmentGroups: { formativeOnly: [], summativeOnly: [], both: [] },
           sheetExists: false,
@@ -2635,14 +2734,151 @@ function getAllStandardsData() {
       }
     });
     
-    return {
+    console.log('[getAllStandardsData] === PROCESSING COMPLETE ===');
+    console.log(`[getAllStandardsData] Units processed: ${Object.keys(unitData).length}`);
+    
+    // Log summary for each unit
+    Object.entries(unitData).forEach(([unitName, data]) => {
+      if (data.error) {
+        console.log(`[getAllStandardsData] ${unitName}: ERROR - ${data.error}`);
+      } else {
+        console.log(`[getAllStandardsData] ${unitName}: ${data.totalStandards || 0} total, ${data.standardsCount || 0} covered`);
+      }
+    });
+
+    const result = {
       success: true,
       teacherName: teacherInfo ? teacherInfo.name : "Testing User",
       unitData: unitData,
       masterStandards: MASTER_STANDARDS_LIST
     };
+    
+    console.log('[getAllStandardsData] === RETURNING SUCCESS RESPONSE ===');
+    return result;
   } catch (e) {
-    return { success: false, error: e.toString() };
+    console.error('[getAllStandardsData] === FATAL ERROR ===');
+    console.error(`[getAllStandardsData] Error type: ${e.name}`);
+    console.error(`[getAllStandardsData] Error message: ${e.message}`);
+    console.error(`[getAllStandardsData] Error stack: ${e.stack}`);
+    
+    const errorResponse = { success: false, error: e.toString() };
+    console.log('[getAllStandardsData] === RETURNING ERROR RESPONSE ===');
+    return errorResponse;
+  }
+}
+
+
+// DIAGNOSTIC FUNCTION: Test spreadsheet access and sheet structure
+function testStandardsAccess() {
+  try {
+    console.log('[testStandardsAccess] === DIAGNOSTIC TEST STARTING ===');
+    
+    // Test 1: User Authentication
+    const userEmail = Session.getActiveUser().getEmail();
+    console.log(`[testStandardsAccess] Current user: ${userEmail}`);
+    
+    // Test 2: Spreadsheet Access
+    console.log(`[testStandardsAccess] Testing spreadsheet access: ${SPREADSHEET_ID}`);
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    console.log('[testStandardsAccess] ✅ Spreadsheet opened successfully');
+    
+    // Test 3: List all sheets in the spreadsheet
+    const sheets = ss.getSheets();
+    console.log(`[testStandardsAccess] Found ${sheets.length} sheets total:`);
+    sheets.forEach((sheet, index) => {
+      console.log(`[testStandardsAccess]   ${index + 1}. "${sheet.getName()}"`);
+    });
+    
+    // Test 4: Check each expected standards sheet
+    const results = {
+      userEmail: userEmail,
+      spreadsheetId: SPREADSHEET_ID,
+      totalSheets: sheets.length,
+      allSheetNames: sheets.map(s => s.getName()),
+      standardsSheetTests: {}
+    };
+    
+    ALL_STANDARDS_SHEETS.forEach(unitInfo => {
+      console.log(`[testStandardsAccess] Testing ${unitInfo.name} -> "${unitInfo.sheet}"`);
+      
+      const testResult = {
+        unitName: unitInfo.name,
+        expectedSheetName: unitInfo.sheet,
+        sheetExists: false,
+        rowCount: 0,
+        columnCount: 0,
+        hasData: false,
+        error: null
+      };
+      
+      try {
+        const sheet = ss.getSheetByName(unitInfo.sheet);
+        if (sheet) {
+          testResult.sheetExists = true;
+          const data = sheet.getDataRange().getValues();
+          testResult.rowCount = data.length;
+          testResult.columnCount = data.length > 0 ? data[0].length : 0;
+          testResult.hasData = data.length > 1;
+          
+          console.log(`[testStandardsAccess]   ✅ Sheet exists: ${testResult.rowCount} rows, ${testResult.columnCount} columns`);
+          
+          if (testResult.hasData) {
+            // Test the header structure
+            const headers = data[0];
+            console.log(`[testStandardsAccess]   Headers: [${headers.join(', ')}]`);
+            
+            // Check for expected columns
+            testResult.hasAnchorColumn = testResult.columnCount > 2;
+            testResult.hasBenchmarkColumn = testResult.columnCount > 3;
+            testResult.hasFormativeColumn = testResult.columnCount > 5;
+            testResult.hasSummativeColumn = testResult.columnCount > 6;
+            
+            console.log(`[testStandardsAccess]   Column check - Anchor: ${testResult.hasAnchorColumn}, Benchmark: ${testResult.hasBenchmarkColumn}, Formative: ${testResult.hasFormativeColumn}, Summative: ${testResult.hasSummativeColumn}`);
+            
+            // Count standards with coverage
+            let coveredCount = 0;
+            data.slice(1).forEach(row => {
+              if (row[3] && row[3].toString().trim()) { // Has benchmark code
+                const formative = row[5] ? row[5].toString().toLowerCase() : '';
+                const summative = row[6] ? row[6].toString().toLowerCase() : '';
+                if (formative === 'x' || summative === 'x') {
+                  coveredCount++;
+                }
+              }
+            });
+            
+            testResult.standardsWithCoverage = coveredCount;
+            console.log(`[testStandardsAccess]   Standards with "X" coverage: ${coveredCount}`);
+          } else {
+            console.log(`[testStandardsAccess]   ⚠️ Sheet exists but has no data rows`);
+          }
+          
+        } else {
+          console.log(`[testStandardsAccess]   ❌ Sheet not found: "${unitInfo.sheet}"`);
+        }
+        
+      } catch (error) {
+        testResult.error = error.toString();
+        console.log(`[testStandardsAccess]   ❌ Error accessing sheet: ${error.toString()}`);
+      }
+      
+      results.standardsSheetTests[unitInfo.name] = testResult;
+    });
+    
+    console.log('[testStandardsAccess] === DIAGNOSTIC TEST COMPLETE ===');
+    return {
+      success: true,
+      diagnostics: results
+    };
+    
+  } catch (e) {
+    console.error('[testStandardsAccess] === DIAGNOSTIC TEST FAILED ===');
+    console.error(`[testStandardsAccess] Error: ${e.toString()}`);
+    return {
+      success: false,
+      error: e.toString(),
+      diagnostics: null
+    };
   }
 }
 

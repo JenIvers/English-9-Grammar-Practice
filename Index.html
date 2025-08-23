@@ -2773,6 +2773,29 @@
           </div>
         </div>
         
+        <!-- Diagnostic Test Section -->
+        <div style="margin-bottom: 20px;">
+          <button id="diagnostic-test-btn" onclick="runDiagnosticTest()" style="
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+          " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(255, 107, 53, 0.4)';" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(255, 107, 53, 0.3)';">
+            🔧 Run Diagnostic Test
+          </button>
+          <div style="font-size: 12px; color: #666; max-width: 400px; margin: 0 auto;">
+            <strong>Troubleshooting:</strong> If standards aren't loading, click this button and check your browser console (F12 → Console) for detailed diagnostic information.
+          </div>
+        </div>
+        
         <!-- Loading Indicator -->
         <div id="standards-loading" class="loading-indicator hidden">
           <div class="spinner"></div>
@@ -2803,7 +2826,7 @@
               <div class="unit-number">5</div>
               <div class="unit-title">Romeo and Juliet</div>
             </button>
-            <button class="unit-selector-btn" onclick="selectUnit('Unit 5 (Enriched): Macbeth')">
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 5 (Enriched) Macbeth')">
               <div class="unit-number">5E</div>
               <div class="unit-title">Macbeth (Enriched)</div>
             </button>
@@ -2811,7 +2834,7 @@
               <div class="unit-number">6</div>
               <div class="unit-title">Nonfiction</div>
             </button>
-            <button class="unit-selector-btn" onclick="selectUnit('Unit 6 (Enriched): Frankenstein')">
+            <button class="unit-selector-btn" onclick="selectUnit('Unit 6 (Enriched) Frankenstein')">
               <div class="unit-number">6E</div>
               <div class="unit-title">Frankenstein (Enriched)</div>
             </button>
@@ -3781,8 +3804,9 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
 
       function onQuestionsLoaded(questions) {
-        if (questions.error || questions.length === 0) {
-          onLoadError({ message: questions.error ? questions.message : `No questions found for "${currentUnit}".` });
+        if (!questions || questions.error || questions.length === 0) {
+          const errorMessage = questions?.error ? questions.message : `No questions found for "${currentUnit}".`;
+          onLoadError({ message: errorMessage });
           return;
         }
         
@@ -3795,8 +3819,9 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
 
       function onMCAQuestionsLoaded(questions) {
-        if (questions.error || questions.length === 0) {
-          onLoadError({ message: questions.error ? questions.message : `No MCA questions found for "${currentMCAUnit}".` });
+        if (!questions || questions.error || questions.length === 0) {
+          const errorMessage = questions?.error ? questions.message : `No MCA questions found for "${currentMCAUnit}".`;
+          onLoadError({ message: errorMessage });
           return;
         }
         
@@ -4790,7 +4815,10 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           }
           
           learningTargetsData = targetsResponse.targets;
-          studentProficiencyData = proficiencyResponse.proficiencyData;
+          studentProficiencyData = proficiencyResponse.proficiencyData || {};
+          
+          console.log(`[initializeApp] studentProficiencyData initialized:`, studentProficiencyData);
+          console.log(`[initializeApp] proficiencyResponse:`, proficiencyResponse);
           
           // Store proficiency options for display
           window.proficiencyOptions = targetsResponse.proficiencyOptions;
@@ -4839,7 +4867,7 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
               // Student view - interactive dropdowns that save
               return `
                 <td class="phase-cell">
-                  <select onchange="updateProficiencyLevel('${target.target}', '${phase}', this.value)" 
+                  <select onchange="updateThreePhaseProficiencyLevel('${target.target}', '${phase}', this.value)" 
                           data-target="${target.target}" data-phase="${phase}"
                           style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <option value="0" ${currentLevel == 0 ? 'selected' : ''}>Not Started</option>
@@ -4905,6 +4933,9 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
 
       function displayLearningTargets() {
+        console.log(`[displayLearningTargets] currentPortfolioUnit: "${currentPortfolioUnit}"`);
+        console.log(`[displayLearningTargets] studentProficiencyData:`, studentProficiencyData);
+        
         const container = document.getElementById('targets-content');
         const unitProficiencyData = studentProficiencyData[currentPortfolioUnit] || {};
         
@@ -5365,7 +5396,7 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
       }
       
       // Three-Phase Functions
-      function updateProficiencyLevel(learningTarget, phase, level) {
+      function updateThreePhaseProficiencyLevel(learningTarget, phase, level) {
         // Update local data
         if (!studentProficiencyData[learningTarget]) {
           studentProficiencyData[learningTarget] = {};
@@ -5591,9 +5622,26 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
             border: 1px solid #f5c6cb;
             text-align: center;
           `;
+          // Create more specific error message based on unit
+          let helpText = '';
+          if (currentSelectedUnit === 'Unit 1: Coming of Age') {
+            helpText = `
+              <p><strong>Possible causes for Unit 1:</strong></p>
+              <ul style="text-align: left; margin: 10px 20px;">
+                <li>The Google Sheet named "Unit 1 Coming of Age State Standards" doesn't exist</li>
+                <li>The sheet exists but contains no standards data</li>
+                <li>No standards are marked with "X" in the Formative or Summative columns</li>
+                <li>The sheet structure doesn't match expected format (columns C-G)</li>
+              </ul>
+              <p><em>Check the browser console for detailed debugging information.</em></p>
+            `;
+          } else {
+            helpText = `<p>Unable to load real data for ${currentSelectedUnit}.</p>`;
+          }
+          
           errorMsg.innerHTML = `
             <h4 style="margin-top: 0;">⚠️ Could not load standards data from spreadsheet</h4>
-            <p>Unable to load real data for ${currentSelectedUnit}.</p>
+            ${helpText}
             <details style="margin: 15px 0; font-size: 0.9em;">
               <summary style="cursor: pointer;">View error details</summary>
               <pre style="margin-top: 10px; text-align: left; background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 0.8em;">${error}</pre>
@@ -5683,6 +5731,215 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
         loadStandardsDataFromBackend();
       }
 
+      // Diagnostic test function
+      function runDiagnosticTest() {
+        console.log('🔧 === STARTING DIAGNOSTIC TEST ===');
+        const button = document.getElementById('diagnostic-test-btn');
+        const originalText = button.textContent;
+        
+        // Update button to show testing state
+        button.textContent = '⏳ Running Test...';
+        button.disabled = true;
+        
+        // Create status display
+        let statusDisplay = document.getElementById('diagnostic-status');
+        if (!statusDisplay) {
+          statusDisplay = document.createElement('div');
+          statusDisplay.id = 'diagnostic-status';
+          statusDisplay.style.cssText = `
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 600px;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: left;
+            white-space: pre-wrap;
+          `;
+          button.parentNode.appendChild(statusDisplay);
+        }
+        
+        statusDisplay.textContent = '⏳ Initializing diagnostic test...\n';
+        
+        // Run the backend diagnostic test
+        google.script.run
+          .withSuccessHandler(function(result) {
+            console.log('✅ Diagnostic test completed successfully:', result);
+            
+            if (result.success) {
+              const diag = result.diagnostics;
+              let report = '✅ DIAGNOSTIC TEST RESULTS\n';
+              report += '══════════════════════════════\n\n';
+              report += `📧 User: ${diag.userEmail}\n`;
+              report += `📊 Spreadsheet ID: ${diag.spreadsheetId}\n`;
+              report += `📋 Total Sheets: ${diag.totalSheets}\n\n`;
+              
+              report += '📝 STANDARDS SHEETS TEST:\n';
+              report += '────────────────────────────\n';
+              
+              Object.entries(diag.standardsSheetTests).forEach(([unitName, test]) => {
+                const status = test.sheetExists ? '✅' : '❌';
+                report += `${status} ${unitName}\n`;
+                report += `   Sheet: "${test.expectedSheetName}"\n`;
+                
+                if (test.sheetExists) {
+                  report += `   Data: ${test.rowCount} rows, ${test.columnCount} cols\n`;
+                  if (test.standardsWithCoverage !== undefined) {
+                    report += `   Coverage: ${test.standardsWithCoverage} standards marked\n`;
+                  }
+                } else {
+                  report += `   Status: Sheet not found\n`;
+                }
+                
+                if (test.error) {
+                  report += `   Error: ${test.error}\n`;
+                }
+                report += '\n';
+              });
+              
+              report += '🎯 NEXT STEPS:\n';
+              report += '─────────────\n';
+              const missingSheets = Object.values(diag.standardsSheetTests).filter(t => !t.sheetExists);
+              const emptySheets = Object.values(diag.standardsSheetTests).filter(t => t.sheetExists && !t.hasData);
+              const uncoveredSheets = Object.values(diag.standardsSheetTests).filter(t => t.sheetExists && t.hasData && (t.standardsWithCoverage === 0));
+              
+              if (missingSheets.length > 0) {
+                report += `• Create ${missingSheets.length} missing sheet(s) in Google Sheets\n`;
+              }
+              if (emptySheets.length > 0) {
+                report += `• Add data to ${emptySheets.length} empty sheet(s)\n`;
+              }
+              if (uncoveredSheets.length > 0) {
+                report += `• Mark standards with "X" in ${uncoveredSheets.length} sheet(s)\n`;
+              }
+              if (missingSheets.length === 0 && emptySheets.length === 0 && uncoveredSheets.length === 0) {
+                report += '• All sheets look good! Try reloading the standards data.\n';
+              }
+              
+              statusDisplay.textContent = report;
+              console.log('📊 Diagnostic Report:', report);
+              
+            } else {
+              statusDisplay.textContent = `❌ DIAGNOSTIC FAILED\nError: ${result.error}`;
+            }
+            
+            // Reset button
+            button.textContent = originalText;
+            button.disabled = false;
+          })
+          .withFailureHandler(function(error) {
+            console.error('❌ Diagnostic test failed:', error);
+            statusDisplay.textContent = `❌ DIAGNOSTIC TEST FAILED\nError: ${error.toString()}\n\nThis indicates a fundamental connectivity or permission issue.`;
+            
+            // Reset button
+            button.textContent = originalText;  
+            button.disabled = false;
+          })
+          .testStandardsAccess();
+      }
+
+      // Helper function to show message when unit data is completely missing
+      function showUnitDataMissingMessage(unitName) {
+        const container = document.getElementById('standards-coverage-display');
+        if (container) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'standards-error-message';
+          messageDiv.style.cssText = `
+            background: #fff3cd;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ffeaa7;
+            text-align: center;
+          `;
+          
+          let specificHelp = '';
+          if (unitName === 'Unit 1: Coming of Age') {
+            specificHelp = `
+              <p><strong>For Unit 1, please verify:</strong></p>
+              <ul style="text-align: left; margin: 10px 20px;">
+                <li>A Google Sheet named <code>"Unit 1 Coming of Age State Standards"</code> exists</li>
+                <li>The sheet contains data in rows 2 and beyond</li>
+                <li>Column D contains benchmark codes</li>
+                <li>Columns F and G contain "X" marks for covered standards</li>
+              </ul>
+            `;
+          }
+          
+          messageDiv.innerHTML = `
+            <h4 style="margin-top: 0;">📋 No Standards Data Found for ${unitName}</h4>
+            ${specificHelp}
+            <p><em>Check the console for detailed debugging information.</em></p>
+          `;
+          
+          // Clear existing content and show message
+          const tableContainer = document.getElementById('standards-table-container');
+          if (tableContainer) {
+            tableContainer.innerHTML = '';
+            tableContainer.appendChild(messageDiv);
+          }
+        }
+      }
+
+      // Helper function to show message when unit has specific data issues  
+      function showUnitDataIssueMessage(unitName, unitData) {
+        const container = document.getElementById('standards-coverage-display');
+        if (container) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'standards-error-message';
+          messageDiv.style.cssText = `
+            background: #fff3cd;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ffeaa7;
+            text-align: center;
+          `;
+          
+          let issueText = '';
+          if (unitData.error) {
+            issueText = `<p><strong>Error:</strong> ${unitData.error}</p>`;
+          } else if (!unitData.sheetExists) {
+            issueText = `<p><strong>Issue:</strong> Sheet not found in spreadsheet</p>`;
+          } else if (unitData.standardsCount === 0 && unitData.totalStandards === 0) {
+            issueText = `<p><strong>Issue:</strong> Sheet exists but contains no standards data</p>`;
+          } else if (unitData.standardsCount === 0) {
+            issueText = `<p><strong>Issue:</strong> Found ${unitData.totalStandards} standards, but none are marked as covered</p>`;
+          }
+          
+          let specificHelp = '';
+          if (unitName === 'Unit 1: Coming of Age') {
+            specificHelp = `
+              <p><strong>To fix Unit 1 standards:</strong></p>
+              <ul style="text-align: left; margin: 10px 20px;">
+                <li>Ensure the sheet "Unit 1 Coming of Age State Standards" exists</li>
+                <li>Add standards data starting from row 2</li>
+                <li>Put benchmark codes in column D</li>
+                <li>Mark covered standards with "X" in columns F (Formative) or G (Summative)</li>
+              </ul>
+            `;
+          }
+          
+          messageDiv.innerHTML = `
+            <h4 style="margin-top: 0;">⚠️ Standards Issue for ${unitName}</h4>
+            ${issueText}
+            ${specificHelp}
+            <p><em>Check the console for detailed debugging information.</em></p>
+          `;
+          
+          // Clear existing content and show message
+          const tableContainer = document.getElementById('standards-table-container');
+          if (tableContainer) {
+            tableContainer.innerHTML = '';
+            tableContainer.appendChild(messageDiv);
+          }
+        }
+      }
+
       function showStandardsLoading(show) {
         const loadingElement = document.getElementById('standards-loading');
         const coverageDisplay = document.getElementById('standards-coverage-display');
@@ -5744,6 +6001,14 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
           const unitData = standardsDataCache.unitData[unitName];
           if (!unitData) {
             console.warn(`No unit data found for: ${unitName}`);
+            showUnitDataMissingMessage(unitName);
+            return;
+          }
+          
+          // Check if unit has error or no standards
+          if (unitData.error || (!unitData.sheetExists) || 
+              (unitData.standardsCount === 0 && unitData.totalStandards === 0)) {
+            showUnitDataIssueMessage(unitName, unitData);
             return;
           }
           
@@ -6129,6 +6394,115 @@ Each row represents one exemplar. Add multiple rows for multiple exemplars.`;
             newRow.style.boxShadow = '';
           }
         }, 2000);
+      }
+
+      // Client-side setup functions for standards functionality
+      function setupStandardsBackButton() {
+        const backButton = document.getElementById('back-to-main-from-standards-btn');
+        if (backButton) {
+          backButton.onclick = () => showScreen('main-landing-screen');
+        }
+      }
+
+      function setupTableFilters() {
+        // Set up coverage filter
+        const coverageFilter = document.getElementById('coverage-filter');
+        if (coverageFilter) {
+          coverageFilter.addEventListener('change', filterStandardsTable);
+        }
+        
+        // Set up assessment filter
+        const assessmentFilter = document.getElementById('assessment-filter');
+        if (assessmentFilter) {
+          assessmentFilter.addEventListener('change', filterStandardsTable);
+        }
+        
+        // Set up search input if it exists
+        const searchInput = document.getElementById('standards-search');
+        if (searchInput) {
+          searchInput.addEventListener('input', filterStandardsTable);
+        }
+      }
+
+      function filterStandardsTable() {
+        const coverageFilter = document.getElementById('coverage-filter');
+        const assessmentFilter = document.getElementById('assessment-filter');
+        const searchInput = document.getElementById('standards-search');
+        
+        const coverageValue = coverageFilter ? coverageFilter.value : '';
+        const assessmentValue = assessmentFilter ? assessmentFilter.value : '';
+        const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
+        
+        const tableBody = document.getElementById('standards-table-body');
+        if (!tableBody) return;
+        
+        const rows = tableBody.querySelectorAll('tr');
+        rows.forEach(row => {
+          let shouldShow = true;
+          
+          // Apply search filter
+          if (searchValue) {
+            const textContent = row.textContent.toLowerCase();
+            if (!textContent.includes(searchValue)) {
+              shouldShow = false;
+            }
+          }
+          
+          // Apply coverage filter
+          if (coverageValue && shouldShow) {
+            const coverageCell = row.querySelector('.coverage-status');
+            if (coverageCell) {
+              const coverageStatus = coverageCell.textContent.toLowerCase();
+              if (coverageValue === 'covered' && !coverageStatus.includes('covered')) shouldShow = false;
+              if (coverageValue === 'not-covered' && !coverageStatus.includes('not covered')) shouldShow = false;
+              if (coverageValue === 'partial' && !coverageStatus.includes('partial')) shouldShow = false;
+            }
+          }
+          
+          // Apply assessment filter
+          if (assessmentValue && shouldShow) {
+            const assessmentCell = row.querySelector('.assessment-type');
+            if (assessmentCell) {
+              const assessmentType = assessmentCell.textContent.toLowerCase();
+              if (assessmentValue === 'formative' && !assessmentType.includes('formative')) shouldShow = false;
+              if (assessmentValue === 'summative' && !assessmentType.includes('summative')) shouldShow = false;
+              if (assessmentValue === 'both' && !assessmentType.includes('both')) shouldShow = false;
+            }
+          }
+          
+          // Show or hide the row
+          if (shouldShow) {
+            row.classList.remove('filtered-out');
+          } else {
+            row.classList.add('filtered-out');
+          }
+        });
+        
+        // Update filter counters after filtering
+        updateFilterCounters();
+      }
+
+      function updateFilterCounters() {
+        const tableBody = document.getElementById('standards-table-body');
+        const filteredCountSpan = document.getElementById('filtered-count');
+        const totalCountSpan = document.getElementById('total-count');
+        
+        if (!tableBody || !filteredCountSpan || !totalCountSpan) return;
+        
+        const allRows = tableBody.querySelectorAll('tr');
+        const visibleRows = tableBody.querySelectorAll('tr:not(.filtered-out)');
+        
+        const totalCount = allRows.length;
+        const filteredCount = visibleRows.length;
+        
+        filteredCountSpan.textContent = filteredCount;
+        totalCountSpan.textContent = totalCount;
+      }
+
+      function setupStandardsControls() {
+        // Set up all interactive elements for the standards section
+        setupTableFilters();
+        setupStandardsBackButton();
       }
 
       // Initialize standards functionality when document is ready
